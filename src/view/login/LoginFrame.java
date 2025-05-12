@@ -46,7 +46,6 @@ public class LoginFrame extends JFrame {
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
-    int c = 0;
 
     public void setGameFrame(GameFrame gameFrame) {
         this.gameFrame = gameFrame;

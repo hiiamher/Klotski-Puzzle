@@ -97,6 +97,8 @@ public class GamePanel extends ListenerPanel {
     }
 
     @Override
+
+    //点击后变为选中状态，再次点击取消选中状态
     public void doMouseClick(Point point) {
         Component component = this.getComponentAt(point);
         if (component instanceof BoxComponent clickedComponent) {
