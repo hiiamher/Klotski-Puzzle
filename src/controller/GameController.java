@@ -44,5 +44,6 @@ public class GameController {
     }
 
     //todo: add other methods such as loadGame, saveGame...
+    //随便编辑一点测试嫩否同步
 
 }
