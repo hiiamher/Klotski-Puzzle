@@ -2,6 +2,7 @@ package view.game;
 
 import controller.GameController;
 import model.MapModel;
+import user.User;
 import view.FrameUtil;
 
 import javax.swing.*;
@@ -12,11 +13,14 @@ public class GameFrame extends JFrame {
     private GameController controller;
     private JButton restartBtn;
     private JButton loadBtn;
-
+    private JButton saveBtn;
     private JLabel stepLabel;
     private GamePanel gamePanel;
+    private User user;
+    private JLabel userLabel;
 
-    public GameFrame(int width, int height, MapModel mapModel) {
+    public GameFrame(int width, int height, MapModel mapModel,User user) {
+        this.user = user;
         this.setTitle("2025 CS109 Project Demo");
         this.setLayout(null);
         this.setSize(width, height);
@@ -27,18 +31,32 @@ public class GameFrame extends JFrame {
 
         this.restartBtn = FrameUtil.createButton(this, "Restart", new Point(gamePanel.getWidth() + 80, 120), 80, 50);
         this.loadBtn = FrameUtil.createButton(this, "Load", new Point(gamePanel.getWidth() + 80, 210), 80, 50);
+        this.saveBtn = FrameUtil.createButton(this, "Save", new Point(gamePanel.getWidth() + 80, 300), 80, 50);
         this.stepLabel = FrameUtil.createJLabel(this, "Start", new Font("serif", Font.ITALIC, 22), new Point(gamePanel.getWidth() + 80, 70), 180, 50);
+        this.userLabel = FrameUtil.createJLabel(this, user.getUsername(), new Font("serif", Font.ITALIC, 22), new Point(gamePanel.getWidth() + 80, 15), 180, 50);
         gamePanel.setStepLabel(stepLabel);
 
         this.restartBtn.addActionListener(e -> {
             controller.restartGame();
             gamePanel.requestFocusInWindow();//enable key listener
         });
+
         this.loadBtn.addActionListener(e -> {
-            String string = JOptionPane.showInputDialog(this, "Input path:");
-            System.out.println(string);
+
+           // String string = JOptionPane.showInputDialog(this, "Input path:");
+           // System.out.println(string);
+            String path = String.format("save/%s/data.txt", user.getUsername());
+            //path是否存在
+            controller.loadGame(path);
             gamePanel.requestFocusInWindow();//enable key listener
         });
+
+        this.saveBtn.addActionListener(e -> {
+
+            controller.saveGame(user);
+            gamePanel.requestFocusInWindow();
+        });
+
         //todo: add other button here
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

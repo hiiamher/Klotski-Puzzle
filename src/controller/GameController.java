@@ -1,9 +1,16 @@
 package controller;
-
 import model.Direction;
 import model.MapModel;
+import user.User;
 import view.game.BoxComponent;
 import view.game.GamePanel;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * It is a bridge to combine GamePanel(view) and MapMatrix(model) in one game.
@@ -21,6 +28,59 @@ public class GameController {
 
     public void restartGame() {
         System.out.println("Do restart game here");
+        this.model.resetOriginalMatrix();
+        this.view.clearAllBoxFromPanel();
+        this.view.initialGame(model.getMatrix());
+    }
+
+    public void saveGame(User user) {
+
+        int[][] map = model.getMatrix();
+        List<String> gameData = new ArrayList<>();
+        StringBuilder sb = new StringBuilder();
+        for(int[] line : map) {
+            for(int value:line){
+                sb.append(value).append(" ");
+            }
+            gameData.add(sb.toString());
+            sb.setLength(0);
+        }
+        for(String s:gameData){
+            System.out.println(s);
+        }
+        String path = String.format("save/%s", user.getUsername());
+        File dir = new File(path);
+        dir.mkdirs();
+        try {
+            Files.write(Path.of(path+"/data.txt"),gameData);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }//create folder
+
+        System.out.println("save successfully");
+    }
+
+
+    public void loadGame(String path)  {
+        try {
+            List<String> lines = Files.readAllLines(Path.of(path));
+            int[][] map = new int[lines.size()][lines.get(0).split(" ").length];
+            for(int i = 0; i < lines.size(); i++) {
+                String[] values = lines.get(i).split(" ");
+                for(int j = 0; j < values.length; j++) {
+                    map[i][j] = Integer.parseInt(values[j]);
+                }
+            }
+
+            this.model.setMatrix(map);
+            this.view.clearAllBoxFromPanel();
+            this.view.initialGame(map);
+
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     public boolean doMove(int row, int col, Direction direction) {
@@ -43,7 +103,5 @@ public class GameController {
         return false;
     }
 
-    //todo: add other methods such as loadGame, saveGame...
-    //随便编辑一点测试嫩否同步
 
 }

@@ -5,9 +5,31 @@ package model;
  */
 public class MapModel {
     int[][] matrix;
+    private int[][] originalMatrix;
 
 
     public MapModel(int[][] matrix) {
+        this.matrix = matrix;
+        this.originalMatrix = copyMatrix(matrix);
+    }
+
+
+    //用原矩阵恢复矩阵的方法
+    public void resetOriginalMatrix() {
+        this.matrix= copyMatrix(originalMatrix);
+    }
+
+
+    //复制矩阵的方法
+    public int[][] copyMatrix(int[][] matrix) {
+        int[][] copy = new int[matrix.length][matrix[0].length];
+        for (int i = 0; i < matrix.length; i++) {
+            System.arraycopy(matrix[i], 0, copy[i], 0, matrix[i].length);
+        }
+        return copy;
+    }
+
+    public void setMatrix(int[][] matrix) {
         this.matrix = matrix;
     }
 
