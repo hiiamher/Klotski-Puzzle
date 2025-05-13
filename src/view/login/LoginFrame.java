@@ -31,6 +31,8 @@ public class LoginFrame extends JFrame {
         resetBtn = FrameUtil.createButton(this, "Reset", new Point(160, 140), 100, 40);
 
         submitBtn.addActionListener(e -> {
+
+
             System.out.println("Username = " + username.getText());
             System.out.println("Password = " + password.getText());
             //todo: check login info

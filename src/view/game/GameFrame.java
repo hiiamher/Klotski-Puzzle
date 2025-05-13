@@ -1,5 +1,6 @@
 package view.game;
 
+import SaveAndRead.SavaAndRead;
 import controller.GameController;
 import model.MapModel;
 import user.User;
@@ -43,12 +44,19 @@ public class GameFrame extends JFrame {
 
         this.loadBtn.addActionListener(e -> {
 
-           // String string = JOptionPane.showInputDialog(this, "Input path:");
-           // System.out.println(string);
-            String path = String.format("save/%s/data.txt", user.getUsername());
-            //path是否存在
-            controller.loadGame(path);
-            gamePanel.requestFocusInWindow();//enable key listener
+            String mappath = String.format("save/%s/mapdata.txt", user.getUsername());
+            String searchpath = String.format("save/%s", user.getUsername());
+
+            //待改进
+            //检验是否有存档
+            if (true) {
+                controller.loadGame(mappath);
+                gamePanel.requestFocusInWindow();
+            }else{
+                JOptionPane.showMessageDialog(this, "No save file!");
+            }
+            gamePanel.requestFocusInWindow();
+            //enable key listener
         });
 
         this.saveBtn.addActionListener(e -> {

@@ -52,7 +52,7 @@ public class GameController {
         File dir = new File(path);
         dir.mkdirs();
         try {
-            Files.write(Path.of(path+"/data.txt"),gameData);
+            Files.write(Path.of(path+"/mapdata.txt"),gameData);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }//create folder
