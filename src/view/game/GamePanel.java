@@ -15,24 +15,39 @@ import java.util.List;
  * The class contains a grids, which is the corresponding GUI view of the matrix variable in MapMatrix.
  */
 public class GamePanel extends ListenerPanel {
+    //存储所有的BoxComponent对象
     private List<BoxComponent> boxes;
+
     private MapModel model;
+
     private GameController controller;
+    //存储显示步数的JLabel对象
     private JLabel stepLabel;
-    private int steps;
+    private int steps = 0;
+    //格子大小
     private final int GRID_SIZE = 50;
+    //选中的格子
     private BoxComponent selectedBox;
 
 
+
+//1初始化游戏界面，2创建boxes对象，将游戏界面设置为可获取焦点
     public GamePanel(MapModel model) {
         boxes = new ArrayList<>();
         this.setVisible(true);
         this.setFocusable(true);
         this.setLayout(null);
+        this.setController(controller);
+        //创建JLabel对象，用于显示步数
+        stepLabel = new JLabel("Steps: 0");
+        stepLabel.setBounds(5, 20, 100, 20);
         this.setSize(model.getWidth() * GRID_SIZE + 4, model.getHeight() * GRID_SIZE + 4);
         this.model = model;
         this.selectedBox = null;
+
+        //初始化游戏界面
         initialGame();
+        this.controller = new GameController(this, model);
     }
 
     /*
@@ -42,6 +57,8 @@ public class GamePanel extends ListenerPanel {
                         {1, 2, 2, 1, 0},
                         {1, 1, 1, 1, 1}
      */
+
+
     public void initialGame() {
         this.steps = 0;
         //copy a map
@@ -86,7 +103,7 @@ public class GamePanel extends ListenerPanel {
         }
         this.repaint();
     }
-
+//调用Graphics类的fillRect方法绘制背景色
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -157,11 +174,15 @@ public class GamePanel extends ListenerPanel {
     public void afterMove() {
         this.steps++;
         this.stepLabel.setText(String.format("Step: %d", this.steps));
+        this.repaint();
+
     }
 
     public void setStepLabel(JLabel stepLabel) {
         this.stepLabel = stepLabel;
     }
+
+
 
 
     public void setController(GameController controller) {
@@ -175,4 +196,10 @@ public class GamePanel extends ListenerPanel {
     public int getGRID_SIZE() {
         return GRID_SIZE;
     }
+
+
+
+
+
+
 }
