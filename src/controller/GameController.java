@@ -92,7 +92,11 @@ public class GameController {
             this.view.clearAllBoxFromPanel();
             this.view.initialGame(map);
 
-
+            //更新步数
+            int SavedSteps = Integer.parseInt(Read(String.format("save/%s/stepdata.txt", user.getUsername())).get(0));
+            this.view.setSteps(SavedSteps);
+            this.view.ChangeStepsLabel(SavedSteps);
+            this.view.getStepLabel().repaint();
 
         } catch (IOException e) {
             throw new RuntimeException(e);

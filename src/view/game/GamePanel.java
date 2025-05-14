@@ -159,6 +159,15 @@ public class GamePanel extends ListenerPanel {
         }
     }
 
+    //测试
+    public void ChangeStepsLabel(int steps) {
+        this.stepLabel.setText(String.format("Step: %d", steps));
+    }
+
+    public JLabel getStepLabel() {
+        return stepLabel;
+    }
+
     public void afterMove() {
         this.steps++;
         this.stepLabel.setText(String.format("Step: %d", this.steps));
