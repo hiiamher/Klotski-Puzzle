@@ -89,6 +89,7 @@ public class GamePanel extends ListenerPanel {
         this.repaint();
     }
 
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -161,6 +162,15 @@ public class GamePanel extends ListenerPanel {
     public void afterMove() {
         this.steps++;
         this.stepLabel.setText(String.format("Step: %d", this.steps));
+        controller.getUser().setSteps(this.steps);
+    }
+
+    public void setSteps(int steps) {
+        this.steps = steps;
+    }
+
+    public int getSteps() {
+        return steps;
     }
 
     public void setStepLabel(JLabel stepLabel) {

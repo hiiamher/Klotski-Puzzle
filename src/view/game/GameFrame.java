@@ -9,6 +9,9 @@ import view.FrameUtil;
 import javax.swing.*;
 import java.awt.*;
 
+import static SaveAndRead.SavaAndRead.Read;
+import static SaveAndRead.SavaAndRead.isExist;
+
 public class GameFrame extends JFrame {
 
     private GameController controller;
@@ -28,7 +31,7 @@ public class GameFrame extends JFrame {
         gamePanel = new GamePanel(mapModel);
         gamePanel.setLocation(30, height / 2 - gamePanel.getHeight() / 2);
         this.add(gamePanel);
-        this.controller = new GameController(gamePanel, mapModel);
+        this.controller = new GameController(gamePanel, mapModel, user);
 
         this.restartBtn = FrameUtil.createButton(this, "Restart", new Point(gamePanel.getWidth() + 80, 120), 80, 50);
         this.loadBtn = FrameUtil.createButton(this, "Load", new Point(gamePanel.getWidth() + 80, 210), 80, 50);
@@ -46,10 +49,8 @@ public class GameFrame extends JFrame {
 
             String mappath = String.format("save/%s/mapdata.txt", user.getUsername());
             String searchpath = String.format("save/%s", user.getUsername());
-
-            //待改进
             //检验是否有存档
-            if (true) {
+            if (isExist(mappath)) {
                 controller.loadGame(mappath);
                 gamePanel.requestFocusInWindow();
             }else{

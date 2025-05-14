@@ -12,6 +12,9 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
+import static SaveAndRead.SavaAndRead.Read;
+import static SaveAndRead.SavaAndRead.Save;
+
 /**
  * It is a bridge to combine GamePanel(view) and MapMatrix(model) in one game.
  * You can design several methods about the game logic in this class.
@@ -19,10 +22,12 @@ import java.util.List;
 public class GameController {
     private final GamePanel view;
     private final MapModel model;
+    private User user;
 
-    public GameController(GamePanel view, MapModel model) {
+    public GameController(GamePanel view, MapModel model, User user) {
         this.view = view;
         this.model = model;
+        this.user = user;
         view.setController(this);
     }
 
@@ -31,6 +36,14 @@ public class GameController {
         this.model.resetOriginalMatrix();
         this.view.clearAllBoxFromPanel();
         this.view.initialGame(model.getMatrix());
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public void saveGame(User user) {
@@ -55,7 +68,9 @@ public class GameController {
             Files.write(Path.of(path+"/mapdata.txt"),gameData);
         } catch (IOException e) {
             throw new RuntimeException(e);
-        }//create folder
+        }
+        Save ( String.format("%s",user.getSteps()) ,path, "stepdata");
+        //create folder
 
         System.out.println("save successfully");
     }
@@ -63,6 +78,7 @@ public class GameController {
 
     public void loadGame(String path)  {
         try {
+
             List<String> lines = Files.readAllLines(Path.of(path));
             int[][] map = new int[lines.size()][lines.get(0).split(" ").length];
             for(int i = 0; i < lines.size(); i++) {
@@ -75,6 +91,7 @@ public class GameController {
             this.model.setMatrix(map);
             this.view.clearAllBoxFromPanel();
             this.view.initialGame(map);
+
 
 
         } catch (IOException e) {

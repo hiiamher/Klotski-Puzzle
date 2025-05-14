@@ -9,6 +9,8 @@ import view.game.GameFrame;
 import javax.swing.*;
 import java.awt.*;
 
+import static SaveAndRead.SavaAndRead.Read;
+
 
 public class LoginFrame extends JFrame {
     private JTextField username;
@@ -32,9 +34,9 @@ public class LoginFrame extends JFrame {
 
         submitBtn.addActionListener(e -> {
 
-
             System.out.println("Username = " + username.getText());
             System.out.println("Password = " + password.getText());
+
             //todo: check login info
             if (UserController.validateUser(username.getText(), password.getText())) {
                 User user = new User(username.getText(), password.getText());
