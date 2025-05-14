@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/project.iml" filepath="$PROJECT_DIR$/project.iml" />
+=======
+      <module fileurl="file://$PROJECT_DIR$/Klotski-Puzzle.iml" filepath="$PROJECT_DIR$/Klotski-Puzzle.iml" />
+>>>>>>> a11f1a71dfa5c1c019cf2bf00f5a61e93094f46b
     </modules>
   </component>
 </project>

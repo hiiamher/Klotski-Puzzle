@@ -44,10 +44,14 @@ public class GamePanel extends ListenerPanel {
         this.setSize(model.getWidth() * GRID_SIZE + 4, model.getHeight() * GRID_SIZE + 4);
         this.model = model;
         this.selectedBox = null;
+//<<<<<<< HEAD
 
         //初始化游戏界面
-        initialGame();
-        this.controller = new GameController(this, model);
+        //initialGame();
+        //this.controller = new GameController(this, model);
+//=======
+        initialGame(model.getMatrix());
+//>>>>>>> a11f1a71dfa5c1c019cf2bf00f5a61e93094f46b
     }
 
     /*
@@ -57,15 +61,21 @@ public class GamePanel extends ListenerPanel {
                         {1, 2, 2, 1, 0},
                         {1, 1, 1, 1, 1}
      */
+//<<<<<<< HEAD
 
 
-    public void initialGame() {
+    //public void initialGame() {
+//=======
+    public void initialGame(int[][] matrix) {
+//>>>>>>> a11f1a71dfa5c1c019cf2bf00f5a61e93094f46b
         this.steps = 0;
+        if(stepLabel != null) {this.stepLabel.setText(String.format("Step: %d", this.steps));}
+
         //copy a map
-        int[][] map = new int[model.getHeight()][model.getWidth()];
+        int[][] map = new int[matrix.length][matrix[0].length];
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[0].length; j++) {
-                map[i][j] = model.getId(i, j);
+                map[i][j] = matrix[i][j];
             }
         }
         //build Component
@@ -103,6 +113,7 @@ public class GamePanel extends ListenerPanel {
         }
         this.repaint();
     }
+
 //调用Graphics类的fillRect方法绘制背景色
     @Override
     protected void paintComponent(Graphics g) {
@@ -114,6 +125,8 @@ public class GamePanel extends ListenerPanel {
     }
 
     @Override
+
+    //点击后变为选中状态，再次点击取消选中状态
     public void doMouseClick(Point point) {
         Component component = this.getComponentAt(point);
         if (component instanceof BoxComponent clickedComponent) {
@@ -171,11 +184,31 @@ public class GamePanel extends ListenerPanel {
         }
     }
 
+    //测试
+    public void ChangeStepsLabel(int steps) {
+        this.stepLabel.setText(String.format("Step: %d", steps));
+    }
+
+    public JLabel getStepLabel() {
+        return stepLabel;
+    }
+
     public void afterMove() {
         this.steps++;
         this.stepLabel.setText(String.format("Step: %d", this.steps));
+//<<<<<<< HEAD
         this.repaint();
+        //=======
+        controller.getUser().setSteps(this.steps);
+    }
 
+    public void setSteps(int steps) {
+        this.steps = steps;
+    }
+
+    public int getSteps() {
+        return steps;
+//>>>>>>> a11f1a71dfa5c1c019cf2bf00f5a61e93094f46b
     }
 
     public void setStepLabel(JLabel stepLabel) {
@@ -183,7 +216,22 @@ public class GamePanel extends ListenerPanel {
     }
 
 
+//<<<<<<< HEAD
+    //=======
+    public void clearAllBoxFromPanel() {
+        for(BoxComponent box : boxes) {
+            removeBoxFromPanel(box);
+        }
+        this.boxes.clear();
+        this.repaint();
+    }
 
+    public BoxComponent removeBoxFromPanel(BoxComponent box) {
+        this.remove(box);
+        this.revalidate();
+        return box;
+    }
+//>>>>>>> a11f1a71dfa5c1c019cf2bf00f5a61e93094f46b
 
     public void setController(GameController controller) {
         this.controller = controller;

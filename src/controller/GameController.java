@@ -1,10 +1,22 @@
 package controller;
 import model.Direction;
 import model.MapModel;
+import user.User;
 import view.game.BoxComponent;
 import view.game.GamePanel;
 
 import java.io.File;
+//<<<<<<< HEAD
+//=======
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
+
+import static SaveAndRead.SavaAndRead.Read;
+import static SaveAndRead.SavaAndRead.Save;
+//>>>>>>> a11f1a71dfa5c1c019cf2bf00f5a61e93094f46b
 
 /**
  * It is a bridge to combine GamePanel(view) and MapMatrix(model) in one game.
@@ -13,16 +25,94 @@ import java.io.File;
 public class GameController {
     private final GamePanel view;
     private final MapModel model;
+    private User user;
+
+    //<<<<<<< HEAD
 
 
-
-    public GameController(GamePanel view, MapModel model) {
+    //public GameController(GamePanel view, MapModel model) {
+       // this.view = view;
+       // this.model = model;
+//=======
+    public GameController(GamePanel view, MapModel model, User user) {
         this.view = view;
         this.model = model;
+        this.user = user;
+        view.setController(this);
+//>>>>>>> a11f1a71dfa5c1c019cf2bf00f5a61e93094f46b
     }
 
     public void restartGame() {
         System.out.println("Do restart game here");
+        this.model.resetOriginalMatrix();
+        this.view.clearAllBoxFromPanel();
+        this.view.initialGame(model.getMatrix());
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public void saveGame(User user) {
+
+        int[][] map = model.getMatrix();
+        List<String> gameData = new ArrayList<>();
+        StringBuilder sb = new StringBuilder();
+        for(int[] line : map) {
+            for(int value:line){
+                sb.append(value).append(" ");
+            }
+            gameData.add(sb.toString());
+            sb.setLength(0);
+        }
+        for(String s:gameData){
+            System.out.println(s);
+        }
+        String path = String.format("save/%s", user.getUsername());
+        File dir = new File(path);
+        dir.mkdirs();
+        try {
+            Files.write(Path.of(path+"/mapdata.txt"),gameData);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Save ( String.format("%s",user.getSteps()) ,path, "stepdata");
+        //create folder
+
+        System.out.println("save successfully");
+    }
+
+
+    public void loadGame(String path)  {
+        try {
+
+            List<String> lines = Files.readAllLines(Path.of(path));
+            int[][] map = new int[lines.size()][lines.get(0).split(" ").length];
+            for(int i = 0; i < lines.size(); i++) {
+                String[] values = lines.get(i).split(" ");
+                for(int j = 0; j < values.length; j++) {
+                    map[i][j] = Integer.parseInt(values[j]);
+                }
+            }
+
+            this.model.setMatrix(map);
+            this.view.clearAllBoxFromPanel();
+            this.view.initialGame(map);
+
+            //更新步数
+            int SavedSteps = Integer.parseInt(Read(String.format("save/%s/stepdata.txt", user.getUsername())).get(0));
+            this.view.setSteps(SavedSteps);
+            this.view.ChangeStepsLabel(SavedSteps);
+            this.view.getStepLabel().repaint();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     public boolean doMove(int row, int col, Direction direction) {
@@ -200,8 +290,11 @@ public class GameController {
         return false;
     }
 
-    //todo: add other methods such as loadGame, saveGame...
+//<<<<<<< HEAD
+    todo: add other methods such as loadGame, saveGame...
 
+//=======
+    //>>>>>>> a11f1a71dfa5c1c019cf2bf00f5a61e93094f46b
 
 }
 
