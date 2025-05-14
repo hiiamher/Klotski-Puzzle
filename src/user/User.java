@@ -8,6 +8,7 @@ public class User implements Serializable {
     private String username;
     private String password;
     private MapModel model;
+    //该变量用于记录用户最后的存储步数，与游戏实时步数无关
     private int steps;
 
     public User(String username, String password) {
