@@ -1,7 +1,4 @@
-import model.MapModel;
-import view.game.GameFrame;
-import view.login.LoginFrame;
-import view.register.RegisterFrame;
+import view.welcome.WelcomeFrame;
 
 import javax.swing.*;
 
@@ -10,8 +7,11 @@ public class Main {
         SwingUtilities.invokeLater(() -> {
 
 
-            RegisterFrame RegisterFrame = new RegisterFrame(450, 280);
-            RegisterFrame.setVisible(true);
+            WelcomeFrame welcomeFrame = new WelcomeFrame(900,600);
+            welcomeFrame.setVisible(true);
+
+//           RegisterFrame RegisterFrame = new RegisterFrame(450, 280);
+//           RegisterFrame.setVisible(true);
 
             /*
             LoginFrame loginFrame = new LoginFrame(280, 280);

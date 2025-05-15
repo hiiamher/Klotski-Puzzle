@@ -196,9 +196,8 @@ public class GamePanel extends ListenerPanel {
     public void afterMove() {
         this.steps++;
         this.stepLabel.setText(String.format("Step: %d", this.steps));
-//<<<<<<< HEAD
         this.repaint();
-        //=======
+
         controller.getUser().setSteps(this.steps);
     }
 

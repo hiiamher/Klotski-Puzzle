@@ -25,6 +25,16 @@ public class GameFrame extends JFrame {
     private JLabel userLabel;
     private JButton leftButton,rightButton,upButton,downButton;
     private JPanel buttonPanel;
+    private JFrame welcomeFrame;
+    private JButton backtowelcomeBtn;
+
+    public JFrame getWelcomeFrame() {
+        return welcomeFrame;
+    }
+
+    public void setWelcomeFrame(JFrame welcomeFrame) {
+        this.welcomeFrame = welcomeFrame;
+    }
 
     //创建JPanel对象，用于放置方向按钮
     private JPanel createbuttonPanel() {
@@ -71,6 +81,8 @@ public class GameFrame extends JFrame {
         this.restartBtn = FrameUtil.createButton(this, "Restart", new Point(gamePanel.getWidth() + 80, 120), 80, 50);
         this.loadBtn = FrameUtil.createButton(this, "Load", new Point(gamePanel.getWidth() + 80, 210), 80, 50);
         this.saveBtn = FrameUtil.createButton(this, "Save", new Point(gamePanel.getWidth() + 80, 300), 80, 50);
+        backtowelcomeBtn = FrameUtil.createButton(this, "Exist", new Point(gamePanel.getWidth() + 80, 390), 100, 50);
+
         this.stepLabel = FrameUtil.createJLabel(this, "Start", new Font("serif", Font.ITALIC, 22), new Point(gamePanel.getWidth() + 80, 70), 180, 50);
         this.userLabel = FrameUtil.createJLabel(this, user.getUsername(), new Font("serif", Font.ITALIC, 22), new Point(gamePanel.getWidth() + 80, 15), 180, 50);
         gamePanel.setStepLabel(stepLabel);
@@ -95,18 +107,35 @@ public class GameFrame extends JFrame {
             //enable key listener
         });
 
+        backtowelcomeBtn.addActionListener(e -> {
+            welcomeFrame.setVisible(true);
+            this.dispose();
+        });
+
         this.saveBtn.addActionListener(e -> {
 
             controller.saveGame(user);
             gamePanel.requestFocusInWindow();
         });
 
+
+
+
         //todo: add other button here
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);}
 
 
-
+    public JButton getsaveBtn() {
+        return saveBtn;
     }
+
+    public JButton getloadBtn() {
+        return loadBtn;
+    }
+
+
+
+}
 
 
