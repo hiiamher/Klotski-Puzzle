@@ -30,7 +30,7 @@ public class GameFrame extends JFrame {
     private JPanel createbuttonPanel() {
         buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(2, 3));
-        buttonPanel.setBounds(280, 300, 150, 100);
+        buttonPanel.setBounds(400, 200, 150, 100);
         upButton = new JButton("↑");
         upButton.addActionListener(e -> {
             gamePanel.doMoveUp();
