@@ -249,11 +249,11 @@ public class GameController {
         if(model.getId(row, col) == 4){
             int nextRow = row + direction.getRow();
             int nextCol = col + direction.getCol();
-            if(direction == Direction.UP||direction == Direction.DOWN){
-                if(model.checkInHeightSize(nextRow)&&model.checkInHeightSize(nextRow+1)){
+            if(direction == Direction.UP){
+                if(model.checkInHeightSize(nextRow)){
                     if(model.getId(nextRow, nextCol) == 0&&model.getId(nextRow,nextCol+1)==0){
-                        model.getMatrix()[row][col] = 0;
-                        model.getMatrix()[row][col+1] = 0;
+                        model.getMatrix()[row+1][col] = 0;
+                        model.getMatrix()[row+1][col+1] = 0;
                         model.getMatrix()[nextRow][nextCol] = 4;
                         model.getMatrix()[nextRow][nextCol+1] = 4;
                         BoxComponent box = view.getSelectedBox();
@@ -267,11 +267,29 @@ public class GameController {
                 }
                 return false;
             }
-            if(direction == Direction.LEFT||direction == Direction.RIGHT){
-                if(model.checkInWidthSize(nextCol)&&model.checkInWidthSize(nextCol+1)){
-                    if(model.getId(nextRow, nextCol) == 0&&model.getId(nextRow+1, nextCol)==0){
+            if(direction == Direction.DOWN){
+                if(model.checkInHeightSize(nextRow+1)){
+                    if(model.getId(nextRow+1, nextCol) == 0&&model.getId(nextRow+1,nextCol+1)==0){
                         model.getMatrix()[row][col] = 0;
-                        model.getMatrix()[row+1][col] = 0;
+                        model.getMatrix()[row][col+1] = 0;
+                        model.getMatrix()[nextRow+1][nextCol] = 4;
+                        model.getMatrix()[nextRow+1][nextCol+1] = 4;
+                        BoxComponent box = view.getSelectedBox();
+                        box.setRow(nextRow);
+                        box.setCol(nextCol);
+                        box.setLocation(box.getCol() * view.getGRID_SIZE() + 2, box.getRow() * view.getGRID_SIZE() + 2);
+                        box.repaint();
+                        return true;
+                    }
+                    return false;
+                }
+                return false;
+            }
+            if(direction == Direction.LEFT){
+                if(model.checkInWidthSize(nextCol)){
+                    if(model.getId(nextRow, nextCol) == 0&&model.getId(nextRow+1, nextCol)==0){
+                        model.getMatrix()[row][col+1] = 0;
+                        model.getMatrix()[row+1][col+1] = 0;
                         model.getMatrix()[nextRow][nextCol] = 4;
                         model.getMatrix()[nextRow+1][nextCol] = 4;
                         BoxComponent box = view.getSelectedBox();
@@ -285,13 +303,32 @@ public class GameController {
                 }
                 return false;
             }
+            if(direction == Direction.RIGHT){
+                if(model.checkInWidthSize(nextCol+1)){
+                    if(model.getId(nextRow, nextCol+1) == 0&&model.getId(nextRow+1, nextCol+1)==0){
+                        model.getMatrix()[row][col] = 0;
+                        model.getMatrix()[row+1][col] = 0;
+                        model.getMatrix()[nextRow][nextCol+1] = 4;
+                        model.getMatrix()[nextRow+1][nextCol+1] = 4;
+                        BoxComponent box = view.getSelectedBox();
+                        box.setRow(nextRow);
+                        box.setCol(nextCol);
+                        box.setLocation(box.getCol() * view.getGRID_SIZE() + 2, box.getRow() * view.getGRID_SIZE() + 2);
+                        box.repaint();
+                        return true;
+                    }
+                    return false;
+                }
+                return false;
+            }
         }
-
         return false;
     }
 
+
+
+
 //<<<<<<< HEAD
-    todo: add other methods such as loadGame, saveGame...
 
 //=======
     //>>>>>>> a11f1a71dfa5c1c019cf2bf00f5a61e93094f46b
