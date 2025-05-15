@@ -41,10 +41,16 @@ public class LoginFrame extends JFrame {
             if (UserController.validateUser(username.getText(), password.getText())) {
                 User user = new User(username.getText(), password.getText());
                 MapModel mapModel = new MapModel(new int[][]{
-                        {1, 2, 2, 1},
-                        {1, 3, 2, 2},
-                        {1, 3, 4, 4},
-                        {0, 0, 4, 4}
+                        //{3, 4, 4, 3},
+                        //{3, 4, 4, 3},
+                        //{3, 2, 2, 3},
+                        //{3, 1, 1, 3},
+                        //{1, 0 ,0, 1}
+                        {0, 1, 1, 1},
+                        {0, 1, 1, 1},
+                        {0, 0, 0, 1},
+                        {0, 4, 4, 1},
+                        {1, 4, 4, 1}
                 });
                 GameFrame gameFrame = new GameFrame(600, 450, mapModel, user);
                 gameFrame.setVisible(true);
