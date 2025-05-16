@@ -29,10 +29,7 @@ public class GamePanel extends ListenerPanel {
     private BoxComponent selectedBox;
 
 
-
-
-
-//1初始化游戏界面，2创建boxes对象，将游戏界面设置为可获取焦点
+    //1初始化游戏界面，2创建boxes对象，将游戏界面设置为可获取焦点
     public GamePanel(MapModel model) {
         boxes = new ArrayList<>();
         this.setVisible(true);
@@ -70,7 +67,9 @@ public class GamePanel extends ListenerPanel {
     public void initialGame(int[][] matrix) {
 //>>>>>>> a11f1a71dfa5c1c019cf2bf00f5a61e93094f46b
         this.steps = 0;
-        if(stepLabel != null) {this.stepLabel.setText(String.format("Step: %d", this.steps));}
+        if (stepLabel != null) {
+            this.stepLabel.setText(String.format("Step: %d", this.steps));
+        }
 
         //copy a map
         int[][] map = new int[matrix.length][matrix[0].length];
@@ -115,7 +114,7 @@ public class GamePanel extends ListenerPanel {
         this.repaint();
     }
 
-//调用Graphics类的fillRect方法绘制背景色
+    //调用Graphics类的fillRect方法绘制背景色
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -196,11 +195,12 @@ public class GamePanel extends ListenerPanel {
     }
 
     public void afterMove() {
-            this.steps++;
-            this.stepLabel.setText(String.format("Step: %d", this.steps));
-            this.repaint();
-            controller.getUser().setSteps(this.steps);
-            controller.save_path();
+        this.steps++;
+        this.stepLabel.setText(String.format("Step: %d", this.steps));
+        this.repaint();
+        controller.getUser().setSteps(this.steps);
+        controller.save_path();
+        isVictory();
     }
 
     public void setSteps(int steps) {
@@ -217,7 +217,7 @@ public class GamePanel extends ListenerPanel {
 
 
     public void clearAllBoxFromPanel() {
-        for(BoxComponent box : boxes) {
+        for (BoxComponent box : boxes) {
             removeBoxFromPanel(box);
         }
         this.boxes.clear();
@@ -243,22 +243,30 @@ public class GamePanel extends ListenerPanel {
         return GRID_SIZE;
     }
 
-    public void withDraw(){
-        if(this.steps > 0){
+    public void withDraw() {
+        if (this.steps > 0) {
             this.steps--;
-        this.controller.WithDraw(this.steps);
-        this.stepLabel.setText(String.format("Step: %d", this.steps));
-        this.repaint();
-        controller.getUser().setSteps(this.steps);}
-        else{
+            this.controller.WithDraw(this.steps);
+            this.stepLabel.setText(String.format("Step: %d", this.steps));
+            this.repaint();
+            controller.getUser().setSteps(this.steps);
+        } else {
             JOptionPane.showMessageDialog(this, "You have no steps to withdraw.", "Warning", JOptionPane.WARNING_MESSAGE);
         }
     }
 
+    public void isVictory() {
+        for (BoxComponent box : boxes) {
+            if (box.getWidth() == 2 * getGRID_SIZE() && box.getHeight() == 2 * getGRID_SIZE()) {
+                if (box.getRow() == 3 && box.getCol() == 1) {
+                    String steps = String.format("You have completed the game in %d steps.", this.steps);
+                    JOptionPane.showMessageDialog(this, "Congratulations! "+steps, "Congratulations", JOptionPane.INFORMATION_MESSAGE);
 
+                }
+            }
 
-
-
-
-
+        }
+    }
 }
+
+
