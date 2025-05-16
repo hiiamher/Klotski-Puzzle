@@ -59,13 +59,9 @@ public class GamePanel extends ListenerPanel {
                         {1, 2, 2, 1, 0},
                         {1, 1, 1, 1, 1}
      */
-//<<<<<<< HEAD
 
 
-    //public void initialGame() {
-//=======
     public void initialGame(int[][] matrix) {
-//>>>>>>> a11f1a71dfa5c1c019cf2bf00f5a61e93094f46b
         this.steps = 0;
         if (stepLabel != null) {
             this.stepLabel.setText(String.format("Step: %d", this.steps));
@@ -216,6 +212,7 @@ public class GamePanel extends ListenerPanel {
     }
 
 
+
     public void clearAllBoxFromPanel() {
         for (BoxComponent box : boxes) {
             removeBoxFromPanel(box);
@@ -229,7 +226,7 @@ public class GamePanel extends ListenerPanel {
         this.revalidate();
         return box;
     }
-//>>>>>>> a11f1a71dfa5c1c019cf2bf00f5a61e93094f46b
+
 
     public void setController(GameController controller) {
         this.controller = controller;

@@ -5,6 +5,7 @@ import user.User;
 import view.game.BoxComponent;
 import view.game.GamePanel;
 
+import javax.swing.*;
 import java.io.File;
 //<<<<<<< HEAD
 //=======
@@ -26,14 +27,14 @@ public class GameController {
     private final GamePanel view;
     private final MapModel model;
     private User user;
+    private JFrame gameframe;
 
-    //<<<<<<< HEAD
 
 
-    //public GameController(GamePanel view, MapModel model) {
-       // this.view = view;
-       // this.model = model;
-//=======
+
+
+
+
     public GameController(GamePanel view, MapModel model, User user) {
         this.view = view;
         this.model = model;
@@ -97,6 +98,22 @@ public class GameController {
                 }
             }
 
+
+            //检验数据是否被修改
+            if(!model.textnumofbox(map)){
+                System.out.println("数据被修改");
+                //加提示框
+                System.out.println("数据被修改");
+                // 加提示框
+                JOptionPane.showMessageDialog(
+                        gameframe,
+                        "数据已被修改，请谨慎操作。",
+                        "数据修改警告",
+                        JOptionPane.WARNING_MESSAGE
+                );
+
+            }
+
             this.model.setMatrix(map);
             this.view.clearAllBoxFromPanel();
             this.view.initialGame(map);
@@ -108,7 +125,32 @@ public class GameController {
             this.view.getStepLabel().repaint();
 
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            // 处理文件读取异常，弹出错误提示框
+            System.err.println("文件读取失败: " + e.getMessage());
+            JOptionPane.showMessageDialog(
+                    gameframe,
+                    "文件读取失败: " + e.getMessage()+"点击Sava按钮覆盖保存",
+                    "文件读取错误",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        } catch (NumberFormatException e) {
+            // 处理字符串转换为整数时的异常，弹出错误提示框
+            System.err.println("数据格式错误: " + e.getMessage());
+            JOptionPane.showMessageDialog(
+                    gameframe,
+                    "数据格式错误: " + e.getMessage()+"点击Sava按钮覆盖保存",
+                    "数据格式错误",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        } catch (Exception e) {
+            // 处理其他未预料到的异常，弹出错误提示框
+            System.err.println("发生未知错误: " + e.getMessage());
+            JOptionPane.showMessageDialog(
+                    gameframe,
+                    "发生未知错误: " + e.getMessage()+"点击Sava按钮覆盖保存",
+                    "未知错误",
+                    JOptionPane.ERROR_MESSAGE
+            );
         }
 
     }
@@ -388,13 +430,18 @@ public class GameController {
 
 
 
+    public JFrame getGameframe() {
+        return gameframe;
+    }
+
+    public void setGameframe(JFrame gameframe) {
+        this.gameframe = gameframe;
+    }
 
 
 
-//<<<<<<< HEAD
 
-//=======
-    //>>>>>>> a11f1a71dfa5c1c019cf2bf00f5a61e93094f46b
+
 
 }
 

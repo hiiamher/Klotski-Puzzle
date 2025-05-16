@@ -22,6 +22,11 @@ public class RegisterFrame extends JFrame {
     private String username1;
     private String password1;
 
+    private JFrame welcomeFrame;
+    private JFrame loginFrame;
+
+
+
     public RegisterFrame(int width, int height) {
         this.setTitle("Register Frame");
         this.setLayout(null);
@@ -71,7 +76,10 @@ public class RegisterFrame extends JFrame {
         });
 
         gotoLoginBtn.addActionListener(e -> {
-            LoginFrame loginFrame = new LoginFrame(280, 280);
+            LoginFrame loginFrame = new LoginFrame(400, 280);
+            this.setLoginFrame(loginFrame);
+            loginFrame.setWelcomeFrame(this.getWelcomeFrame());
+            loginFrame.setRegisterFrame(this);
             loginFrame.setVisible(true);
             this.setVisible(false);
         });
@@ -82,6 +90,22 @@ public class RegisterFrame extends JFrame {
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
 
+    }
+
+    public JFrame getWelcomeFrame() {
+        return welcomeFrame;
+    }
+
+    public void setWelcomeFrame(JFrame welcomeFrame) {
+        this.welcomeFrame = welcomeFrame;
+    }
+
+    public JFrame getLoginFrame() {
+        return loginFrame;
+    }
+
+    public void setLoginFrame(JFrame loginFrame) {
+        this.loginFrame = loginFrame;
     }
 
 

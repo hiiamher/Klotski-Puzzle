@@ -5,11 +5,10 @@ import model.MapModel;
 import user.User;
 import view.FrameUtil;
 import view.game.GameFrame;
+import view.register.RegisterFrame;
 
 import javax.swing.*;
 import java.awt.*;
-
-import static SaveAndRead.SavaAndRead.Read;
 
 
 public class LoginFrame extends JFrame {
@@ -17,7 +16,15 @@ public class LoginFrame extends JFrame {
     private JTextField password;
     private JButton submitBtn;
     private JButton resetBtn;
-    //private GameFrame gameFrame;
+    private JButton backtowelcomeBtn;
+
+    private JFrame welcomeFrame;
+
+
+    private JFrame registerFrame;
+
+
+//private GameFrame gameFrame;
 
 
     public LoginFrame(int width, int height) {
@@ -31,8 +38,13 @@ public class LoginFrame extends JFrame {
 
         submitBtn = FrameUtil.createButton(this, "Confirm", new Point(40, 140), 100, 40);
         resetBtn = FrameUtil.createButton(this, "Reset", new Point(160, 140), 100, 40);
+        backtowelcomeBtn = FrameUtil.createButton(this, "back", new Point(280, 140), 100, 40);
 
         submitBtn.addActionListener(e -> {
+            if (username.getText().isEmpty() || password.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Username or Password cannot be empty", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
             System.out.println("Username = " + username.getText());
             System.out.println("Password = " + password.getText());
@@ -41,32 +53,61 @@ public class LoginFrame extends JFrame {
             if (UserController.validateUser(username.getText(), password.getText())) {
                 User user = new User(username.getText(), password.getText());
                 MapModel mapModel = new MapModel(new int[][]{
-                        //{3, 4, 4, 3},
-                        //{3, 4, 4, 3},
-                        //{3, 2, 2, 3},
-                        //{3, 1, 1, 3},
-                        //{1, 0 ,0, 1}
-                        {0, 1, 1, 1},
-                        {0, 1, 1, 1},
-                        {0, 0, 0, 1},
-                        {0, 4, 4, 1},
-                        {1, 4, 4, 1}
+                        {3, 4, 4, 3},
+                        {3, 4, 4, 3},
+                        {3, 2, 2, 3},
+                        {3, 1, 1, 3},
+                        {1, 0, 0, 1}
+                        /*   {0, 1, 1, 1},
+                           {0, 1, 1, 1},
+                           {0, 0, 0, 1},
+                           {0, 4, 4, 1},
+                           {1, 4, 4, 1}*/
                 });
-                GameFrame gameFrame = new GameFrame(600, 450, mapModel, user);
+                GameFrame gameFrame = new GameFrame(600, 600, mapModel, user);
+                gameFrame.setWelcomeFrame(this.getWelcomeFrame());
                 gameFrame.setVisible(true);
                 this.setVisible(false);
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(this, "Username or Password is incorrect", "Error", JOptionPane.ERROR_MESSAGE);
             }
 
         });
+
         resetBtn.addActionListener(e -> {
             username.setText("");
             password.setText("");
         });
 
+        this.backtowelcomeBtn.addActionListener(e -> {
+            welcomeFrame.setVisible(true);
+            this.dispose();
+            if (this.registerFrame != null) {
+                this.registerFrame.dispose();
+            }
+
+        });
+
+
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    }
+
+
+    public JFrame getWelcomeFrame() {
+        return this.welcomeFrame;
+    }
+
+    public void setWelcomeFrame(JFrame welcomeFrame) {
+        this.welcomeFrame = welcomeFrame;
+    }
+
+    public JFrame getRegisterFrame(RegisterFrame registerFrame) {
+        return this.registerFrame;
+    }
+
+    public void setRegisterFrame(JFrame registerFrame) {
+        this.registerFrame = registerFrame;
     }
 
 

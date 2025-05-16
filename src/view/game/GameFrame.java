@@ -10,7 +10,6 @@ import view.FrameUtil;
 import javax.swing.*;
 import java.awt.*;
 
-import static SaveAndRead.SavaAndRead.Read;
 import static SaveAndRead.SavaAndRead.isExist;
 
 public class GameFrame extends JFrame {
@@ -23,9 +22,19 @@ public class GameFrame extends JFrame {
     private GamePanel gamePanel;
     private User user;
     private JLabel userLabel;
-    private JButton leftButton,rightButton,upButton,downButton;
+    private JButton leftButton, rightButton, upButton, downButton;
     private JPanel buttonPanel;
     private JButton BackButn;
+    private JFrame welcomeFrame;
+    private JButton backtowelcomeBtn;
+
+    public JFrame getWelcomeFrame() {
+        return welcomeFrame;
+    }
+
+    public void setWelcomeFrame(JFrame welcomeFrame) {
+        this.welcomeFrame = welcomeFrame;
+    }
 
     //创建JPanel对象，用于放置方向按钮
     private JPanel createbuttonPanel() {
@@ -57,9 +66,9 @@ public class GameFrame extends JFrame {
         return buttonPanel;
     }
 
-//>>>>>>> a11f1a71dfa5c1c019cf2bf00f5a61e93094f46b
 
-    public GameFrame(int width, int height, MapModel mapModel,User user) {
+
+    public GameFrame(int width, int height, MapModel mapModel, User user) {
         this.user = user;
         this.setTitle("2025 CS109 Project Demo");
         this.setLayout(null);
@@ -68,17 +77,26 @@ public class GameFrame extends JFrame {
         gamePanel.setLocation(30, height / 2 - gamePanel.getHeight() / 2);
         this.add(gamePanel);
         this.controller = new GameController(gamePanel, mapModel, user);
+        this.controller.setGameframe( this);
 
         this.restartBtn = FrameUtil.createButton(this, "Restart", new Point(gamePanel.getWidth() + 80, 100), 80, 50);
         this.loadBtn = FrameUtil.createButton(this, "Load", new Point(gamePanel.getWidth() + 80, 180), 80, 50);
         this.saveBtn = FrameUtil.createButton(this, "Save", new Point(gamePanel.getWidth() + 80, 260), 80, 50);
         this.BackButn = FrameUtil.createButton(this, "Back", new Point(gamePanel.getWidth() + 80, 340), 80, 50);
         this.stepLabel = FrameUtil.createJLabel(this, "Start", new Font("serif", Font.ITALIC, 22), new Point(gamePanel.getWidth() + 80, 40), 180, 50);
+        this.restartBtn = FrameUtil.createButton(this, "Restart", new Point(gamePanel.getWidth() + 80, 120), 80, 50);
+        this.loadBtn = FrameUtil.createButton(this, "Load", new Point(gamePanel.getWidth() + 80, 210), 80, 50);
+        this.saveBtn = FrameUtil.createButton(this, "Save", new Point(gamePanel.getWidth() + 80, 300), 80, 50);
+        backtowelcomeBtn = FrameUtil.createButton(this, "Exist", new Point(gamePanel.getWidth() + 80, 390), 100, 50);
+
+        this.stepLabel = FrameUtil.createJLabel(this, "Start", new Font("serif", Font.ITALIC, 22), new Point(gamePanel.getWidth() + 80, 70), 180, 50);
         this.userLabel = FrameUtil.createJLabel(this, user.getUsername(), new Font("serif", Font.ITALIC, 22), new Point(gamePanel.getWidth() + 80, 15), 180, 50);
         gamePanel.setStepLabel(stepLabel);
         this.add(createbuttonPanel());
+
         this.restartBtn.addActionListener(e -> {
             controller.restartGame();
+            this.user.setSteps(this.gamePanel.getSteps());
             gamePanel.requestFocusInWindow();//enable key listener
         });
 
@@ -90,11 +108,17 @@ public class GameFrame extends JFrame {
             if (isExist(mappath)) {
                 controller.loadGame(mappath);
                 gamePanel.requestFocusInWindow();
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(this, "No save file!");
             }
             gamePanel.requestFocusInWindow();
+
             //enable key listener
+        });
+
+        backtowelcomeBtn.addActionListener(e -> {
+            welcomeFrame.setVisible(true);
+            this.dispose();
         });
 
         this.saveBtn.addActionListener(e -> {
@@ -103,14 +127,40 @@ public class GameFrame extends JFrame {
             gamePanel.requestFocusInWindow();
         });
 
+//退出时保存游戏
+        this.setLocationRelativeTo(null);
+        // 设置默认关闭操作，点击关闭按钮时不直接退出
+        this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        // 添加窗口关闭事件监听
+        this.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                // 调用保存方法
+                controller.saveGame(user);
+                // 关闭窗口
+                GameFrame.this.dispose();
+            }
+        });
+
+
         this.BackButn.addActionListener(e -> {
             gamePanel.withDraw();
         });
 
         //todo: add other button here
         this.setLocationRelativeTo(null);
-        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);}
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
+    }
+
+
+    public JButton getsaveBtn() {
+        return saveBtn;
+    }
+
+    public JButton getloadBtn() {
+        return loadBtn;
+    }
 
 
     }

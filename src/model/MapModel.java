@@ -49,6 +49,39 @@ public class MapModel {
         throw new IllegalArgumentException("行或列索引超出范围");
     }
 
+    public boolean textnumofbox(int[][] matrix) {
+        int num0=0;
+        int num1=0;
+        int num2=0;
+        int num3=0;
+        int num4=0;
+
+        for (int row = 0; row < matrix.length; row++) {
+            for (int col = 0; col < matrix[row].length; col++) {
+                int id = matrix[row][col];
+                if (matrix[row][col]==0) {
+                    num0++;
+                }
+                if (matrix[row][col]==1) {
+                    num1++;
+                }
+                if (matrix[row][col]==2) {
+                    num2++;
+                }
+                if (matrix[row][col]==3) {
+                    num3++;
+                }
+                if (matrix[row][col]==4) {
+                    num4++;
+                }
+            }
+        }
+        if(num0==2&num1==4&num2==2&num3==8&num4==4){
+            return true;
+        }
+        return false;
+    }
+
     public int[][] getMatrix() {
         return matrix;
     }
