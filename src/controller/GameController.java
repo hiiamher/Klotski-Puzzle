@@ -366,27 +366,8 @@ public class GameController {
     }
 
     public void save_path(){
-        //保存初始状态
-        if(user.getSteps() == 0){
-        String path0 = String.format("save/%s/%d", user.getUsername(),0);
-        File dir0 = new File(path0);
-        dir0.mkdirs();
-        this.model.resetOriginalMatrix();
-        this.view.clearAllBoxFromPanel();
-        this.view.initialGame(model.getMatrix());
-        int[][] map0 = model.getMatrix();
-        List<String> gameData0 = new ArrayList<>();
-        StringBuilder sb0 = new StringBuilder();
-        for(int[] line : map0) {
-            for(int value:line){
-                sb0.append(value).append(" ");
-            }
-            gameData0.add(sb0.toString());
-            sb0.setLength(0);
-        }
-        Save (gameData0,path0,"Path_Map");}
        //保存每步状态
-        String path = String.format("save/%s/%d", user.getUsername(),user.getSteps());
+        String path = String.format("save/%s/path/%d", user.getUsername(),user.getSteps());
         File dir = new File(path);
         dir.mkdirs();
         int[][] map = model.getMatrix();
@@ -405,7 +386,7 @@ public class GameController {
 
 
     public void WithDraw(int steps){
-            String path = String.format("save/%s/%d/Path_Map.txt", user.getUsername(), steps);
+            String path = String.format("save/%s/path/%d/Path_Map.txt", user.getUsername(), steps);
             try {
                 List<String> lines = Files.readAllLines(Path.of(path));
                 int[][] map = new int[lines.size()][lines.get(0).split(" ").length];
