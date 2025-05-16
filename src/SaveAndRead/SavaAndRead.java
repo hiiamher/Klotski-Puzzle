@@ -54,7 +54,7 @@ public static List<String> Read (String targetPath) {
         File dir = new File(path);
         dir.mkdirs();
         try {
-            Files.write(Path.of(path+"/txtname.txt"), content);
+            Files.write(Path.of(path+String.format("/%s.txt",txtname)), content);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
