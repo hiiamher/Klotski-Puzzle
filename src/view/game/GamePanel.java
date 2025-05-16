@@ -17,17 +17,18 @@ import java.util.List;
 public class GamePanel extends ListenerPanel {
     //存储所有的BoxComponent对象
     private List<BoxComponent> boxes;
-
     private MapModel model;
 
     private GameController controller;
     //存储显示步数的JLabel对象
     private JLabel stepLabel;
-    private int steps = 0;
+    private int steps;
     //格子大小
     private final int GRID_SIZE = 50;
-    //选中的格子
+    //选中的方块
     private BoxComponent selectedBox;
+
+
 
 
 
@@ -128,6 +129,7 @@ public class GamePanel extends ListenerPanel {
 
     //点击后变为选中状态，再次点击取消选中状态
     public void doMouseClick(Point point) {
+        this.requestFocusInWindow();
         Component component = this.getComponentAt(point);
         if (component instanceof BoxComponent clickedComponent) {
             if (selectedBox == null) {
@@ -194,12 +196,11 @@ public class GamePanel extends ListenerPanel {
     }
 
     public void afterMove() {
-        this.steps++;
-        this.stepLabel.setText(String.format("Step: %d", this.steps));
-//<<<<<<< HEAD
-        this.repaint();
-        //=======
-        controller.getUser().setSteps(this.steps);
+            this.steps++;
+            this.stepLabel.setText(String.format("Step: %d", this.steps));
+            this.repaint();
+            controller.getUser().setSteps(this.steps);
+            controller.save_path();
     }
 
     public void setSteps(int steps) {
@@ -208,7 +209,6 @@ public class GamePanel extends ListenerPanel {
 
     public int getSteps() {
         return steps;
-//>>>>>>> a11f1a71dfa5c1c019cf2bf00f5a61e93094f46b
     }
 
     public void setStepLabel(JLabel stepLabel) {
@@ -216,8 +216,6 @@ public class GamePanel extends ListenerPanel {
     }
 
 
-//<<<<<<< HEAD
-    //=======
     public void clearAllBoxFromPanel() {
         for(BoxComponent box : boxes) {
             removeBoxFromPanel(box);
@@ -244,6 +242,19 @@ public class GamePanel extends ListenerPanel {
     public int getGRID_SIZE() {
         return GRID_SIZE;
     }
+
+    public void withDraw(){
+        if(this.steps > 0){
+            this.steps--;
+        this.controller.WithDraw(this.steps);
+        this.stepLabel.setText(String.format("Step: %d", this.steps));
+        this.repaint();
+        controller.getUser().setSteps(this.steps);}
+        else{
+            JOptionPane.showMessageDialog(this, "You have no steps to withdraw.", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+    }
+
 
 
 
