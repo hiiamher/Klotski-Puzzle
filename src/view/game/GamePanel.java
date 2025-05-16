@@ -61,13 +61,10 @@ public class GamePanel extends ListenerPanel {
                         {1, 2, 2, 1, 0},
                         {1, 1, 1, 1, 1}
      */
-//<<<<<<< HEAD
 
 
-    //public void initialGame() {
-//=======
     public void initialGame(int[][] matrix) {
-//>>>>>>> a11f1a71dfa5c1c019cf2bf00f5a61e93094f46b
+
         this.steps = 0;
         if(stepLabel != null) {this.stepLabel.setText(String.format("Step: %d", this.steps));}
 
@@ -128,6 +125,7 @@ public class GamePanel extends ListenerPanel {
 
     //点击后变为选中状态，再次点击取消选中状态
     public void doMouseClick(Point point) {
+        this.requestFocusInWindow();
         Component component = this.getComponentAt(point);
         if (component instanceof BoxComponent clickedComponent) {
             if (selectedBox == null) {
@@ -207,7 +205,7 @@ public class GamePanel extends ListenerPanel {
 
     public int getSteps() {
         return steps;
-//>>>>>>> a11f1a71dfa5c1c019cf2bf00f5a61e93094f46b
+
     }
 
     public void setStepLabel(JLabel stepLabel) {
@@ -215,8 +213,7 @@ public class GamePanel extends ListenerPanel {
     }
 
 
-//<<<<<<< HEAD
-    //=======
+
     public void clearAllBoxFromPanel() {
         for(BoxComponent box : boxes) {
             removeBoxFromPanel(box);
@@ -230,7 +227,7 @@ public class GamePanel extends ListenerPanel {
         this.revalidate();
         return box;
     }
-//>>>>>>> a11f1a71dfa5c1c019cf2bf00f5a61e93094f46b
+
 
     public void setController(GameController controller) {
         this.controller = controller;

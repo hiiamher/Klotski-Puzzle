@@ -1,8 +1,6 @@
 package view.game;
 
-import SaveAndRead.SavaAndRead;
 import controller.GameController;
-import model.Direction;
 import model.MapModel;
 import user.User;
 import view.FrameUtil;
@@ -10,7 +8,6 @@ import view.FrameUtil;
 import javax.swing.*;
 import java.awt.*;
 
-import static SaveAndRead.SavaAndRead.Read;
 import static SaveAndRead.SavaAndRead.isExist;
 
 public class GameFrame extends JFrame {
@@ -66,7 +63,7 @@ public class GameFrame extends JFrame {
         return buttonPanel;
     }
 
-//>>>>>>> a11f1a71dfa5c1c019cf2bf00f5a61e93094f46b
+
 
     public GameFrame(int width, int height, MapModel mapModel, User user) {
         this.user = user;
@@ -77,6 +74,7 @@ public class GameFrame extends JFrame {
         gamePanel.setLocation(30, height / 2 - gamePanel.getHeight() / 2);
         this.add(gamePanel);
         this.controller = new GameController(gamePanel, mapModel, user);
+        this.controller.setGameframe( this);
 
         this.restartBtn = FrameUtil.createButton(this, "Restart", new Point(gamePanel.getWidth() + 80, 120), 80, 50);
         this.loadBtn = FrameUtil.createButton(this, "Load", new Point(gamePanel.getWidth() + 80, 210), 80, 50);
@@ -90,6 +88,7 @@ public class GameFrame extends JFrame {
 
         this.restartBtn.addActionListener(e -> {
             controller.restartGame();
+            this.user.setSteps(this.gamePanel.getSteps());
             gamePanel.requestFocusInWindow();//enable key listener
         });
 
@@ -105,6 +104,7 @@ public class GameFrame extends JFrame {
                 JOptionPane.showMessageDialog(this, "No save file!");
             }
             gamePanel.requestFocusInWindow();
+
             //enable key listener
         });
 
@@ -117,6 +117,7 @@ public class GameFrame extends JFrame {
 
             controller.saveGame(user);
             gamePanel.requestFocusInWindow();
+
         });
 
 //退出时保存游戏
