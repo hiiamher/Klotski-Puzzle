@@ -4,6 +4,7 @@ import SaveAndRead.SavaAndRead;
 import controller.GameController;
 import model.Direction;
 import model.MapModel;
+import music.Music;
 import user.User;
 import view.FrameUtil;
 
@@ -28,6 +29,8 @@ public class GameFrame extends JFrame {
     private JFrame welcomeFrame;
     private JButton backtowelcomeBtn;
     private JButton solveBtn;
+    private JButton MusicBtn;
+    public Music backgroundMusic;
 
     public JFrame getWelcomeFrame() {
         return welcomeFrame;
@@ -79,6 +82,7 @@ public class GameFrame extends JFrame {
         this.add(gamePanel);
         this.controller = new GameController(gamePanel, mapModel, user);
         this.controller.setGameframe( this);
+        this.backgroundMusic = new Music("背景音乐.wav");
 
         this.restartBtn = FrameUtil.createButton(this, "Restart", new Point(gamePanel.getWidth() + 80, 100), 80, 30);
         this.loadBtn = FrameUtil.createButton(this, "Load", new Point(gamePanel.getWidth() + 80, 180), 80, 30);
@@ -86,6 +90,7 @@ public class GameFrame extends JFrame {
         this.BackButn = FrameUtil.createButton(this, "Back", new Point(gamePanel.getWidth() + 80, 340), 80, 30);
         this.stepLabel = FrameUtil.createJLabel(this, "Start", new Font("serif", Font.ITALIC, 22), new Point(gamePanel.getWidth() + 80, 40), 180, 50);
         this.solveBtn = FrameUtil.createButton(this, "AI Solve", new Point(40, 500), 100, 40);
+        this.MusicBtn = FrameUtil.createButton(this, "Music", new Point(160, 500), 100, 40);
         backtowelcomeBtn = FrameUtil.createButton(this, "Exist", new Point(gamePanel.getWidth() + 70, 420), 100, 30);
 
 
@@ -124,6 +129,16 @@ public class GameFrame extends JFrame {
 
             controller.saveGame(user);
             gamePanel.requestFocusInWindow();
+        });
+
+        this.MusicBtn.addActionListener(e -> {
+                if (backgroundMusic.isPlaying()) {
+                    backgroundMusic.stop();
+                    MusicBtn.setText("Music");
+                } else {
+                    backgroundMusic.loop();
+                    MusicBtn.setText("Stop Music");
+                }
         });
 
 //退出时保存游戏

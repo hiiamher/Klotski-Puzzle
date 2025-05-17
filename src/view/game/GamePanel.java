@@ -9,6 +9,7 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import music.Music;
 
 /**
  * It is the subclass of ListenerPanel, so that it should implement those four methods: do move left, up, down ,right.
@@ -191,6 +192,8 @@ public class GamePanel extends ListenerPanel {
     }
 
     public void afterMove() {
+        Music music = new Music("击中木块.wav");
+        music.play();
         this.steps++;
         this.stepLabel.setText(String.format("Step: %d", this.steps));
         this.repaint();
@@ -256,6 +259,9 @@ public class GamePanel extends ListenerPanel {
         for (BoxComponent box : boxes) {
             if (box.getWidth() == 2 * getGRID_SIZE() && box.getHeight() == 2 * getGRID_SIZE()) {
                 if (box.getRow() == 3 && box.getCol() == 1) {
+                    Music music = new Music("胜利音效.wav");
+                    music.play();
+
                     String steps = String.format("You have completed the game in %d steps.", this.steps);
                     JOptionPane.showMessageDialog(this, "Congratulations! "+steps, "Congratulations", JOptionPane.INFORMATION_MESSAGE);
 
