@@ -17,6 +17,7 @@ import java.util.List;
 
 import static SaveAndRead.SavaAndRead.Read;
 import static SaveAndRead.SavaAndRead.Save;
+import static animation.Animation.translation;
 //>>>>>>> a11f1a71dfa5c1c019cf2bf00f5a61e93094f46b
 
 /**
@@ -166,8 +167,9 @@ public class GameController {
                     BoxComponent box = view.getSelectedBox();
                     box.setRow(nextRow);
                     box.setCol(nextCol);
-                    box.setLocation(box.getCol() * view.getGRID_SIZE() + 2, box.getRow() * view.getGRID_SIZE() + 2);
-                    box.repaint();
+                    translation( box,1,nextCol ,nextRow );
+                    //box.setLocation(box.getCol() * view.getGRID_SIZE() + 2, box.getRow() * view.getGRID_SIZE() + 2);
+                    //box.repaint();
                     return true;
                 }
             }
@@ -185,8 +187,9 @@ public class GameController {
                             BoxComponent box = view.getSelectedBox();
                             box.setRow(nextRow);
                             box.setCol(nextCol);
-                            box.setLocation(box.getCol() * view.getGRID_SIZE() + 2, box.getRow() * view.getGRID_SIZE() + 2);
-                            box.repaint();
+                            translation( box,1,nextCol ,nextRow );
+                            //box.setLocation(box.getCol() * view.getGRID_SIZE() + 2, box.getRow() * view.getGRID_SIZE() + 2);
+                           //box.repaint();
                             return true;
                         }
                         return false;
@@ -201,8 +204,9 @@ public class GameController {
                              BoxComponent box = view.getSelectedBox();
                              box.setRow(nextRow);
                              box.setCol(nextCol);
-                             box.setLocation(box.getCol() * view.getGRID_SIZE() + 2, box.getRow() * view.getGRID_SIZE() + 2);
-                             box.repaint();
+                             translation( box,1,nextCol ,nextRow );
+                             //box.setLocation(box.getCol() * view.getGRID_SIZE() + 2, box.getRow() * view.getGRID_SIZE() + 2);
+                             //box.repaint();
                              return true;
                          }
                          return false;
@@ -218,8 +222,9 @@ public class GameController {
                         BoxComponent box = view.getSelectedBox();
                         box.setRow(nextRow);
                         box.setCol(nextCol);
-                        box.setLocation(box.getCol() * view.getGRID_SIZE() + 2, box.getRow() * view.getGRID_SIZE() + 2);
-                        box.repaint();
+                        translation( box,1,nextCol ,nextRow );
+                       // box.setLocation(box.getCol() * view.getGRID_SIZE() + 2, box.getRow() * view.getGRID_SIZE() + 2);
+                       // box.repaint();
                         return true;
                     }
                     return false;
@@ -242,8 +247,9 @@ public class GameController {
                             BoxComponent box = view.getSelectedBox();
                             box.setRow(nextRow);
                             box.setCol(nextCol);
-                            box.setLocation(box.getCol() * view.getGRID_SIZE() + 2, box.getRow() * view.getGRID_SIZE() + 2);
-                            box.repaint();
+                            translation( box,1,nextCol ,nextRow );
+                           // box.setLocation(box.getCol() * view.getGRID_SIZE() + 2, box.getRow() * view.getGRID_SIZE() + 2);
+                           // box.repaint();
                             return true;
                         }
                         return false;
@@ -258,8 +264,9 @@ public class GameController {
                             BoxComponent box = view.getSelectedBox();
                             box.setRow(nextRow);
                             box.setCol(nextCol);
-                            box.setLocation(box.getCol() * view.getGRID_SIZE() + 2, box.getRow() * view.getGRID_SIZE() + 2);
-                            box.repaint();
+                            translation( box,1,nextCol ,nextRow );
+                          //  box.setLocation(box.getCol() * view.getGRID_SIZE() + 2, box.getRow() * view.getGRID_SIZE() + 2);
+                           // box.repaint();
                             return true;
                         }
                         return false;
@@ -275,8 +282,9 @@ public class GameController {
                         BoxComponent box = view.getSelectedBox();
                         box.setRow(nextRow);
                         box.setCol(nextCol);
-                        box.setLocation(box.getCol() * view.getGRID_SIZE() + 2, box.getRow() * view.getGRID_SIZE() + 2);
-                        box.repaint();
+                        translation( box,1,nextCol ,nextRow );
+                        //box.setLocation(box.getCol() * view.getGRID_SIZE() + 2, box.getRow() * view.getGRID_SIZE() + 2);
+                        //box.repaint();
                         return true;
                     }
                     return false;
@@ -299,8 +307,9 @@ public class GameController {
                         BoxComponent box = view.getSelectedBox();
                         box.setRow(nextRow);
                         box.setCol(nextCol);
-                        box.setLocation(box.getCol() * view.getGRID_SIZE() + 2, box.getRow() * view.getGRID_SIZE() + 2);
-                        box.repaint();
+                        translation( box,1,nextCol ,nextRow );
+                        //box.setLocation(box.getCol() * view.getGRID_SIZE() + 2, box.getRow() * view.getGRID_SIZE() + 2);
+                        //box.repaint();
                         return true;
                     }
                     return false;
@@ -317,8 +326,9 @@ public class GameController {
                         BoxComponent box = view.getSelectedBox();
                         box.setRow(nextRow);
                         box.setCol(nextCol);
-                        box.setLocation(box.getCol() * view.getGRID_SIZE() + 2, box.getRow() * view.getGRID_SIZE() + 2);
-                        box.repaint();
+                        translation( box,1,nextCol ,nextRow );
+                        //box.setLocation(box.getCol() * view.getGRID_SIZE() + 2, box.getRow() * view.getGRID_SIZE() + 2);
+                        //box.repaint();
                         return true;
                     }
                     return false;
@@ -335,8 +345,9 @@ public class GameController {
                         BoxComponent box = view.getSelectedBox();
                         box.setRow(nextRow);
                         box.setCol(nextCol);
-                        box.setLocation(box.getCol() * view.getGRID_SIZE() + 2, box.getRow() * view.getGRID_SIZE() + 2);
-                        box.repaint();
+                        translation( box,1,nextCol ,nextRow );
+                        //box.setLocation(box.getCol() * view.getGRID_SIZE() + 2, box.getRow() * view.getGRID_SIZE() + 2);
+                        //box.repaint();
                         return true;
                     }
                     return false;
@@ -353,8 +364,9 @@ public class GameController {
                         BoxComponent box = view.getSelectedBox();
                         box.setRow(nextRow);
                         box.setCol(nextCol);
-                        box.setLocation(box.getCol() * view.getGRID_SIZE() + 2, box.getRow() * view.getGRID_SIZE() + 2);
-                        box.repaint();
+                        translation( box,1,nextCol ,nextRow );
+                        //box.setLocation(box.getCol() * view.getGRID_SIZE() + 2, box.getRow() * view.getGRID_SIZE() + 2);
+                        //box.repaint();
                         return true;
                     }
                     return false;
