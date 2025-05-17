@@ -27,6 +27,7 @@ public class GameFrame extends JFrame {
     private JButton BackButn;
     private JFrame welcomeFrame;
     private JButton backtowelcomeBtn;
+    private JButton solveBtn;
 
     public JFrame getWelcomeFrame() {
         return welcomeFrame;
@@ -84,6 +85,7 @@ public class GameFrame extends JFrame {
         this.saveBtn = FrameUtil.createButton(this, "Save", new Point(gamePanel.getWidth() + 80, 260), 80, 30);
         this.BackButn = FrameUtil.createButton(this, "Back", new Point(gamePanel.getWidth() + 80, 340), 80, 30);
         this.stepLabel = FrameUtil.createJLabel(this, "Start", new Font("serif", Font.ITALIC, 22), new Point(gamePanel.getWidth() + 80, 40), 180, 50);
+        this.solveBtn = FrameUtil.createButton(this, "AI Solve", new Point(40, 500), 100, 40);
         backtowelcomeBtn = FrameUtil.createButton(this, "Exist", new Point(gamePanel.getWidth() + 70, 420), 100, 30);
 
 

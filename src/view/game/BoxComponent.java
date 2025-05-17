@@ -29,6 +29,8 @@ public class BoxComponent extends JComponent {
 
 
 
+
+
     public BoxComponent(Color color, int row, int col, GamePanel gamePanel) {
         this.color = color;
         this.row = row;

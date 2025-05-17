@@ -6,11 +6,12 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Animation{
+public class Animation {
 
 
     public static void translation(BoxComponent box, int speed, int targetcol, int targetrow) {
 
+        box.getGamePanel().setFocusable(false);
 
         Timer timer = new Timer(5, new ActionListener() {
             final int gridSize = box.getGamePanel().getGRID_SIZE();
@@ -20,6 +21,7 @@ public class Animation{
             boolean increasing = false;
             int currentSpeed = speed;
             final int speedStep = 2;
+
             @Override
             public void actionPerformed(ActionEvent e) {
                 int targetX = targetcol * gridSize + 2;
@@ -65,10 +67,14 @@ public class Animation{
                 }
 
                 // 检查是否到达目标位置
-                if (currentX == targetX && currentY == targetY) {
+                if (currentX <= targetX + 2 && currentX >= targetX - 2 && currentY <= targetY + 2 && currentY >= targetY - 2) {
+
+
                     ((Timer) e.getSource()).stop();
-                    // 恢复透明度
+                    box.setLocation(targetX, targetY);
                     box.setAlpha(1.0f);
+                    box.getGamePanel().setFocusable(true);
+                    box.getGamePanel().requestFocus();
                 }
                 box.repaint();
             }
@@ -77,44 +83,6 @@ public class Animation{
         timer.start();
     }
 
-
-
-//普通平移
-  /*  public static void translation(BoxComponent box,int speed,int targetcol ,int targetrow ) {
-
-        final int gridSize = box.getGamePanel().getGRID_SIZE(); // 修复字段可能为 final 的问题
-        Timer timer = new Timer(20, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int targetX = targetcol * gridSize + 2;
-                int targetY = targetrow * gridSize + 2;
-                int currentX = box.getX();
-                int currentY = box.getY();
-
-                // 水平移动
-                if (currentX < targetX) {
-                    box.setLocation(currentX + Math.min(speed, targetX - currentX), currentY);
-                } else if (currentX > targetX) {
-                    box.setLocation(currentX - Math.min(speed, currentX - targetX), currentY);
-                }
-
-                // 垂直移动
-                if (currentY < targetY) {
-                    box.setLocation(currentX, currentY + Math.min(speed, targetY - currentY));
-                } else if (currentY > targetY) {
-                    box.setLocation(currentX, currentY - Math.min(speed, currentY - targetY));
-                }
-
-                // 检查是否到达目标位置
-                if (currentX == targetX && currentY == targetY) {
-                    ((Timer) e.getSource()).stop();
-                }
-                box.repaint();
-            }
-        });
-
-        timer.start();
-    }*/
 
 }
 

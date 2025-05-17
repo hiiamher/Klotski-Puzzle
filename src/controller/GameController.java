@@ -167,7 +167,7 @@ public class GameController {
                     BoxComponent box = view.getSelectedBox();
                     box.setRow(nextRow);
                     box.setCol(nextCol);
-                    translation( box,1,nextCol ,nextRow );
+                    translation( box,3,nextCol ,nextRow );
                     //box.setLocation(box.getCol() * view.getGRID_SIZE() + 2, box.getRow() * view.getGRID_SIZE() + 2);
                     //box.repaint();
                     return true;
@@ -187,7 +187,7 @@ public class GameController {
                             BoxComponent box = view.getSelectedBox();
                             box.setRow(nextRow);
                             box.setCol(nextCol);
-                            translation( box,1,nextCol ,nextRow );
+                            translation( box,3,nextCol ,nextRow );
                             //box.setLocation(box.getCol() * view.getGRID_SIZE() + 2, box.getRow() * view.getGRID_SIZE() + 2);
                            //box.repaint();
                             return true;
@@ -204,7 +204,7 @@ public class GameController {
                              BoxComponent box = view.getSelectedBox();
                              box.setRow(nextRow);
                              box.setCol(nextCol);
-                             translation( box,1,nextCol ,nextRow );
+                             translation( box,3,nextCol ,nextRow );
                              //box.setLocation(box.getCol() * view.getGRID_SIZE() + 2, box.getRow() * view.getGRID_SIZE() + 2);
                              //box.repaint();
                              return true;
@@ -222,7 +222,7 @@ public class GameController {
                         BoxComponent box = view.getSelectedBox();
                         box.setRow(nextRow);
                         box.setCol(nextCol);
-                        translation( box,1,nextCol ,nextRow );
+                        translation( box,3,nextCol ,nextRow );
                        // box.setLocation(box.getCol() * view.getGRID_SIZE() + 2, box.getRow() * view.getGRID_SIZE() + 2);
                        // box.repaint();
                         return true;
@@ -247,7 +247,7 @@ public class GameController {
                             BoxComponent box = view.getSelectedBox();
                             box.setRow(nextRow);
                             box.setCol(nextCol);
-                            translation( box,1,nextCol ,nextRow );
+                            translation( box,3,nextCol ,nextRow );
                            // box.setLocation(box.getCol() * view.getGRID_SIZE() + 2, box.getRow() * view.getGRID_SIZE() + 2);
                            // box.repaint();
                             return true;
@@ -264,7 +264,7 @@ public class GameController {
                             BoxComponent box = view.getSelectedBox();
                             box.setRow(nextRow);
                             box.setCol(nextCol);
-                            translation( box,1,nextCol ,nextRow );
+                            translation( box,3,nextCol ,nextRow );
                           //  box.setLocation(box.getCol() * view.getGRID_SIZE() + 2, box.getRow() * view.getGRID_SIZE() + 2);
                            // box.repaint();
                             return true;
@@ -282,7 +282,7 @@ public class GameController {
                         BoxComponent box = view.getSelectedBox();
                         box.setRow(nextRow);
                         box.setCol(nextCol);
-                        translation( box,1,nextCol ,nextRow );
+                        translation( box,3,nextCol ,nextRow );
                         //box.setLocation(box.getCol() * view.getGRID_SIZE() + 2, box.getRow() * view.getGRID_SIZE() + 2);
                         //box.repaint();
                         return true;
@@ -307,7 +307,7 @@ public class GameController {
                         BoxComponent box = view.getSelectedBox();
                         box.setRow(nextRow);
                         box.setCol(nextCol);
-                        translation( box,1,nextCol ,nextRow );
+                        translation( box,3,nextCol ,nextRow );
                         //box.setLocation(box.getCol() * view.getGRID_SIZE() + 2, box.getRow() * view.getGRID_SIZE() + 2);
                         //box.repaint();
                         return true;
@@ -326,7 +326,7 @@ public class GameController {
                         BoxComponent box = view.getSelectedBox();
                         box.setRow(nextRow);
                         box.setCol(nextCol);
-                        translation( box,1,nextCol ,nextRow );
+                        translation( box,3,nextCol ,nextRow );
                         //box.setLocation(box.getCol() * view.getGRID_SIZE() + 2, box.getRow() * view.getGRID_SIZE() + 2);
                         //box.repaint();
                         return true;
@@ -345,7 +345,7 @@ public class GameController {
                         BoxComponent box = view.getSelectedBox();
                         box.setRow(nextRow);
                         box.setCol(nextCol);
-                        translation( box,1,nextCol ,nextRow );
+                        translation( box,3,nextCol ,nextRow );
                         //box.setLocation(box.getCol() * view.getGRID_SIZE() + 2, box.getRow() * view.getGRID_SIZE() + 2);
                         //box.repaint();
                         return true;
@@ -364,7 +364,7 @@ public class GameController {
                         BoxComponent box = view.getSelectedBox();
                         box.setRow(nextRow);
                         box.setCol(nextCol);
-                        translation( box,1,nextCol ,nextRow );
+                        translation( box,3,nextCol ,nextRow );
                         //box.setLocation(box.getCol() * view.getGRID_SIZE() + 2, box.getRow() * view.getGRID_SIZE() + 2);
                         //box.repaint();
                         return true;
