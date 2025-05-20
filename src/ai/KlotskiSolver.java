@@ -27,7 +27,6 @@ public class KlotskiSolver {
         int count = 0;
 
 
-
         while (lastNode == null) {
             count++;
             // 求出所有的邻居节点
@@ -44,11 +43,12 @@ public class KlotskiSolver {
                     break;
                 }
             }
+            //去除重复节点
             openSet2=removeSameNode(openSet2);
-            //取出优先级高的节点,并存入openSet1中
-            List<PuzzleNode> b = getsmallfnode(openSet2);
+
+            //List<PuzzleNode> b = getsmallfnode(openSet2);
             openSet1.clear();
-            for (PuzzleNode node1 : b) {
+            for (PuzzleNode node1 : openSet2) {
                 openSet1.add(node1);
             }
 
