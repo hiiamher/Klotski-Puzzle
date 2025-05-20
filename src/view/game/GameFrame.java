@@ -142,6 +142,8 @@ public class GameFrame extends JFrame {
         //给aiSolveButton添加事件监听器，当点击按钮时，调用KlotskiSolver.solve()方法求解游戏 并显示解决方案步骤
         aiSolveButton.addActionListener(e -> {
 
+            this.aiSolveButton.setEnabled(false);
+
 
             int[][] currentState = copyMatrix(mapModel.getMatrix());
             List<int[][]> solution = KlotskiSolver.solve(currentState);
@@ -154,6 +156,8 @@ public class GameFrame extends JFrame {
             } else {
                 JOptionPane.showMessageDialog(this, "No solution found", "Error", JOptionPane.ERROR_MESSAGE);
             }
+
+            this.aiSolveButton.setEnabled(true);
         });
 
         //音乐按钮
