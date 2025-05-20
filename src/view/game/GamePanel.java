@@ -70,9 +70,8 @@ public class GamePanel extends ListenerPanel {
         //copy a map
         int[][] map = new int[matrix.length][matrix[0].length];
         for (int i = 0; i < map.length; i++) {
-            for (int j = 0; j < map[0].length; j++) {
-                map[i][j] = matrix[i][j];
-            }
+            // 使用 System.arraycopy 替代手动复制
+            System.arraycopy(matrix[i], 0, map[i], 0, map[i].length);
         }
         //build Component
         for (int i = 0; i < map.length; i++) {
@@ -82,17 +81,17 @@ public class GamePanel extends ListenerPanel {
                     box = new BoxComponent(Color.ORANGE, i, j, this);
                     box.setSize(GRID_SIZE, GRID_SIZE);
                     map[i][j] = 0;
-                } else if (map[i][j] == 2) {
+                } else if (map[i][j] == 2 && j + 1 < map[0].length) { // 检查列边界
                     box = new BoxComponent(Color.PINK, i, j, this);
                     box.setSize(GRID_SIZE * 2, GRID_SIZE);
                     map[i][j] = 0;
                     map[i][j + 1] = 0;
-                } else if (map[i][j] == 3) {
+                } else if (map[i][j] == 3 && i + 1 < map.length) { // 检查行边界
                     box = new BoxComponent(Color.BLUE, i, j, this);
                     box.setSize(GRID_SIZE, GRID_SIZE * 2);
                     map[i][j] = 0;
                     map[i + 1][j] = 0;
-                } else if (map[i][j] == 4) {
+                } else if (map[i][j] == 4 && i + 1 < map.length && j + 1 < map[0].length) { // 检查行和列边界
                     box = new BoxComponent(Color.GREEN, i, j, this);
                     box.setSize(GRID_SIZE * 2, GRID_SIZE * 2);
                     map[i][j] = 0;
@@ -124,7 +123,6 @@ public class GamePanel extends ListenerPanel {
 
     //点击后变为选中状态，再次点击取消选中状态
     public void doMouseClick(Point point) {
-        this.requestFocusInWindow();
         Component component = this.getComponentAt(point);
         if (component instanceof BoxComponent clickedComponent) {
             if (selectedBox == null) {
@@ -139,6 +137,7 @@ public class GamePanel extends ListenerPanel {
                 selectedBox = null;
             }
         }
+        this.requestFocusInWindow();
     }
 
     @Override
