@@ -9,6 +9,7 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+
 import music.Music;
 
 /**
@@ -43,17 +44,15 @@ public class GamePanel extends ListenerPanel {
         this.setSize(model.getWidth() * GRID_SIZE + 4, model.getHeight() * GRID_SIZE + 4);
         this.model = model;
         this.selectedBox = null;
-//<<<<<<< HEAD
+
 
         //初始化游戏界面
-        //initialGame();
-        //this.controller = new GameController(this, model);
-//=======
         initialGame(model.getMatrix());
-//>>>>>>> a11f1a71dfa5c1c019cf2bf00f5a61e93094f46b
+
     }
 
-    /*
+
+/*
                         {1, 2, 2, 1, 1},
                         {3, 4, 4, 2, 2},
                         {3, 4, 4, 1, 0},
@@ -215,7 +214,6 @@ public class GamePanel extends ListenerPanel {
     }
 
 
-
     public void clearAllBoxFromPanel() {
         for (BoxComponent box : boxes) {
             removeBoxFromPanel(box);
@@ -231,6 +229,15 @@ public class GamePanel extends ListenerPanel {
     }
 
 
+    public MapModel getModel() {
+        return model;
+    }
+
+    public void setModel(MapModel model) {
+        this.model = model;
+    }
+
+
     public void setController(GameController controller) {
         this.controller = controller;
     }
@@ -239,8 +246,20 @@ public class GamePanel extends ListenerPanel {
         return selectedBox;
     }
 
+    public void setSelectedBox(BoxComponent selectedBox) {
+        this.selectedBox = selectedBox;
+    }
+
     public int getGRID_SIZE() {
         return GRID_SIZE;
+    }
+
+    public List<BoxComponent> getBoxes() {
+        return boxes;
+    }
+
+    public void setBoxes(List<BoxComponent> boxes) {
+        this.boxes = boxes;
     }
 
     public void withDraw() {
@@ -263,7 +282,7 @@ public class GamePanel extends ListenerPanel {
                     music.play();
 
                     String steps = String.format("You have completed the game in %d steps.", this.steps);
-                    JOptionPane.showMessageDialog(this, "Congratulations! "+steps, "Congratulations", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Congratulations! " + steps, "Congratulations", JOptionPane.INFORMATION_MESSAGE);
 
                 }
             }

@@ -86,6 +86,10 @@ public class MapModel {
         return matrix;
     }
 
+    public MapModel clone(){
+        return new MapModel(matrix);
+    }
+
     public boolean checkInWidthSize(int col) {
         return col >= 0 && col < matrix[0].length;
     }

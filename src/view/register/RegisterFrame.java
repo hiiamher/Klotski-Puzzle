@@ -61,7 +61,7 @@ public class RegisterFrame extends JFrame {
                     JOptionPane.showMessageDialog(this, "Registered successfully ", "congratulation", JOptionPane.INFORMATION_MESSAGE);
                 }
 
-                LoginFrame loginFrame = new LoginFrame(280, 280);
+                LoginFrame loginFrame = new LoginFrame(400, 280);
                 loginFrame.setVisible(true);
                 this.setVisible(false);
             }

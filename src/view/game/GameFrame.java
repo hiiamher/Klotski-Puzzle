@@ -13,6 +13,13 @@ import java.awt.*;
 
 import static SaveAndRead.SavaAndRead.isExist;
 
+import ai.KlotskiSolver;
+import view.showsolution.ShowSolution;
+
+import java.util.Arrays;
+import java.util.List;
+
+
 public class GameFrame extends JFrame {
 
     private GameController controller;
@@ -28,7 +35,7 @@ public class GameFrame extends JFrame {
     private JButton BackButn;
     private JFrame welcomeFrame;
     private JButton backtowelcomeBtn;
-    private JButton solveBtn;
+    private JButton aiSolveButton;
     private JButton MusicBtn;
     public Music backgroundMusic;
 
@@ -89,7 +96,7 @@ public class GameFrame extends JFrame {
         this.saveBtn = FrameUtil.createButton(this, "Save", new Point(gamePanel.getWidth() + 80, 260), 80, 30);
         this.BackButn = FrameUtil.createButton(this, "Back", new Point(gamePanel.getWidth() + 80, 340), 80, 30);
         this.stepLabel = FrameUtil.createJLabel(this, "Start", new Font("serif", Font.ITALIC, 22), new Point(gamePanel.getWidth() + 80, 40), 180, 50);
-        this.solveBtn = FrameUtil.createButton(this, "AI Solve", new Point(40, 500), 100, 40);
+        this.aiSolveButton = FrameUtil.createButton(this, "AI Solve", new Point(40, 500), 100, 40);
         this.MusicBtn = FrameUtil.createButton(this, "Music", new Point(160, 500), 100, 40);
         backtowelcomeBtn = FrameUtil.createButton(this, "Exist", new Point(gamePanel.getWidth() + 70, 420), 100, 30);
 
@@ -131,6 +138,25 @@ public class GameFrame extends JFrame {
             gamePanel.requestFocusInWindow();
         });
 
+        //ai 算法
+        //给aiSolveButton添加事件监听器，当点击按钮时，调用KlotskiSolver.solve()方法求解游戏 并显示解决方案步骤
+        aiSolveButton.addActionListener(e -> {
+
+
+            int[][] currentState = copyMatrix(mapModel.getMatrix());
+            List<int[][]> solution = KlotskiSolver.solve(currentState);
+
+            if (solution != null) {
+
+                ShowSolution showSolution = new ShowSolution(this, solution);
+                showSolution.setVisible(true);
+
+            } else {
+                JOptionPane.showMessageDialog(this, "No solution found", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        });
+
+        //音乐按钮
         this.MusicBtn.addActionListener(e -> {
                 if (backgroundMusic.isPlaying()) {
                     backgroundMusic.stop();
@@ -165,6 +191,7 @@ public class GameFrame extends JFrame {
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
+
     }
 
 
@@ -176,7 +203,23 @@ public class GameFrame extends JFrame {
         return loadBtn;
     }
 
-
+    public GamePanel getGamePanel() {
+        return gamePanel;
     }
+
+    public void setGamePanel(GamePanel gamePanel) {
+        this.gamePanel = gamePanel;
+    }
+
+    public int[][] copyMatrix(int[][] matrix) {
+        int[][] copy = new int[matrix.length][matrix[0].length];
+        for (int i = 0; i < matrix.length; i++) {
+            System.arraycopy(matrix[i], 0, copy[i], 0, matrix[i].length);
+        }
+        return copy;
+    }
+
+
+}
 
 
