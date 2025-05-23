@@ -59,7 +59,9 @@ public class LoginFrame extends JFrame {
                 //todo: check login info
                 if (UserController.validateUser(username.getText(), password.getText())) {
                     User user = new User(username.getText(), password.getText());
-                    MapModel mapModel = new MapModel(new int[][]{
+                    MapModel mapModel = new MapModel(new int[][]
+
+                            {
                            /* {3, 4, 4, 3},
                             {3, 4, 4, 3},
                             {3, 2, 2, 3},

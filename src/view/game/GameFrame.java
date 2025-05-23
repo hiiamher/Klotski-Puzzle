@@ -14,6 +14,7 @@ import java.awt.*;
 import static SaveAndRead.SavaAndRead.isExist;
 
 import ai.KlotskiSolver;
+import view.gamelevel.GameLevel;
 import view.showsolution.ShowSolution;
 
 import java.util.Arrays;
@@ -37,6 +38,7 @@ public class GameFrame extends JFrame {
     private JButton backtowelcomeBtn;
     private JButton aiSolveButton;
     private JButton MusicBtn;
+    private JButton levelBtn;
     public Music backgroundMusic;
 
     public JFrame getWelcomeFrame() {
@@ -96,9 +98,10 @@ public class GameFrame extends JFrame {
         this.saveBtn = FrameUtil.createButton(this, "Save", new Point(gamePanel.getWidth() + 80, 260), 80, 30);
         this.BackButn = FrameUtil.createButton(this, "Back", new Point(gamePanel.getWidth() + 80, 340), 80, 30);
         this.stepLabel = FrameUtil.createJLabel(this, "Start", new Font("serif", Font.ITALIC, 22), new Point(gamePanel.getWidth() + 80, 40), 180, 50);
+        this.levelBtn = FrameUtil.createButton(this, "Level", new Point(gamePanel.getWidth() + 80, 420), 80, 30);
         this.aiSolveButton = FrameUtil.createButton(this, "AI Solve", new Point(40, 500), 100, 40);
         this.MusicBtn = FrameUtil.createButton(this, "Music", new Point(160, 500), 100, 40);
-        backtowelcomeBtn = FrameUtil.createButton(this, "Exist", new Point(gamePanel.getWidth() + 70, 420), 100, 30);
+        backtowelcomeBtn = FrameUtil.createButton(this, "Exist", new Point(gamePanel.getWidth() + 70, 480), 100, 30);
 
 
         this.userLabel = FrameUtil.createJLabel(this, user.getUsername(), new Font("serif", Font.ITALIC, 22), new Point(gamePanel.getWidth() + 80, 15), 180, 50);
@@ -184,6 +187,19 @@ public class GameFrame extends JFrame {
                 // 关闭窗口
                 GameFrame.this.dispose();
             }
+        });
+
+        this.levelBtn.addActionListener(e -> {
+            GameLevel gameLevel = new GameLevel(600, 400);
+            gameLevel.setVisible(true);
+            gameLevel.setGamePanel(gamePanel);
+            gameLevel.setController(controller);
+            gameLevel.setGameFrame(this);
+            gameLevel.setModel( mapModel);
+            gameLevel.setUser(user);
+
+
+
         });
 
 

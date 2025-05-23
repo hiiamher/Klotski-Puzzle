@@ -130,28 +130,31 @@ public class GameController {
             System.err.println("文件读取失败: " + e.getMessage());
             JOptionPane.showMessageDialog(
                     gameframe,
-                    "文件读取失败: " + e.getMessage()+"点击Sava按钮覆盖保存",
+                    "文件读取失败: " + e.getMessage()+"已覆盖保存",
                     "文件读取错误",
                     JOptionPane.ERROR_MESSAGE
             );
+            this.saveGame(user);
         } catch (NumberFormatException e) {
             // 处理字符串转换为整数时的异常，弹出错误提示框
             System.err.println("数据格式错误: " + e.getMessage());
             JOptionPane.showMessageDialog(
                     gameframe,
-                    "数据格式错误: " + e.getMessage()+"点击Sava按钮覆盖保存",
+                    "数据格式错误: " + e.getMessage()+"已覆盖保存",
                     "数据格式错误",
                     JOptionPane.ERROR_MESSAGE
             );
+            this.saveGame(user);
         } catch (Exception e) {
             // 处理其他未预料到的异常，弹出错误提示框
             System.err.println("发生未知错误: " + e.getMessage());
             JOptionPane.showMessageDialog(
                     gameframe,
-                    "发生未知错误: " + e.getMessage()+"点击Sava按钮覆盖保存",
+                    "发生未知错误: " + e.getMessage()+"已覆盖保存",
                     "未知错误",
                     JOptionPane.ERROR_MESSAGE
             );
+            this.saveGame(user);
         }
 
     }

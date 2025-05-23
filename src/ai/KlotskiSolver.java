@@ -53,7 +53,7 @@ public class KlotskiSolver {
             }
 
             //数值不确定
-            if (count == -1) {
+            if (count == 100000) {
                 System.out.println("无法求解");
                 return null;
             }
