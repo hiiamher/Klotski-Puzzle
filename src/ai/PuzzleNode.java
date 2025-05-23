@@ -109,6 +109,13 @@ class PuzzleNode implements Comparable<PuzzleNode> {
         this.state = state;
     }
 
+    public int getSteps() {
+        return steps;
+    }
+
+    public void setSteps(int steps) {
+        this.steps = steps;
+    }
 
     @Override
     public int compareTo(PuzzleNode other) {

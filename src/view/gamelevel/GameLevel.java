@@ -41,15 +41,58 @@ public class GameLevel extends JFrame{
 
         level1.addActionListener(e -> {
 
+            int[][] map1 = new int[][]{
+                    {3, 4, 4, 3},
+                    {3, 4, 4, 3},
+                    {3, 2, 2, 3},
+                    {3, 1, 1, 3},
+                    {1, 0, 0, 1}
+            };
+
+            this.model.setMatrix(map1);
+            this.model.setOriginalMatrix(map1);
+            this.gamePanel.clearAllBoxFromPanel();
+            this.gamePanel.initialGame(map1);
+
+
+
 
 
         });
 
         level2.addActionListener(e -> {
 
+            int[][] map1 = new int[][]{
+                    {0, 1, 1, 3},
+                    {0, 4, 4, 3},
+                    {0, 4, 4, 1},
+                    {0, 1, 1, 1},
+                    {1, 0, 0, 1}
+            };
+
+            this.model.setMatrix(map1);
+            this.model.setOriginalMatrix(map1);
+            this.gamePanel.clearAllBoxFromPanel();
+            this.gamePanel.initialGame(map1);
+
+
         });
 
         level3.addActionListener(e -> {
+
+            int[][] map1 = new int[][]{
+                    {3, 4, 4, 3},
+                    {3, 4, 4, 3},
+                    {3, 1, 1, 1},
+                    {3, 1, 1, 1},
+                    {1, 0, 0, 1}
+            };
+
+            this.model.setMatrix(map1);
+            this.model.setOriginalMatrix(map1);
+            this.gamePanel.clearAllBoxFromPanel();
+            this.gamePanel.initialGame(map1);
+
 
         });
 

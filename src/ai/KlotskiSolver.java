@@ -34,7 +34,7 @@ public class KlotskiSolver {
             for (PuzzleNode node1 : openSet1) {
                 List<PuzzleNode> a = getNeighborNodes(node1);
                 for (PuzzleNode node2 : a) {
-                    openSet2.add(node2);
+                        openSet2.add(node2);
                 }
             }
             for (PuzzleNode node3 : openSet2) {
@@ -44,7 +44,7 @@ public class KlotskiSolver {
                 }
             }
             //去除重复节点
-            openSet2=removeSameNode(openSet2);
+            openSet2 = removeSameNode(openSet2);
 
             //List<PuzzleNode> b = getsmallfnode(openSet2);
             openSet1.clear();
@@ -60,7 +60,7 @@ public class KlotskiSolver {
 
         }
 
-        solutions=reconstructPath(lastNode);
+        solutions = reconstructPath(lastNode);
         return solutions;
 
 
