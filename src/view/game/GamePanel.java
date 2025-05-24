@@ -7,6 +7,7 @@ import model.MapModel;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 import music.Music;
@@ -43,14 +44,8 @@ public class GamePanel extends ListenerPanel {
         this.setSize(model.getWidth() * GRID_SIZE + 4, model.getHeight() * GRID_SIZE + 4);
         this.model = model;
         this.selectedBox = null;
-//<<<<<<< HEAD
 
-        //初始化游戏界面
-        //initialGame();
-        //this.controller = new GameController(this, model);
-//=======
         initialGame(model.getMatrix());
-//>>>>>>> a11f1a71dfa5c1c019cf2bf00f5a61e93094f46b
     }
 
     /*
@@ -80,21 +75,25 @@ public class GamePanel extends ListenerPanel {
             for (int j = 0; j < map[0].length; j++) {
                 BoxComponent box = null;
                 if (map[i][j] == 1) {
-                    box = new BoxComponent(Color.ORANGE, i, j, this);
+                    BufferedImage image = ImageLoader.loadImage("src/小兵.jpg");
+                    box = new BoxComponent(Color.ORANGE, i, j, this,image);
                     box.setSize(GRID_SIZE, GRID_SIZE);
                     map[i][j] = 0;
                 } else if (map[i][j] == 2) {
-                    box = new BoxComponent(Color.PINK, i, j, this);
+                    BufferedImage image = ImageLoader.loadImage("src/关羽.jpg");
+                    box = new BoxComponent(Color.PINK, i, j, this,image);
                     box.setSize(GRID_SIZE * 2, GRID_SIZE);
                     map[i][j] = 0;
                     map[i][j + 1] = 0;
                 } else if (map[i][j] == 3) {
-                    box = new BoxComponent(Color.BLUE, i, j, this);
+                    BufferedImage image = ImageLoader.loadImage("src/马超.jpg");
+                    box = new BoxComponent(Color.BLUE, i, j, this,image);
                     box.setSize(GRID_SIZE, GRID_SIZE * 2);
                     map[i][j] = 0;
                     map[i + 1][j] = 0;
                 } else if (map[i][j] == 4) {
-                    box = new BoxComponent(Color.GREEN, i, j, this);
+                    BufferedImage image = ImageLoader.loadImage("src/曹操.jpg");
+                    box = new BoxComponent(Color.GREEN, i, j, this,image);
                     box.setSize(GRID_SIZE * 2, GRID_SIZE * 2);
                     map[i][j] = 0;
                     map[i + 1][j] = 0;

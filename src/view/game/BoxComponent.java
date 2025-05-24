@@ -3,6 +3,7 @@ package view.game;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class BoxComponent extends JComponent {
     private Color color;
@@ -10,6 +11,7 @@ public class BoxComponent extends JComponent {
     private int col;
     private boolean isSelected;
     private float alpha = 1.0f;
+    private BufferedImage image;
 
 
     private GamePanel gamePanel;
@@ -31,11 +33,14 @@ public class BoxComponent extends JComponent {
 
 
 
-    public BoxComponent(Color color, int row, int col, GamePanel gamePanel) {
+
+
+    public BoxComponent(Color color, int row, int col, GamePanel gamePanel, BufferedImage image) {
         this.color = color;
         this.row = row;
         this.col = col;
         this.gamePanel = gamePanel;
+        this.image = image;
         isSelected = false;
     }
 
@@ -53,6 +58,9 @@ public class BoxComponent extends JComponent {
             border = BorderFactory.createLineBorder(Color.DARK_GRAY, 1);
         }
         this.setBorder(border);
+        if (image!= null) {
+            g2d.drawImage(image, 0, 0, getWidth(), getHeight(), null);
+        }
         g2d.dispose();
     }
 
