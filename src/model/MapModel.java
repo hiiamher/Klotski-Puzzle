@@ -14,6 +14,13 @@ public class MapModel {
         this.originalMatrix = copyMatrix(matrix);
     }
 
+    public int[][] getOriginalMatrix() {
+        return originalMatrix;
+    }
+
+    public void setOriginalMatrix(int[][] originalMatrix) {
+        this.originalMatrix = originalMatrix;
+    }
 
     //用原矩阵恢复矩阵的方法
     public void resetOriginalMatrix() {
@@ -84,6 +91,10 @@ public class MapModel {
 
     public int[][] getMatrix() {
         return matrix;
+    }
+
+    public MapModel clone(){
+        return new MapModel(matrix);
     }
 
     public boolean checkInWidthSize(int col) {

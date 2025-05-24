@@ -30,6 +30,7 @@ public class RegisterFrame extends JFrame {
     public RegisterFrame(int width, int height) {
         this.setTitle("Register Frame");
         this.setLayout(null);
+        this.setLocation(width / 2 - width / 4, height / 2 - height / 4);
         this.setSize(width, height);
         JLabel userLabel = FrameUtil.createJLabel(this, new Point(50, 20), 70, 40, "username:");
         JLabel passLabel = FrameUtil.createJLabel(this, new Point(50, 80), 70, 40, "password:");
@@ -61,7 +62,7 @@ public class RegisterFrame extends JFrame {
                     JOptionPane.showMessageDialog(this, "Registered successfully ", "congratulation", JOptionPane.INFORMATION_MESSAGE);
                 }
 
-                LoginFrame loginFrame = new LoginFrame(280, 280);
+                LoginFrame loginFrame = new LoginFrame(400, 280);
                 loginFrame.setVisible(true);
                 this.setVisible(false);
             }

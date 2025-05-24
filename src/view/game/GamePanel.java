@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
+
 import music.Music;
 
 /**
@@ -45,10 +46,11 @@ public class GamePanel extends ListenerPanel {
         this.model = model;
         this.selectedBox = null;
 
+        //初始化游戏界面
         initialGame(model.getMatrix());
     }
 
-    /*
+/*
                         {1, 2, 2, 1, 1},
                         {3, 4, 4, 2, 2},
                         {3, 4, 4, 1, 0},
@@ -79,6 +81,8 @@ public class GamePanel extends ListenerPanel {
                     box = new BoxComponent(Color.ORANGE, i, j, this,image);
                     box.setSize(GRID_SIZE, GRID_SIZE);
                     map[i][j] = 0;
+                } else if (map[i][j] == 2 && j + 1 < map[0].length) { // 检查列边界
+                    box = new BoxComponent(Color.PINK, i, j, this);
                 } else if (map[i][j] == 2) {
                     BufferedImage image = ImageLoader.loadImage("src/关羽.jpg");
                     box = new BoxComponent(Color.PINK, i, j, this,image);
@@ -88,12 +92,16 @@ public class GamePanel extends ListenerPanel {
                 } else if (map[i][j] == 3) {
                     BufferedImage image = ImageLoader.loadImage("src/马超.jpg");
                     box = new BoxComponent(Color.BLUE, i, j, this,image);
+                } else if (map[i][j] == 3 && i + 1 < map.length) { // 检查行边界
+                    box = new BoxComponent(Color.BLUE, i, j, this);
                     box.setSize(GRID_SIZE, GRID_SIZE * 2);
                     map[i][j] = 0;
                     map[i + 1][j] = 0;
                 } else if (map[i][j] == 4) {
                     BufferedImage image = ImageLoader.loadImage("src/曹操.jpg");
                     box = new BoxComponent(Color.GREEN, i, j, this,image);
+                } else if (map[i][j] == 4 && i + 1 < map.length && j + 1 < map[0].length) { // 检查行和列边界
+                    box = new BoxComponent(Color.GREEN, i, j, this);
                     box.setSize(GRID_SIZE * 2, GRID_SIZE * 2);
                     map[i][j] = 0;
                     map[i + 1][j] = 0;
@@ -124,7 +132,6 @@ public class GamePanel extends ListenerPanel {
 
     //点击后变为选中状态，再次点击取消选中状态
     public void doMouseClick(Point point) {
-        this.requestFocusInWindow();
         Component component = this.getComponentAt(point);
         if (component instanceof BoxComponent clickedComponent) {
             if (selectedBox == null) {
@@ -139,6 +146,7 @@ public class GamePanel extends ListenerPanel {
                 selectedBox = null;
             }
         }
+        this.requestFocusInWindow();
     }
 
     @Override
@@ -214,7 +222,6 @@ public class GamePanel extends ListenerPanel {
     }
 
 
-
     public void clearAllBoxFromPanel() {
         for (BoxComponent box : boxes) {
             removeBoxFromPanel(box);
@@ -230,6 +237,15 @@ public class GamePanel extends ListenerPanel {
     }
 
 
+    public MapModel getModel() {
+        return model;
+    }
+
+    public void setModel(MapModel model) {
+        this.model = model;
+    }
+
+
     public void setController(GameController controller) {
         this.controller = controller;
     }
@@ -238,8 +254,20 @@ public class GamePanel extends ListenerPanel {
         return selectedBox;
     }
 
+    public void setSelectedBox(BoxComponent selectedBox) {
+        this.selectedBox = selectedBox;
+    }
+
     public int getGRID_SIZE() {
         return GRID_SIZE;
+    }
+
+    public List<BoxComponent> getBoxes() {
+        return boxes;
+    }
+
+    public void setBoxes(List<BoxComponent> boxes) {
+        this.boxes = boxes;
     }
 
     public void withDraw() {
@@ -262,7 +290,7 @@ public class GamePanel extends ListenerPanel {
                     music.play();
 
                     String steps = String.format("You have completed the game in %d steps.", this.steps);
-                    JOptionPane.showMessageDialog(this, "Congratulations! "+steps, "Congratulations", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Congratulations! " + steps, "Congratulations", JOptionPane.INFORMATION_MESSAGE);
 
                 }
             }

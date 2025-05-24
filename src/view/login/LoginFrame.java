@@ -55,37 +55,37 @@ public class LoginFrame extends JFrame {
             System.out.println("Username = " + username.getText());
             System.out.println("Password = " + password.getText());
 
-            if(isDirectoryExistsUsingFile(String.format("save/%s", username.getText()))){
+            if (isDirectoryExistsUsingFile(String.format("save/%s", username.getText()))) {
                 //todo: check login info
                 if (UserController.validateUser(username.getText(), password.getText())) {
                     User user = new User(username.getText(), password.getText());
                     MapModel mapModel = new MapModel(new int[][]{
-                            {3, 4, 4, 3},
-                            {3, 4, 4, 3},
-                            {3, 2, 2, 3},
-                            {3, 1, 1, 3},
-                            {1, 0, 0, 1}
-                            /*   {0, 1, 1, 1},
-                               {0, 1, 1, 1},
-                               {0, 0, 0, 1},
-                               {0, 4, 4, 1},
-                               {1, 4, 4, 1}*/
-                    });
+                                    {3, 4, 4, 3},
+                                    {3, 4, 4, 3},
+                                    {3, 2, 2, 3},
+                                    {3, 1, 1, 3},
+                                    {1, 0, 0, 1}
+                                    /*    {0, 1, 1, 1},
+                                        {0, 1, 1, 1},
+                                        {0, 4, 4, 1},
+                                        {0, 4, 4, 1},
+                                        {1, 0, 0, 1}*/
+                            });
                     //保存初始地图
-                    String path0 = String.format("save/%s/path/%d", user.getUsername(),0);
+                    String path0 = String.format("save/%s/path/%d", user.getUsername(), 0);
                     File dir0 = new File(path0);
                     dir0.mkdirs();
                     int[][] map0 = mapModel.getMatrix();
                     List<String> gameData0 = new ArrayList<>();
                     StringBuilder sb0 = new StringBuilder();
-                    for(int[] line : map0) {
-                        for(int value:line){
+                    for (int[] line : map0) {
+                        for (int value : line) {
                             sb0.append(value).append(" ");
                         }
                         gameData0.add(sb0.toString());
                         sb0.setLength(0);
                     }
-                    Save (gameData0,path0,"Path_Map");
+                    Save(gameData0, path0, "Path_Map");
                     //
                     GameFrame gameFrame = new GameFrame(600, 600, mapModel, user);
                     gameFrame.setWelcomeFrame(this.getWelcomeFrame());
@@ -95,7 +95,7 @@ public class LoginFrame extends JFrame {
                     JOptionPane.showMessageDialog(this, "Username or Password is incorrect", "Error", JOptionPane.ERROR_MESSAGE);
                 }
 
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(this, "Username does not exist", "Error", JOptionPane.ERROR_MESSAGE);
             }
 

@@ -13,7 +13,7 @@ public class Animation {
 
         box.getGamePanel().setFocusable(false);
 
-        Timer timer = new Timer(5, new ActionListener() {
+        Timer timer = new Timer(10, new ActionListener() {
             final int gridSize = box.getGamePanel().getGRID_SIZE();
             float alpha = 1.0f;
             final float alphaStep = 0.05f;

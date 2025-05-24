@@ -41,4 +41,14 @@ public class FrameUtil {
         frame.add(button);
         return button;
     }
+
+    public static JButton createButton(JDialog dialog, String name, Point location, int width, int height) {
+        JButton button = new JButton(name);
+        button.setLocation(location);
+        button.setSize(width, height);
+        dialog.add(button);
+        return button;
+    }
+
+
 }
