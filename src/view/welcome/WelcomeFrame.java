@@ -25,8 +25,9 @@ public class WelcomeFrame extends JFrame{
     private JFrame loginFrame;
 
     public WelcomeFrame(int width, int height) {
-        this.setTitle("Register Frame");
+        this.setTitle("Welcome");
         this.setLayout(null);
+        this.setLocation(width / 2 - width / 4, height / 2 - height / 4);
         this.setSize(width, height);
 
         visitor = FrameUtil.createButton(this, "visitor", new Point(width*3/4, 80), 100, 40);

@@ -30,6 +30,7 @@ public class RegisterFrame extends JFrame {
     public RegisterFrame(int width, int height) {
         this.setTitle("Register Frame");
         this.setLayout(null);
+        this.setLocation(width / 2 - width / 4, height / 2 - height / 4);
         this.setSize(width, height);
         JLabel userLabel = FrameUtil.createJLabel(this, new Point(50, 20), 70, 40, "username:");
         JLabel passLabel = FrameUtil.createJLabel(this, new Point(50, 80), 70, 40, "password:");
