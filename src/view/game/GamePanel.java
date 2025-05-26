@@ -82,26 +82,20 @@ public class GamePanel extends ListenerPanel {
                     box.setSize(GRID_SIZE, GRID_SIZE);
                     map[i][j] = 0;
                 } else if (map[i][j] == 2 && j + 1 < map[0].length) { // 检查列边界
-                    box = new BoxComponent(Color.PINK, i, j, this);
-                } else if (map[i][j] == 2) {
                     BufferedImage image = ImageLoader.loadImage("src/关羽.jpg");
                     box = new BoxComponent(Color.PINK, i, j, this,image);
                     box.setSize(GRID_SIZE * 2, GRID_SIZE);
                     map[i][j] = 0;
                     map[i][j + 1] = 0;
-                } else if (map[i][j] == 3) {
+                } else if (map[i][j] == 3&&i+1<map.length) {//检查行边界
                     BufferedImage image = ImageLoader.loadImage("src/马超.jpg");
                     box = new BoxComponent(Color.BLUE, i, j, this,image);
-                } else if (map[i][j] == 3 && i + 1 < map.length) { // 检查行边界
-                    box = new BoxComponent(Color.BLUE, i, j, this);
                     box.setSize(GRID_SIZE, GRID_SIZE * 2);
                     map[i][j] = 0;
                     map[i + 1][j] = 0;
-                } else if (map[i][j] == 4) {
+                } else if (map[i][j] == 4&&i+1<map.length&&j+1<map[0].length) {
                     BufferedImage image = ImageLoader.loadImage("src/曹操.jpg");
-                    box = new BoxComponent(Color.GREEN, i, j, this,image);
-                } else if (map[i][j] == 4 && i + 1 < map.length && j + 1 < map[0].length) { // 检查行和列边界
-                    box = new BoxComponent(Color.GREEN, i, j, this);
+                    box = new BoxComponent(Color.RED, i, j, this,image);
                     box.setSize(GRID_SIZE * 2, GRID_SIZE * 2);
                     map[i][j] = 0;
                     map[i + 1][j] = 0;

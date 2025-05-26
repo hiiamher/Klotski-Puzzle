@@ -36,6 +36,8 @@ public abstract class ListenerPanel extends JPanel {
             doMouseClick(e.getPoint());
         }
     }
+
+
     public abstract void doMouseClick(Point point);
 
     public abstract void doMoveRight();

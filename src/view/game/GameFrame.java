@@ -8,8 +8,11 @@ import music.Music;
 import user.User;
 import view.FrameUtil;
 
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 
 import static SaveAndRead.SavaAndRead.isExist;
 
@@ -40,6 +43,7 @@ public class GameFrame extends JFrame {
     private JButton MusicBtn;
     private JButton levelBtn;
     public Music backgroundMusic;
+    private MouseTrailPanel mouseTrailPanel;
 
     public JFrame getWelcomeFrame() {
         return welcomeFrame;
@@ -86,9 +90,26 @@ public class GameFrame extends JFrame {
         this.setTitle("2025 CS109 Project Demo");
         this.setLayout(null);
         this.setSize(width, height);
+        mouseTrailPanel = new MouseTrailPanel();
+        mouseTrailPanel.setTrailColor(Color.blue);
+        mouseTrailPanel.setPointSize(5);
+        mouseTrailPanel.setLocation(0,0);
+        mouseTrailPanel.setSize(width,height);
+        this.add(mouseTrailPanel,JLayeredPane.PALETTE_LAYER);
+        //重写鼠标移动
+        this.addMouseMotionListener(new MouseMotionListener() {
+            @Override
+            public void mouseMoved(MouseEvent e) {
+                mouseTrailPanel.Mouseupdtae(e);
+            }
+            @Override
+            public void mouseDragged(MouseEvent e) {}
+        });
+
         gamePanel = new GamePanel(mapModel);
         gamePanel.setLocation(30, height / 2 - gamePanel.getHeight() / 2);
         this.add(gamePanel);
+
         this.controller = new GameController(gamePanel, mapModel, user);
         this.controller.setGameframe( this);
         this.backgroundMusic = new Music("背景音乐.wav");
@@ -140,6 +161,9 @@ public class GameFrame extends JFrame {
             controller.saveGame(user);
             gamePanel.requestFocusInWindow();
         });
+
+        //添加鼠标版面
+
 
         //ai 算法
         //给aiSolveButton添加事件监听器，当点击按钮时，调用KlotskiSolver.solve()方法求解游戏 并显示解决方案步骤
@@ -210,6 +234,8 @@ public class GameFrame extends JFrame {
         //todo: add other button here
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+
 
 
     }
