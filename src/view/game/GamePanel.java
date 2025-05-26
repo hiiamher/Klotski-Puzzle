@@ -7,6 +7,8 @@ import model.MapModel;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +23,8 @@ public class GamePanel extends ListenerPanel {
     //存储所有的BoxComponent对象
     private List<BoxComponent> boxes;
     private MapModel model;
-
     private GameController controller;
+    private GameFrame gameFrame;
     //存储显示步数的JLabel对象
     private JLabel stepLabel;
     private int steps;
@@ -30,6 +32,12 @@ public class GamePanel extends ListenerPanel {
     private final int GRID_SIZE = 50;
     //选中的方块
     private BoxComponent selectedBox;
+    //时间相关
+    private int ElapsedTime;
+    private Timer timer;
+
+
+
 
 
     //1初始化游戏界面，2创建boxes对象，将游戏界面设置为可获取焦点
@@ -61,6 +69,9 @@ public class GamePanel extends ListenerPanel {
 
     public void initialGame(int[][] matrix) {
         this.steps = 0;
+        this.ElapsedTime = 0;
+        this.timer= new Timer(1000,new TimerListener());
+        timer.start();
         if (stepLabel != null) {
             this.stepLabel.setText(String.format("Step: %d", this.steps));
         }
@@ -282,15 +293,23 @@ public class GamePanel extends ListenerPanel {
                 if (box.getRow() == 3 && box.getCol() == 1) {
                     Music music = new Music("胜利音效.wav");
                     music.play();
-
+                    timer.stop();
                     String steps = String.format("You have completed the game in %d steps.", this.steps);
-                    JOptionPane.showMessageDialog(this, "Congratulations! " + steps, "Congratulations", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Congratulations! " + "You used" + steps+ "in"+ ElapsedTime +"seconds!", "Congratulations", JOptionPane.INFORMATION_MESSAGE);
 
                 }
             }
 
         }
     }
+    private class TimerListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            ElapsedTime++;
+        }
+    }
+
+
 }
 
 

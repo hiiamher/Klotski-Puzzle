@@ -10,6 +10,9 @@ import view.FrameUtil;
 
 
 import javax.swing.*;
+import javax.swing.Timer;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
@@ -20,7 +23,7 @@ import ai.KlotskiSolver;
 import view.gamelevel.GameLevel;
 import view.showsolution.ShowSolution;
 
-import java.util.Arrays;
+
 import java.util.List;
 
 
@@ -44,6 +47,9 @@ public class GameFrame extends JFrame {
     private JButton levelBtn;
     public Music backgroundMusic;
     private MouseTrailPanel mouseTrailPanel;
+    private Timer timer;
+    private JLabel timeLabel;
+    protected int timeElapsed = 0;
 
     public JFrame getWelcomeFrame() {
         return welcomeFrame;
@@ -128,11 +134,19 @@ public class GameFrame extends JFrame {
         this.userLabel = FrameUtil.createJLabel(this, user.getUsername(), new Font("serif", Font.ITALIC, 22), new Point(gamePanel.getWidth() + 80, 15), 180, 50);
         gamePanel.setStepLabel(stepLabel);
         this.add(createbuttonPanel());
+        //计时器
+        timeLabel = FrameUtil.createJLabel(this,"Time :0",new Font("seilf",Font.ITALIC,22), new Point(gamePanel.getWidth() + 200, 15), 180, 50);
+        this.add(timeLabel);
+
+        timer = new Timer(1000,new TimerListener());
+        timer.start();
 
         this.restartBtn.addActionListener(e -> {
             controller.restartGame();
             this.user.setSteps(this.gamePanel.getSteps());
             gamePanel.requestFocusInWindow();//enable key listener
+            timeElapsed = 0;
+            timer.stop();
         });
 
         this.loadBtn.addActionListener(e -> {
@@ -154,6 +168,8 @@ public class GameFrame extends JFrame {
         backtowelcomeBtn.addActionListener(e -> {
             welcomeFrame.setVisible(true);
             this.dispose();
+            timer.stop();
+            backgroundMusic.stop();
         });
 
         this.saveBtn.addActionListener(e -> {
@@ -210,6 +226,8 @@ public class GameFrame extends JFrame {
                 controller.saveGame(user);
                 // 关闭窗口
                 GameFrame.this.dispose();
+                backgroundMusic.stop();
+                timer.stop();
             }
         });
 
@@ -263,6 +281,24 @@ public class GameFrame extends JFrame {
             System.arraycopy(matrix[i], 0, copy[i], 0, matrix[i].length);
         }
         return copy;
+    }
+    //计时器事件监听类
+    private class TimerListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            timeElapsed++;
+            timeLabel.setText(String.format("Time:%d",timeElapsed));
+        }
+    }
+
+    public void restartTimer(){
+        timeElapsed = 0;
+        timeLabel.setText("Time:0");
+        timer.restart();
+    }
+
+    public void stopTimer(){
+        timer.stop();
     }
 
 
