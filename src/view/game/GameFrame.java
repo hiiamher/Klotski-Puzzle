@@ -107,6 +107,7 @@ public class GameFrame extends JFrame {
         });
 
         gamePanel = new GamePanel(mapModel);
+        gamePanel.setWelcomeFrame(this.getWelcomeFrame());
         gamePanel.setLocation(30, height / 2 - gamePanel.getHeight() / 2);
         this.add(gamePanel);
 

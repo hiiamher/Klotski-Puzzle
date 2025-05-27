@@ -68,6 +68,7 @@ public class GameLevel extends JFrame{
             this.model.setOriginalMatrix(map2);
             this.gamePanel.clearAllBoxFromPanel();
             this.gamePanel.initialGame(map2);
+            this.dispose();
 
 
 
@@ -97,7 +98,7 @@ public class GameLevel extends JFrame{
             this.gamePanel.clearAllBoxFromPanel();
             this.gamePanel.initialGame(map2);
 
-
+            this.dispose();
         });
 
         level3.addActionListener(e -> {
@@ -122,7 +123,7 @@ public class GameLevel extends JFrame{
             this.gamePanel.clearAllBoxFromPanel();
             this.gamePanel.initialGame(map2);
 
-
+            this.dispose();
         });
 
         level4.addActionListener(e -> {
@@ -146,7 +147,7 @@ public class GameLevel extends JFrame{
             this.gamePanel.clearAllBoxFromPanel();
             this.gamePanel.initialGame(map2);
 
-
+            this.dispose();
         });
 
         level5.addActionListener(e -> {
@@ -170,7 +171,7 @@ public class GameLevel extends JFrame{
             this.gamePanel.clearAllBoxFromPanel();
             this.gamePanel.initialGame(map2);
 
-
+            this.dispose();
         });
 
         level6.addActionListener(e -> {
@@ -195,7 +196,7 @@ public class GameLevel extends JFrame{
             this.gamePanel.initialGame(map2);
 
 
-
+            this.dispose();
         });
 
 

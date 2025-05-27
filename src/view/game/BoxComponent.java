@@ -12,7 +12,15 @@ public class BoxComponent extends JComponent {
     private boolean isSelected;
     private float alpha = 1.0f;
     private BufferedImage image;
+    private int type;
 
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
 
     private GamePanel gamePanel;
 

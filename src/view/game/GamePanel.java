@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import music.Music;
+import view.welcome.WelcomeFrame;
 
 /**
  * It is the subclass of ListenerPanel, so that it should implement those four methods: do move left, up, down ,right.
@@ -30,6 +31,8 @@ public class GamePanel extends ListenerPanel {
     private final int GRID_SIZE = 50;
     //选中的方块
     private BoxComponent selectedBox;
+    private JFrame welcomeFrame;
+
 
 
     //1初始化游戏界面，2创建boxes对象，将游戏界面设置为可获取焦点
@@ -81,18 +84,21 @@ public class GamePanel extends ListenerPanel {
                     box = new BoxComponent(Color.ORANGE, i, j, this,image);
                     box.setSize(GRID_SIZE, GRID_SIZE);
                     map[i][j] = 0;
+                    box.setType(1);
                 } else if (map[i][j] == 2 && j + 1 < map[0].length) { // 检查列边界
                     BufferedImage image = ImageLoader.loadImage("src/关羽.jpg");
                     box = new BoxComponent(Color.PINK, i, j, this,image);
                     box.setSize(GRID_SIZE * 2, GRID_SIZE);
                     map[i][j] = 0;
                     map[i][j + 1] = 0;
+                    box.setType(2);
                 } else if (map[i][j] == 3&&i+1<map.length) {//检查行边界
                     BufferedImage image = ImageLoader.loadImage("src/马超.jpg");
                     box = new BoxComponent(Color.BLUE, i, j, this,image);
                     box.setSize(GRID_SIZE, GRID_SIZE * 2);
                     map[i][j] = 0;
                     map[i + 1][j] = 0;
+                    box.setType(3);
                 } else if (map[i][j] == 4&&i+1<map.length&&j+1<map[0].length) {
                     BufferedImage image = ImageLoader.loadImage("src/曹操.jpg");
                     box = new BoxComponent(Color.RED, i, j, this,image);
@@ -101,6 +107,7 @@ public class GamePanel extends ListenerPanel {
                     map[i + 1][j] = 0;
                     map[i][j + 1] = 0;
                     map[i + 1][j + 1] = 0;
+                    box.setType(4);
                 }
                 if (box != null) {
                     box.setLocation(j * GRID_SIZE + 2, i * GRID_SIZE + 2);
@@ -194,13 +201,25 @@ public class GamePanel extends ListenerPanel {
 
     public void afterMove() {
         Music music = new Music("击中木块.wav");
+        //Music music1 = new Music("扬帆！起航！.wav");
         music.play();
+       /* if(selectedBox.getType()==4){
+            music1.play();
+        }*/
         this.steps++;
         this.stepLabel.setText(String.format("Step: %d", this.steps));
         this.repaint();
         controller.getUser().setSteps(this.steps);
         controller.save_path();
         isVictory();
+    }
+
+    public JFrame getWelcomeFrame() {
+        return welcomeFrame;
+    }
+
+    public void setWelcomeFrame(JFrame welcomeFrame) {
+        this.welcomeFrame = welcomeFrame;
     }
 
     public void setSteps(int steps) {
@@ -281,10 +300,33 @@ public class GamePanel extends ListenerPanel {
             if (box.getWidth() == 2 * getGRID_SIZE() && box.getHeight() == 2 * getGRID_SIZE()) {
                 if (box.getRow() == 3 && box.getCol() == 1) {
                     Music music = new Music("胜利音效.wav");
+
+                    //Music music1 = new Music("加勒比海盗主题曲.wav");
+                    //music1.play();
+
                     music.play();
 
                     String steps = String.format("You have completed the game in %d steps.", this.steps);
                     JOptionPane.showMessageDialog(this, "Congratulations! " + steps, "Congratulations", JOptionPane.INFORMATION_MESSAGE);
+
+
+                    // 弹出对话框，询问用户是否继续游戏
+                    int option = JOptionPane.showConfirmDialog(this, "Do you want to continue playing?", "Continue", JOptionPane.YES_NO_OPTION);
+                    if (option == JOptionPane.YES_OPTION) {
+                        // 继续游戏
+                        this.controller.restartGame();
+                    } else {
+                        // 退出游戏
+                        // 获取当前 GamePanel 所在的 JFrame
+                        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+                        if (frame != null) {
+                            // 关闭当前 JFrame
+                            frame.dispose();
+                        }
+                        WelcomeFrame welcomeFrame = new WelcomeFrame(900,600);
+                        welcomeFrame.setVisible(true);
+                    }
+
 
                 }
             }
