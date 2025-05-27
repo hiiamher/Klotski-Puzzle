@@ -2,7 +2,11 @@ package view.register;
 
 import view.FrameUtil;
 import view.game.GameFrame;
+import view.game.ImageLoader;
 import view.login.LoginFrame;
+import view.welcome.WelcomeFrame;
+
+import java.awt.image.BufferedImage;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,6 +25,7 @@ public class RegisterFrame extends JFrame {
     private GameFrame gameFrame;
     private String username1;
     private String password1;
+    private BufferedImage backgroundImage;
 
     private JFrame welcomeFrame;
     private JFrame loginFrame;
@@ -32,6 +37,7 @@ public class RegisterFrame extends JFrame {
         this.setLayout(null);
         this.setLocation(width / 2 - width / 4, height / 2 - height / 4);
         this.setSize(width, height);
+        backgroundImage = ImageLoader.loadImage("src/登录界面.jpg");
         JLabel userLabel = FrameUtil.createJLabel(this, new Point(50, 20), 70, 40, "username:");
         JLabel passLabel = FrameUtil.createJLabel(this, new Point(50, 80), 70, 40, "password:");
         username = FrameUtil.createJTextField(this, new Point(120, 20), 120, 40);
@@ -40,6 +46,11 @@ public class RegisterFrame extends JFrame {
         submitBtn = FrameUtil.createButton(this, "Confirm", new Point(40, 140), 100, 40);
         resetBtn = FrameUtil.createButton(this, "Reset", new Point(160, 140), 100, 40);
         gotoLoginBtn = FrameUtil.createButton(this, "gotoLogin", new Point(280, 140), 100, 40);
+
+        RegisterFrame.BackgroundPanel backgroundPanel = new RegisterFrame.BackgroundPanel(backgroundImage);
+        backgroundPanel.setSize(width, height);
+        backgroundPanel.setLocation(0, 0);
+        this.add(backgroundPanel,JLayeredPane.DEFAULT_LAYER);
 
 
         submitBtn.addActionListener(e -> {
@@ -112,6 +123,20 @@ public class RegisterFrame extends JFrame {
 
     public void setGameFrame(GameFrame gameFrame) {
         this.gameFrame = gameFrame;
+    }
+
+    private class BackgroundPanel extends JPanel {
+        private BufferedImage backgroundImage;
+        public BackgroundPanel(BufferedImage backgroundImage) {
+            this.backgroundImage = backgroundImage;
+        }
+        @Override
+        public void paint(Graphics g) {
+            super.paint(g);
+            if (backgroundImage != null) {
+                g.drawImage(backgroundImage, 0, 0,this.getWidth(),this.getHeight(),this);
+            }
+        }
     }
 
 

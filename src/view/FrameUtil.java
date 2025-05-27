@@ -41,7 +41,7 @@ public class FrameUtil {
         frame.add(button);
         return button;
     }
-
+//·创建一个JButton组件并将其添加到指定的JDialog中
     public static JButton createButton(JDialog dialog, String name, Point location, int width, int height) {
         JButton button = new JButton(name);
         button.setLocation(location);
@@ -49,6 +49,16 @@ public class FrameUtil {
         dialog.add(button);
         return button;
     }
+
+    //创建一个自定义的圆形JButton组件并将其添加到指定的JFrame中
+    public static JButton createButton(JFrame frame, String text, Point location, int diameter,Image image,Color foreground) {
+        CircularButton button = new CircularButton(text,image,foreground);
+        button.setLocation(location);
+        button.setPreferredSize(new Dimension(diameter, diameter));
+        frame.add(button);
+        return button;
+    }
+
 
 
 }

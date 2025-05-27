@@ -38,6 +38,8 @@ public class GamePanel extends ListenerPanel {
     private int ElapsedTime;
     private Timer timer;
 
+    private BufferedImage backgroundImage;
+
 
 
     private JFrame welcomeFrame;
@@ -51,6 +53,7 @@ public class GamePanel extends ListenerPanel {
         this.setFocusable(true);
         this.setLayout(null);
         this.setController(controller);
+        this.backgroundImage = ImageLoader.loadImage("src/格子底.jpg");
         //创建JLabel对象，用于显示步数
         stepLabel = new JLabel("Steps: 0");
         stepLabel.setBounds(5, 20, 100, 20);
@@ -131,15 +134,23 @@ public class GamePanel extends ListenerPanel {
         this.repaint();
     }
 
-    //调用Graphics类的fillRect方法绘制背景色
+    //调用Graphics类的fillRect方法绘制背景
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.setColor(Color.LIGHT_GRAY);
-        g.fillRect(0, 0, this.getWidth(), this.getHeight());
-        Border border = BorderFactory.createLineBorder(Color.DARK_GRAY, 2);
-        this.setBorder(border);
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
+
+        if(backgroundImage != null) {
+            for (int i = 0; i < model.getHeight(); i++) {
+                for (int j = 0; j < model.getWidth(); j++) {
+                    g2d.drawImage(backgroundImage,j*GRID_SIZE+2,i*GRID_SIZE+2,GRID_SIZE,GRID_SIZE,this);
+                }
+            }
+        }
     }
+
+
 
     @Override
 

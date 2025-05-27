@@ -5,6 +5,7 @@ import model.MapModel;
 import user.User;
 import view.FrameUtil;
 import view.game.GameFrame;
+import view.game.ImageLoader;
 import view.register.RegisterFrame;
 
 import javax.swing.*;
@@ -12,6 +13,7 @@ import java.awt.*;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.awt.image.BufferedImage;
 
 import static SaveAndRead.SavaAndRead.Save;
 import static SaveAndRead.SavaAndRead.isDirectoryExistsUsingFile;
@@ -28,6 +30,7 @@ public class LoginFrame extends JFrame {
 
 
     private JFrame registerFrame;
+    private BufferedImage backgroundImage;
 
 
 //private GameFrame gameFrame;
@@ -37,6 +40,7 @@ public class LoginFrame extends JFrame {
         this.setTitle("Login Frame");
         this.setLayout(null);
         this.setSize(width, height);
+
         JLabel userLabel = FrameUtil.createJLabel(this, new Point(50, 20), 70, 40, "username:");
         JLabel passLabel = FrameUtil.createJLabel(this, new Point(50, 80), 70, 40, "password:");
         username = FrameUtil.createJTextField(this, new Point(120, 20), 120, 40);
@@ -45,6 +49,12 @@ public class LoginFrame extends JFrame {
         submitBtn = FrameUtil.createButton(this, "Confirm", new Point(40, 140), 100, 40);
         resetBtn = FrameUtil.createButton(this, "Reset", new Point(160, 140), 100, 40);
         backtowelcomeBtn = FrameUtil.createButton(this, "back", new Point(280, 140), 100, 40);
+
+        backgroundImage = ImageLoader.loadImage("src/登录界面.jpg");
+        LoginFrame.BackgroundPanel backgroundPanel = new LoginFrame.BackgroundPanel(backgroundImage);
+        backgroundPanel.setSize(width, height);
+        backgroundPanel.setLocation(0, 0);
+        this.add(backgroundPanel,JLayeredPane.DEFAULT_LAYER);
 
         submitBtn.addActionListener(e -> {
             if (username.getText().isEmpty() || password.getText().isEmpty()) {
@@ -136,6 +146,21 @@ public class LoginFrame extends JFrame {
     public void setRegisterFrame(JFrame registerFrame) {
         this.registerFrame = registerFrame;
     }
+
+    private class BackgroundPanel extends JPanel {
+        private BufferedImage backgroundImage;
+        public BackgroundPanel(BufferedImage backgroundImage) {
+            this.backgroundImage = backgroundImage;
+        }
+        @Override
+        public void paint(Graphics g) {
+            super.paint(g);
+            if (backgroundImage != null) {
+                g.drawImage(backgroundImage, 0, 0,this.getWidth(),this.getHeight(),this);
+            }
+        }
+    }
+
 
 
 }

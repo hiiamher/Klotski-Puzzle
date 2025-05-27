@@ -4,8 +4,10 @@ import model.MapModel;
 import user.User;
 import view.FrameUtil;
 import view.game.GameFrame;
+import view.game.ImageLoader;
 import view.login.LoginFrame;
 import view.register.RegisterFrame;
+import java.awt.image.BufferedImage;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,6 +25,7 @@ public class WelcomeFrame extends JFrame{
     private GameFrame gameFrame;
     private JFrame registerFrame;
     private JFrame loginFrame;
+    private BufferedImage backgroundImage;
 
     public WelcomeFrame(int width, int height) {
         this.setTitle("Welcome");
@@ -30,6 +33,7 @@ public class WelcomeFrame extends JFrame{
         this.setLocation(width / 2 - width / 4, height / 2 - height / 4);
         this.setSize(width, height);
 
+        backgroundImage = ImageLoader.loadImage("src/欢迎界面.jpg");
         visitor = FrameUtil.createButton(this, "visitor", new Point(width*3/4, 80), 100, 40);
         rigister = FrameUtil.createButton(this, "rigister", new Point(width*3/4, 160), 100, 40);
         login = FrameUtil.createButton(this, "login", new Point(width*3/4, 240), 100, 40);
@@ -94,12 +98,30 @@ public class WelcomeFrame extends JFrame{
 
         });
 
+        WelcomeFrame.BackgroundPanel backgroundPanel = new WelcomeFrame.BackgroundPanel(backgroundImage);
+        backgroundPanel.setSize(width, height);
+        backgroundPanel.setLocation(0, 0);
+        this.add(backgroundPanel,JLayeredPane.DEFAULT_LAYER);
 
 
 
 
 
 
+    }
+
+    private class BackgroundPanel extends JPanel {
+        private BufferedImage backgroundImage;
+        public BackgroundPanel(BufferedImage backgroundImage) {
+            this.backgroundImage = backgroundImage;
+        }
+        @Override
+        public void paint(Graphics g) {
+            super.paint(g);
+            if (backgroundImage != null) {
+                g.drawImage(backgroundImage, 0, 0,this.getWidth(),this.getHeight(),this);
+            }
+        }
     }
 
 

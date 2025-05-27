@@ -6,6 +6,7 @@ import model.Direction;
 import model.MapModel;
 import music.Music;
 import user.User;
+import view.CircularButton;
 import view.FrameUtil;
 
 
@@ -16,6 +17,7 @@ import java.awt.event.ActionListener;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
+import java.awt.image.BufferedImage;
 
 import static SaveAndRead.SavaAndRead.isExist;
 
@@ -50,6 +52,7 @@ public class GameFrame extends JFrame {
     private Timer timer;
     private JLabel timeLabel;
     protected int timeElapsed = 0;
+    private BufferedImage backgroundImage;
 
     public JFrame getWelcomeFrame() {
         return welcomeFrame;
@@ -59,41 +62,11 @@ public class GameFrame extends JFrame {
         this.welcomeFrame = welcomeFrame;
     }
 
-    //创建JPanel对象，用于放置方向按钮
-    private JPanel createbuttonPanel() {
-        buttonPanel = new JPanel();
-        buttonPanel.setLayout(new GridLayout(2, 3));
-        buttonPanel.setBounds(400, 200, 150, 100);
-        upButton = new JButton("↑");
-        upButton.addActionListener(e -> {
-            gamePanel.doMoveUp();
-        });
-        buttonPanel.add(new JButton());
-        buttonPanel.add(upButton);
-        buttonPanel.add(new JButton());
-        leftButton = new JButton("←");
-        leftButton.addActionListener(e -> {
-            gamePanel.doMoveLeft();
-        });
-        buttonPanel.add(leftButton);
-        downButton = new JButton("↓");
-        downButton.addActionListener(e -> {
-            gamePanel.doMoveDown();
-        });
-        buttonPanel.add(downButton);
-        rightButton = new JButton("→");
-        rightButton.addActionListener(e -> {
-            gamePanel.doMoveRight();
-        });
-        buttonPanel.add(rightButton);
-        return buttonPanel;
-    }
-
-
 
     public GameFrame(int width, int height, MapModel mapModel, User user) {
+        backgroundImage = ImageLoader.loadImage("src/背景.jpg");
         this.user = user;
-        this.setTitle("2025 CS109 Project Demo");
+        this.setTitle("2025 CS109 华容道");
         this.setLayout(null);
         this.setSize(width, height);
         mouseTrailPanel = new MouseTrailPanel();
@@ -107,6 +80,7 @@ public class GameFrame extends JFrame {
             @Override
             public void mouseMoved(MouseEvent e) {
                 mouseTrailPanel.Mouseupdtae(e);
+                checkMouseOverButtons(e.getPoint());
             }
             @Override
             public void mouseDragged(MouseEvent e) {}
@@ -114,18 +88,40 @@ public class GameFrame extends JFrame {
 
         gamePanel = new GamePanel(mapModel);
         gamePanel.setWelcomeFrame(this.getWelcomeFrame());
-        gamePanel.setLocation(30, height / 2 - gamePanel.getHeight() / 2);
+        gamePanel.setLocation(30, height / 2 - gamePanel.getHeight() / 2-50);
         this.add(gamePanel);
 
         this.controller = new GameController(gamePanel, mapModel, user);
         this.controller.setGameframe( this);
         this.backgroundMusic = new Music("背景音乐.wav");
+        //设置方向按钮
+        BufferedImage imageup0 = ImageLoader.loadImage("src/向上.png");
+        Image imageup = ImageLoader.scaleImage(imageup0,50,50);
+        BufferedImage imagedown0 =ImageLoader.loadImage("src/向下.png");
+        Image imagedown = ImageLoader.scaleImage(imagedown0,50,50);
+        BufferedImage imageleft0 = ImageLoader.loadImage("src/向左.png");
+        Image imageleft = ImageLoader.scaleImage(imageleft0,50,50);
+        BufferedImage imageright0 =ImageLoader.loadImage("src/向右.png");
+        Image imageright = ImageLoader.scaleImage(imageright0,50,50);
+
+        int buttonDiameter = 50;
+        int StartX = gamePanel.getWidth()+80;
+
+
+        this.upButton = FrameUtil.createButton(this,"向上",new Point(StartX+160,100),buttonDiameter,imageup,Color.black);
+        this.downButton = FrameUtil.createButton(this,"向下",new Point(StartX+160,200),buttonDiameter,imagedown,Color.black);
+        this.leftButton = FrameUtil.createButton(this,"向左",new Point(StartX+100,150),buttonDiameter,imageleft,Color.black);
+        this.rightButton = FrameUtil.createButton(this,"向右",new Point(StartX+220,150),buttonDiameter,imageright,Color.black);
+        this.upButton.addActionListener(e -> {gamePanel.doMoveUp();});
+        this.downButton.addActionListener(e -> {gamePanel.doMoveDown();});
+        this.leftButton.addActionListener(e -> {gamePanel.doMoveLeft();});
+        this.rightButton.addActionListener(e -> {gamePanel.doMoveRight();});
 
         this.restartBtn = FrameUtil.createButton(this, "Restart", new Point(gamePanel.getWidth() + 80, 100), 80, 30);
         this.loadBtn = FrameUtil.createButton(this, "Load", new Point(gamePanel.getWidth() + 80, 180), 80, 30);
         this.saveBtn = FrameUtil.createButton(this, "Save", new Point(gamePanel.getWidth() + 80, 260), 80, 30);
         this.BackButn = FrameUtil.createButton(this, "Back", new Point(gamePanel.getWidth() + 80, 340), 80, 30);
-        this.stepLabel = FrameUtil.createJLabel(this, "Start", new Font("serif", Font.ITALIC, 22), new Point(gamePanel.getWidth() + 80, 40), 180, 50);
+        this.stepLabel = FrameUtil.createJLabel(this, "Start", new Font("serif", Font.ITALIC, 30), new Point(gamePanel.getWidth() + 80, 40), 180, 50);
         this.levelBtn = FrameUtil.createButton(this, "Level", new Point(gamePanel.getWidth() + 80, 420), 80, 30);
         this.aiSolveButton = FrameUtil.createButton(this, "AI Solve", new Point(40, 500), 100, 40);
         this.MusicBtn = FrameUtil.createButton(this, "Music", new Point(160, 500), 100, 40);
@@ -134,9 +130,9 @@ public class GameFrame extends JFrame {
 
         this.userLabel = FrameUtil.createJLabel(this, user.getUsername(), new Font("serif", Font.ITALIC, 22), new Point(gamePanel.getWidth() + 80, 15), 180, 50);
         gamePanel.setStepLabel(stepLabel);
-        this.add(createbuttonPanel());
+        //this.add(createbuttonPanel());
         //计时器
-        timeLabel = FrameUtil.createJLabel(this,"Time :0",new Font("seilf",Font.ITALIC,22), new Point(gamePanel.getWidth() + 200, 15), 180, 50);
+        timeLabel = FrameUtil.createJLabel(this,"Time :0",new Font("serif",Font.ITALIC,22), new Point(gamePanel.getWidth() + 200, 15), 180, 50);
         this.add(timeLabel);
 
         timer = new Timer(1000,new TimerListener());
@@ -250,6 +246,11 @@ public class GameFrame extends JFrame {
             gamePanel.withDraw();
         });
 
+        BackgroundPanel backgroundPanel = new BackgroundPanel(backgroundImage);
+        backgroundPanel.setSize(width, height);
+        backgroundPanel.setLocation(0, 0);
+        this.add(backgroundPanel,JLayeredPane.DEFAULT_LAYER);
+
         //todo: add other button here
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -301,6 +302,130 @@ public class GameFrame extends JFrame {
     public void stopTimer(){
         timer.stop();
     }
+
+    //自定义BackgroundPanel类来绘制背景图像
+    private class BackgroundPanel extends JPanel {
+        private BufferedImage backgroundImage;
+        public BackgroundPanel(BufferedImage backgroundImage) {
+            this.backgroundImage = backgroundImage;
+        }
+        @Override
+        public void paint(Graphics g) {
+            super.paint(g);
+            if (backgroundImage != null) {
+                g.drawImage(backgroundImage, 0, 0,this.getWidth(),this.getHeight(),this);
+            }
+        }
+    }
+
+    private void checkMouseOverButtons(Point mousePoint) {
+        if (upButton.getBounds().contains(mousePoint)) {
+            highlightButton(upButton);
+            mouseTrailPanel.clearTrail();
+        } else {
+            resetButton(upButton);
+        }
+
+        if (downButton.getBounds().contains(mousePoint)) {
+            highlightButton(downButton);
+            mouseTrailPanel.clearTrail();
+        } else {
+            resetButton(downButton);
+        }
+        if (leftButton.getBounds().contains(mousePoint)) {
+            highlightButton(leftButton);
+            mouseTrailPanel.clearTrail();
+        }else {
+            resetButton(leftButton);
+        }
+
+        if (rightButton.getBounds().contains(mousePoint)) {
+            highlightButton(rightButton);
+            mouseTrailPanel.clearTrail();
+        }else {
+            resetButton(rightButton);
+        }
+        if (restartBtn.getBounds().contains(mousePoint)) {
+            highlightButton(restartBtn);
+            mouseTrailPanel.clearTrail();
+        } else {
+            resetButton(restartBtn);
+        }
+
+        if (saveBtn.getBounds().contains(mousePoint)) {
+            highlightButton(saveBtn);
+            mouseTrailPanel.clearTrail();
+        } else {
+            resetButton(saveBtn);
+        }
+        if (levelBtn.getBounds().contains(mousePoint)) {
+            highlightButton(levelBtn);
+            mouseTrailPanel.clearTrail();
+        } else {
+            resetButton(levelBtn);
+        }
+
+        if(loadBtn.getBounds().contains(mousePoint)){
+            highlightButton(loadBtn);
+            mouseTrailPanel.clearTrail();
+        }else {
+            resetButton(loadBtn);
+        }
+
+        if(BackButn.getBounds().contains(mousePoint)){
+            highlightButton(BackButn);
+            mouseTrailPanel.clearTrail();
+        }else {
+            resetButton(BackButn);
+        }
+
+        if(aiSolveButton.getBounds().contains(mousePoint)){
+            highlightButton(aiSolveButton);
+            mouseTrailPanel.clearTrail();
+        }else {
+            resetButton(aiSolveButton);
+        }
+
+        if(MusicBtn.getBounds().contains(mousePoint)){
+            highlightButton(MusicBtn);
+            mouseTrailPanel.clearTrail();
+        }else{
+            resetButton(MusicBtn);
+        }
+
+        if(backtowelcomeBtn.getBounds().contains(mousePoint)){
+            highlightButton(backtowelcomeBtn);
+            mouseTrailPanel.clearTrail();
+        }else{
+            resetButton(backtowelcomeBtn);
+        }
+
+        if (gamePanel.getBounds().contains(mousePoint)) {
+            mouseTrailPanel.clearTrail();
+        }
+
+
+
+
+
+
+
+    }
+
+
+    private void highlightButton(JButton button) {
+        button.setBackground(Color.CYAN);
+        button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }
+
+
+    private void resetButton(JButton button) {
+        button.setBackground(null);
+        button.setCursor(Cursor.getDefaultCursor());
+    }
+
+
+
 
 
 }
