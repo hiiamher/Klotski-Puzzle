@@ -135,32 +135,43 @@ public class KlotskiSolver {
     }
 
     //待修改
-    public static List<int[][]> getNeighbors(int[][] map) {
-        List<int[][]> neighbors = new ArrayList<>();
-        MapModel mapModel1 = new MapModel(map);
-        GamePanel gamePanel = new GamePanel(mapModel1);
-        GameController gameController = new GameController(gamePanel, mapModel1, null);
+    public static List<int[][]> getNeighbors(int[][] board) {
+        List<int[][]> result = new ArrayList<>();
+        int rows = board.length;
+        int cols = board[0].length;
 
-        for (int i = 0; i < gamePanel.getBoxes().size(); i++) {
-            BoxComponent box = gamePanel.getBoxes().get(i);
-            gamePanel.setSelectedBox(box);
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                int current = board[i][j];
+                if (current == 0) continue;
 
-            // 遍历四个方向
-            Direction[] directions = {Direction.UP, Direction.DOWN, Direction.LEFT, Direction.RIGHT};
-            for (Direction direction : directions) {
-                // 保存原始地图状态
-                int[][] originalMap = cloneState(mapModel1.getMatrix());
-
-                // 尝试向指定方向移动
-                if (gameController.doMove(box.getRow(), box.getCol(), direction)) {
-                    neighbors.add(cloneState(mapModel1.getMatrix()));
+                switch (current) {
+                    case 1:
+                        checkSingleMove(board, i, j, rows, cols, result);
+                        break;
+                    case 2:
+                        if (j + 1 < cols && board[i][j + 1] == 2) {
+                            // 传入 rows 参数以支持上下移动
+                            checkHorizontalMove(board, i, j, rows, cols, result);
+                        }
+                        break;
+                    case 3:
+                        if (i + 1 < rows && board[i + 1][j] == 3) {
+                            checkVerticalMove(board, i, j, rows, cols, result);
+                        }
+                        break;
+                    case 4:
+                        if (i + 1 < rows && j + 1 < cols &&
+                                board[i][j + 1] == 4 &&
+                                board[i + 1][j] == 4 &&
+                                board[i + 1][j + 1] == 4) {
+                            checkSquareMove(board, i, j, rows, cols, result);
+                        }
+                        break;
                 }
-
-                // 无论移动是否成功，都恢复原始地图状态
-                mapModel1.setMatrix(originalMap);
             }
         }
-        return neighbors;
+        return result;
     }
 
 
@@ -240,5 +251,193 @@ public class KlotskiSolver {
         return result;*/
     }
 
+    // 1x1方块移动（增加行/列边界检查）
+    public static void checkSingleMove(int[][] original, int i, int j, int rows, int cols, List<int[][]> result) {
+        int[][] dirs = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+        for (int[] dir : dirs) {
+            int ni = i + dir[0];
+            int nj = j + dir[1];
+            // 增加边界检查：ni在[0,4]，nj在[0,3]
+            if (ni >= 0 && ni < rows && nj >= 0 && nj < cols && original[ni][nj] == 0) {
+                int[][] newBoard = copyBoard(original);
+                newBoard[ni][nj] = newBoard[i][j];
+                newBoard[i][j] = 0;
+                result.add(newBoard);
+            }
+        }
+    }
 
+    // 横向1x2方块移动（增加行/列边界检查，支持上下左右移动）
+    public static void checkHorizontalMove(int[][] original, int i, int j, int rows, int cols, List<int[][]> result) {
+        // 向右移动：j+2不能超过3（cols=4，索引最大3）
+        if (j + 2 < cols && original[i][j + 2] == 0) {
+            int[][] newBoard = copyBoard(original);
+            newBoard[i][j] = 0;
+            newBoard[i][j + 2] = 2;
+            result.add(newBoard);
+        }
+        // 向左移动：j-1不能小于0
+        if (j - 1 >= 0 && original[i][j - 1] == 0) {
+            int[][] newBoard = copyBoard(original);
+            newBoard[i][j + 1] = 0;
+            newBoard[i][j - 1] = 2;
+            result.add(newBoard);
+        }
+        // 向上移动：i-1不能小于0，且上方两个位置都为 0
+        if (i - 1 >= 0 && original[i - 1][j] == 0 && original[i - 1][j + 1] == 0) {
+            int[][] newBoard = copyBoard(original);
+            newBoard[i][j] = 0;
+            newBoard[i][j + 1] = 0;
+            newBoard[i - 1][j] = 2;
+            newBoard[i - 1][j + 1] = 2;
+            result.add(newBoard);
+        }
+        // 向下移动：i+1不能超过4（rows=5，索引最大4），且下方两个位置都为 0
+        if (i + 1 < rows && original[i + 1][j] == 0 && original[i + 1][j + 1] == 0) {
+            int[][] newBoard = copyBoard(original);
+            newBoard[i][j] = 0;
+            newBoard[i][j + 1] = 0;
+            newBoard[i + 1][j] = 2;
+            newBoard[i + 1][j + 1] = 2;
+            result.add(newBoard);
+        }
+    }
+
+    // 纵向1x2方块移动（增加行/列边界检查，支持横向移动）
+    public static void checkVerticalMove(int[][] original, int i, int j, int rows, int cols, List<int[][]> result) {
+        // 向下移动：i+2不能超过4（rows=5，索引最大4）
+        if (i + 2 < rows && original[i + 2][j] == 0) {
+            int[][] newBoard = copyBoard(original);
+            // 清空原位置
+            newBoard[i][j] = 0;
+            newBoard[i + 1][j] = 0;
+            // 设置新位置
+            newBoard[i + 1][j] = 3;
+            newBoard[i + 2][j] = 3;
+            result.add(newBoard);
+        }
+        // 向上移动：i-1不能小于0
+        if (i - 1 >= 0 && original[i - 1][j] == 0) {
+            int[][] newBoard = copyBoard(original);
+            // 清空原位置
+            newBoard[i][j] = 0;
+            newBoard[i + 1][j] = 0;
+            // 设置新位置
+            newBoard[i - 1][j] = 3;
+            newBoard[i][j] = 3;
+            result.add(newBoard);
+        }
+        // 向右横向移动：j+1不能超过3（cols=4，索引最大3），且同一列下一行右侧位置也为 0
+        if (j + 1 < cols && original[i][j + 1] == 0 && original[i + 1][j + 1] == 0) {
+            int[][] newBoard = copyBoard(original);
+            // 清空原位置
+            newBoard[i][j] = 0;
+            newBoard[i + 1][j] = 0;
+            // 设置新位置
+            newBoard[i][j + 1] = 3;
+            newBoard[i + 1][j + 1] = 3;
+            result.add(newBoard);
+        }
+        // 向左横向移动：j-1不能小于0，且同一列下一行左侧位置也为 0
+        if (j - 1 >= 0 && original[i][j - 1] == 0 && original[i + 1][j - 1] == 0) {
+            int[][] newBoard = copyBoard(original);
+            // 清空原位置
+            newBoard[i][j] = 0;
+            newBoard[i + 1][j] = 0;
+            // 设置新位置
+            newBoard[i][j - 1] = 3;
+            newBoard[i + 1][j - 1] = 3;
+            result.add(newBoard);
+        }
+    }
+
+    // 2x2方块移动（增加行/列边界检查）
+    public static void checkSquareMove(int[][] original, int i, int j, int rows, int cols, List<int[][]> result) {
+        // 定义上下左右四个移动方向
+        int[][] directions = {
+                {-1, 0}, // 上
+                {1, 0},  // 下
+                {0, -1}, // 左
+                {0, 1}   // 右
+        };
+
+        for (int[] dir : directions) {
+            int newRow = i + dir[0];
+            int newCol = j + dir[1];
+
+            // 检查新位置是否越界，能否容纳 2*2 方块
+            if (newRow < 0 || newRow + 2 > rows || newCol < 0 || newCol + 2 > cols) {
+                continue;
+            }
+
+            // 检查移动方向所需的空位
+            boolean canMove = isMovePossible(original, i, j, newRow, newCol, dir);
+            if (canMove) {
+                int[][] newBoard = copyBoard(original);
+                // 清空原位置
+                clearOriginalPosition(newBoard, i, j);
+                // 设置新位置
+                setNewPosition(newBoard, newRow, newCol);
+                result.add(newBoard);
+            }
+        }
+    }
+
+    /**
+     * 检查 2*2 方块是否可以向指定方向移动
+     * @param original 原始棋盘
+     * @param i 方块左上角的行索引
+     * @param j 方块左上角的列索引
+     * @param newRow 移动后的行索引
+     * @param newCol 移动后的列索引
+     * @param dir 移动方向
+     * @return 是否可以移动
+     */
+    public static boolean isMovePossible(int[][] original, int i, int j, int newRow, int newCol, int[] dir) {
+        if (dir[0] > 0) { // 向下移动
+            return original[newRow + 1][j] == 0 && original[newRow + 1][j + 1] == 0;
+        } else if (dir[0] < 0) { // 向上移动
+            return original[newRow][j] == 0 && original[newRow][j + 1] == 0;
+        } else if (dir[1] > 0) { // 向右移动
+            return original[i][newCol + 1] == 0 && original[i + 1][newCol + 1] == 0;
+        } else { // 向左移动
+            return original[i][newCol] == 0 && original[i + 1][newCol] == 0;
+        }
+    }
+
+    /**
+     * 清空 2*2 方块的原位置
+     * @param board 棋盘
+     * @param i 方块左上角的行索引
+     * @param j 方块左上角的列索引
+     */
+    public static void clearOriginalPosition(int[][] board, int i, int j) {
+        board[i][j] = 0;
+        board[i][j + 1] = 0;
+        board[i + 1][j] = 0;
+        board[i + 1][j + 1] = 0;
+    }
+
+    /**
+     * 设置 2*2 方块的新位置
+     * @param board 棋盘
+     * @param newRow 新位置的行索引
+     * @param newCol 新位置的列索引
+     */
+    public static void setNewPosition(int[][] board, int newRow, int newCol) {
+        board[newRow][newCol] = 4;
+        board[newRow][newCol + 1] = 4;
+        board[newRow + 1][newCol] = 4;
+        board[newRow + 1][newCol + 1] = 4;
+    }
+
+    public static int[][] copyBoard(int[][] original) {
+        int[][] copy = new int[5][4]; // 固定5x4棋盘
+        for (int i = 0; i < 5; i++) {
+            System.arraycopy(original[i], 0, copy[i], 0, 4);
+        }
+        return copy;
+    }
 }
+
+
