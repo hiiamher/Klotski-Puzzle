@@ -103,6 +103,62 @@ public class KlotskiSolver {
 
     }
 
+    //启发式搜索
+    public static List<int[][]> solve2(int[][] initialState) {
+        List<int[][]> solutions = new ArrayList<>();
+        List<PuzzleNode> openSet1 = new ArrayList<>();
+        List<PuzzleNode> openSet2 = new ArrayList<>();
+        PuzzleNode lastNode = null;
+
+        PuzzleNode startNode = new PuzzleNode(initialState, null, 0);
+        openSet1.add(startNode);
+
+        int count = 0;
+
+
+        while (lastNode == null) {
+            count++;
+            // 求出所有的邻居节点
+            openSet2.clear();
+            for (PuzzleNode node1 : openSet1) {
+                List<PuzzleNode> a = getNeighborNodes(node1);
+                for (PuzzleNode node2 : a) {
+                    openSet2.add(node2);
+                }
+            }
+            for (PuzzleNode node3 : openSet2) {
+                if (isGoalState(node3.getState())) {
+                    lastNode = node3;
+                    break;
+                }
+            }
+            //去除重复节点
+            openSet2 = removeSameNode(openSet2);
+
+            List<PuzzleNode> b = getsmallfnode(openSet2);
+            openSet1.clear();
+            for (PuzzleNode node1 : openSet2) {
+                openSet1.add(node1);
+            }
+
+            //数值不确定
+            if (count == 100000) {
+                System.out.println("无法求解");
+                return null;
+            }
+
+        }
+
+        solutions = reconstructPath(lastNode);
+        return solutions;
+
+
+
+
+
+
+    }
+
 
     private static List<PuzzleNode> getNeighborNodes(PuzzleNode current) {
         List<PuzzleNode> neighborNodes = new ArrayList<>();

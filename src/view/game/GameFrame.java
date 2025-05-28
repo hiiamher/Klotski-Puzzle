@@ -45,14 +45,24 @@ public class GameFrame extends JFrame {
     private JFrame welcomeFrame;
     private JButton backtowelcomeBtn;
     private JButton aiSolveButton;
+    private JButton aiSolveButton1;
     private JButton MusicBtn;
     private JButton levelBtn;
     public Music backgroundMusic;
     private MouseTrailPanel mouseTrailPanel;
     private Timer timer;
     private JLabel timeLabel;
-    protected int timeElapsed = 0;
+    public static int timeElapsed = 0;
     private BufferedImage backgroundImage;
+    private int currentlevel;
+
+    public int getCurrentlevel() {
+        return currentlevel;
+    }
+
+    public void setCurrentlevel(int currentlevel) {
+        this.currentlevel = currentlevel;
+    }
 
     public JFrame getWelcomeFrame() {
         return welcomeFrame;
@@ -87,6 +97,7 @@ public class GameFrame extends JFrame {
         });
 
         gamePanel = new GamePanel(mapModel);
+        gamePanel.setGameFrame(this);
         gamePanel.setWelcomeFrame(this.getWelcomeFrame());
         gamePanel.setLocation(30, height / 2 - gamePanel.getHeight() / 2-50);
         this.add(gamePanel);
@@ -123,7 +134,8 @@ public class GameFrame extends JFrame {
         this.BackButn = FrameUtil.createButton(this, "src/withdraw0.png","src/withdraw1.png", new Point(gamePanel.getWidth() + 80, 340), 80, 30);
         this.stepLabel = FrameUtil.createJLabel(this, "Start", new Font("serif", Font.ITALIC, 30), new Point(gamePanel.getWidth() + 80, 40), 180, 50);
         this.levelBtn = FrameUtil.createButton(this, "src/level0.png","src/level1.png", new Point(gamePanel.getWidth() + 80, 420), 80, 30);
-        this.aiSolveButton = FrameUtil.createButton(this, "AI Solve", new Point(40, 500), 100, 40);
+        this.aiSolveButton1 = FrameUtil.createButton(this,"启发式",new Point(40,550),100,40);
+        this.aiSolveButton = FrameUtil.createButton(this, "广度式", new Point(40, 500), 100, 40);
         this.MusicBtn = FrameUtil.createButton(this, "src/MusicBth0.png","src/Music.png", new Point(160, 500), 100, 40);
         backtowelcomeBtn = FrameUtil.createButton(this, "src/Exist0.png", "src/exisit1.png",new Point(gamePanel.getWidth() + 70, 480), 100, 30);
 
@@ -136,20 +148,22 @@ public class GameFrame extends JFrame {
         this.add(timeLabel);
 
         timer = new Timer(1000,new TimerListener());
-        timer.start();
+        this.getGamePanel().setTimer(timer);
+
+
+
 
         this.restartBtn.addActionListener(e -> {
             controller.restartGame();
             this.user.setSteps(this.gamePanel.getSteps());
             gamePanel.requestFocusInWindow();//enable key listener
-            timeElapsed = 0;
-            timer.stop();
+            restartTimer();
         });
 
         this.loadBtn.addActionListener(e -> {
 
-            String mappath = String.format("save/%s/mapdata.txt", user.getUsername());
-            String searchpath = String.format("save/%s", user.getUsername());
+            String mappath = String.format("save/%s/%d/mapdata.txt", user.getUsername(), user.getLevel());
+            //String searchpath = String.format("save/%s/%d", user.getUsername(), user.getLevel());
             //检验是否有存档
             if (isExist(mappath)) {
                 controller.loadGame(mappath);
@@ -200,6 +214,26 @@ public class GameFrame extends JFrame {
             this.aiSolveButton.setEnabled(true);
         });
 
+        aiSolveButton1.addActionListener(e -> {
+            this.aiSolveButton.setEnabled(false);
+
+
+            int[][] currentState = copyMatrix(mapModel.getMatrix());
+            List<int[][]> solution = KlotskiSolver.solve2(currentState);
+
+            if (solution != null) {
+
+                ShowSolution showSolution = new ShowSolution(this, solution);
+                showSolution.setVisible(true);
+
+            } else {
+                JOptionPane.showMessageDialog(this, "No solution found", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+            this.aiSolveButton.setEnabled(true);
+
+        });
+
         //音乐按钮
         this.MusicBtn.addActionListener(e -> {
                 if (backgroundMusic.isPlaying()) {
@@ -229,6 +263,11 @@ public class GameFrame extends JFrame {
         });
 
         this.levelBtn.addActionListener(e -> {
+            timer.stop();
+            timeElapsed = 0;
+            timeLabel.setText("Time:0");
+
+
             GameLevel gameLevel = new GameLevel(600, 400);
             gameLevel.setVisible(true);
             gameLevel.setGamePanel(gamePanel);
@@ -290,6 +329,7 @@ public class GameFrame extends JFrame {
         public void actionPerformed(ActionEvent e) {
             timeElapsed++;
             timeLabel.setText(String.format("Time:%d",timeElapsed));
+            user.setUsedtime(timeElapsed);
         }
     }
 
@@ -400,10 +440,9 @@ public class GameFrame extends JFrame {
             resetButton(backtowelcomeBtn);
         }
 
-        if (gamePanel.contains(mousePoint)) {
+        if (gamePanel.getBounds().contains(mousePoint)) {
             mouseTrailPanel.clearTrail();
         }
-
 
 
 
@@ -425,9 +464,40 @@ public class GameFrame extends JFrame {
         button.setCursor(Cursor.getDefaultCursor());
     }
 
+    public int getTimeElapsed() {
+        return timeElapsed;
+    }
 
+    public User getUser() {
+        return user;
+    }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
 
+    public JLabel getTimeLabel() {
+        return timeLabel;
+    }
+
+    public void setTimeLabel(JLabel timeLabel) {
+        this.timeLabel = timeLabel;
+    }
+
+    public Timer getTimer() {
+        return timer;
+    }
+
+    public void setTimer(Timer timer) {
+        this.timer = timer;
+    }
+
+    public int gettimeElapse(){
+        return timeElapsed;
+    }
+    public void settimeElapse(int timeElapse){
+        this.timeElapsed = timeElapse;
+    }
 
 }
 

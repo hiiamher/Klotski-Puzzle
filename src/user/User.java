@@ -8,12 +8,22 @@ public class User implements Serializable {
     private String username;
     private String password;
     private MapModel model;
+    private int level=1;
+    private int usedtime;
     //该变量用于记录用户最后的存储步数，与游戏实时步数无关
     private int steps;
 
     public User(String username, String password) {
         this.username = username;
         this.password = password;
+    }
+
+    public int getUsedtime() {
+        return usedtime;
+    }
+
+    public void setUsedtime(int usedtime) {
+        this.usedtime = usedtime;
     }
 
     public void setSteps(int steps) {
@@ -48,5 +58,11 @@ public class User implements Serializable {
         this.model = model;
     }
 
+    public int getLevel() {
+        return level;
+    }
 
+    public void setLevel(int level) {
+        this.level = level;
+    }
 }
