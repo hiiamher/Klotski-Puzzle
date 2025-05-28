@@ -16,6 +16,8 @@ import java.util.List;
 import music.Music;
 import view.welcome.WelcomeFrame;
 
+import static SaveAndRead.SavaAndRead.Save;
+
 /**
  * It is the subclass of ListenerPanel, so that it should implement those four methods: do move left, up, down ,right.
  * The class contains a grids, which is the corresponding GUI view of the matrix variable in MapMatrix.
@@ -31,7 +33,7 @@ public class GamePanel extends ListenerPanel {
     private JLabel stepLabel;
     private int steps;
     //格子大小
-    private final int GRID_SIZE = 50;
+    private final int GRID_SIZE = 70;
     //选中的方块
     private BoxComponent selectedBox;
     //时间相关
@@ -321,8 +323,13 @@ public class GamePanel extends ListenerPanel {
         for (BoxComponent box : boxes) {
             if (box.getWidth() == 2 * getGRID_SIZE() && box.getHeight() == 2 * getGRID_SIZE()) {
                 if (box.getRow() == 3 && box.getCol() == 1) {
-                    Music music = new Music("胜利音效.wav");
 
+                    //存储胜利信息
+
+                    Save(String.format("%d",this.gameFrame.getTimeElapsed()),String.format("save/%s/%d/win", gameFrame.getUser().getUsername(), gameFrame.getUser().getLevel()),"time");
+                    Save(String.format("%d",this.gameFrame.getUser().getSteps()),String.format("save/%s/%d/win", gameFrame.getUser().getUsername(), gameFrame.getUser().getLevel()),"step");
+
+                    Music music = new Music("胜利音效.wav");
                     //Music music1 = new Music("加勒比海盗主题曲.wav");
                     //music1.play();
 

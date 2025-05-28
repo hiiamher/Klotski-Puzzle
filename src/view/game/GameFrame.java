@@ -26,6 +26,7 @@ import view.gamelevel.GameLevel;
 import view.showsolution.ShowSolution;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -55,6 +56,19 @@ public class GameFrame extends JFrame {
     public static int timeElapsed = 0;
     private BufferedImage backgroundImage;
     private int currentlevel;
+    private ArrayList<String> rankList;
+
+
+
+    public ArrayList<String> getRankList() {
+        return rankList;
+    }
+
+    public void setRankList(ArrayList<String> rankList) {
+        this.rankList = rankList;
+    }
+
+
 
     public int getCurrentlevel() {
         return currentlevel;
@@ -74,6 +88,8 @@ public class GameFrame extends JFrame {
 
 
     public GameFrame(int width, int height, MapModel mapModel, User user) {
+
+
         backgroundImage = ImageLoader.loadImage("src/背景.jpg");
         this.user = user;
         this.setTitle("2025 CS109 华容道");
