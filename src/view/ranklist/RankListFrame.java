@@ -1,5 +1,7 @@
 package view.ranklist;
 
+import view.game.ImageLoader;
+import view.gamelevel.GameLevel;
 import view.FrameUtil;
 import view.register.RegisterFrame;
 
@@ -22,6 +24,8 @@ public class RankListFrame extends JFrame {
     private int level;
     private JButton timeOrderBtn;
     private JButton stepOrderBtn;
+
+
 
     public RankListFrame(int width, int height, int level) {
         this.setLayout(null);
@@ -62,10 +66,6 @@ public class RankListFrame extends JFrame {
         stepOrderBtn.addActionListener(e -> {
 
         });
-
-
-
-
 
 
 
@@ -176,6 +176,8 @@ public class RankListFrame extends JFrame {
         }
         return strings;
     }
+
+
 
 
 

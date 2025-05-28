@@ -43,9 +43,9 @@ public class RegisterFrame extends JFrame {
         username = FrameUtil.createJTextField(this, new Point(120, 20), 120, 40);
         password = FrameUtil.createJTextField(this, new Point(120, 80), 120, 40);
 
-        submitBtn = FrameUtil.createButton(this, "Confirm", new Point(40, 140), 100, 40);
-        resetBtn = FrameUtil.createButton(this, "Reset", new Point(160, 140), 100, 40);
-        gotoLoginBtn = FrameUtil.createButton(this, "gotoLogin", new Point(280, 140), 100, 40);
+        submitBtn = FrameUtil.createButton(this, "src/confirm0.png","src/confirm1.png" , new Point(40, 140), 100, 40);
+        resetBtn = FrameUtil.createButton(this, "src/reset0.png","src/reset1.png", new Point(160, 140), 100, 40);
+        gotoLoginBtn = FrameUtil.createButton(this, "src/login0.png","src/login1.png", new Point(280, 140), 100, 40);
 
         RegisterFrame.BackgroundPanel backgroundPanel = new RegisterFrame.BackgroundPanel(backgroundImage);
         backgroundPanel.setSize(width, height);

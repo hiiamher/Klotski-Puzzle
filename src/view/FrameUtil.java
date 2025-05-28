@@ -2,6 +2,7 @@ package view;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 /**
  * This class is to create basic JComponent.
@@ -55,6 +56,15 @@ public class FrameUtil {
         CircularButton button = new CircularButton(text,image,foreground);
         button.setLocation(location);
         button.setPreferredSize(new Dimension(diameter, diameter));
+        frame.add(button);
+        return button;
+    }
+
+    //创建一个自定义的图形按钮
+    public static JButton createButton(JFrame frame,String defaultImagePath, String pressdImagePath, Point location, int width, int height) {
+        ImageShapeButton button = new ImageShapeButton(defaultImagePath,pressdImagePath,width,height);
+        button.setLocation(location);
+        button.setLocation(location);
         frame.add(button);
         return button;
     }
