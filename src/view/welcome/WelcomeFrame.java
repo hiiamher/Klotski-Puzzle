@@ -5,7 +5,10 @@ import user.User;
 import view.FrameUtil;
 import view.game.GameFrame;
 import view.game.ImageLoader;
+import view.gamelevel.GameLevel;
 import view.login.LoginFrame;
+import view.ranklist.LevelChoise;
+import view.ranklist.RankListFrame;
 import view.register.RegisterFrame;
 import java.awt.image.BufferedImage;
 
@@ -22,10 +25,12 @@ public class WelcomeFrame extends JFrame{
     private JButton visitor;
     private JButton rigister;
     private JButton login;
+    private JButton rankList;
     private GameFrame gameFrame;
     private JFrame registerFrame;
     private JFrame loginFrame;
     private BufferedImage backgroundImage;
+    private ArrayList<String> rankList1;
 
     public WelcomeFrame(int width, int height) {
         this.setTitle("Welcome");
@@ -37,6 +42,8 @@ public class WelcomeFrame extends JFrame{
         visitor = FrameUtil.createButton(this, "visitor", new Point(width*3/4, 80), 100, 40);
         rigister = FrameUtil.createButton(this, "rigister", new Point(width*3/4, 160), 100, 40);
         login = FrameUtil.createButton(this, "login", new Point(width*3/4, 240), 100, 40);
+        rankList = FrameUtil.createButton(this, "ranklist", new Point(width*3/4, 320), 100, 40);
+
 
         visitor.addActionListener(e -> {
 
@@ -49,7 +56,7 @@ public class WelcomeFrame extends JFrame{
                     {1, 0, 0, 1}
 
             });
-            GameFrame gameFrame = new GameFrame(600, 660, mapModel, user);
+            GameFrame gameFrame = new GameFrame(660, 660, mapModel, user);
             gameFrame.setWelcomeFrame(this);
             this.gameFrame = gameFrame;
 
@@ -98,6 +105,16 @@ public class WelcomeFrame extends JFrame{
 
         });
 
+        rankList.addActionListener(e -> {
+
+
+            LevelChoise levelChoise = new LevelChoise(600, 400);
+            levelChoise.setVisible(true);
+
+
+
+        });
+
         WelcomeFrame.BackgroundPanel backgroundPanel = new WelcomeFrame.BackgroundPanel(backgroundImage);
         backgroundPanel.setSize(width, height);
         backgroundPanel.setLocation(0, 0);
@@ -109,6 +126,8 @@ public class WelcomeFrame extends JFrame{
 
 
     }
+
+
 
     private class BackgroundPanel extends JPanel {
         private BufferedImage backgroundImage;
