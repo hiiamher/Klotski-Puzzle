@@ -330,8 +330,8 @@ public class GamePanel extends ListenerPanel {
                     Save(String.format("%d",this.gameFrame.getUser().getSteps()),String.format("save/%s/%d/win", gameFrame.getUser().getUsername(), gameFrame.getUser().getLevel()),"step");
 
                     Music music = new Music("胜利音效.wav");
-                    //Music music1 = new Music("加勒比海盗主题曲.wav");
-                    //music1.play();
+                    Music music1 = new Music("加勒比海盗主题曲.wav");
+                    music1.play();
 
                     music.play();
                     timer.stop();

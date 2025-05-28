@@ -12,9 +12,9 @@ public class MouseTrailPanel extends JPanel implements MouseMotionListener {
         // 轨迹颜色（示例为红色，可自定义）
         private Color trailColor = Color.RED;
         // 轨迹点大小
-        private int pointSize = 3;
+        private int pointSize = 5;
         //轨迹长度
-        private int trailSize = 10;
+        private int trailSize = 15;
 
         public MouseTrailPanel() {
             // 设置面板透明
@@ -89,7 +89,7 @@ public class MouseTrailPanel extends JPanel implements MouseMotionListener {
 
         // 自定义轨迹颜色
         public void setTrailColor(Color color) {
-            this.trailColor = color;
+            this.trailColor = Color.black;
         }
 
         // 自定义轨迹点大小
