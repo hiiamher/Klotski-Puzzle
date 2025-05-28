@@ -34,9 +34,9 @@ public class WelcomeFrame extends JFrame{
         this.setSize(width, height);
 
         backgroundImage = ImageLoader.loadImage("src/欢迎界面.jpg");
-        visitor = FrameUtil.createButton(this, "visitor", new Point(width*3/4, 80), 100, 40);
-        rigister = FrameUtil.createButton(this, "rigister", new Point(width*3/4, 160), 100, 40);
-        login = FrameUtil.createButton(this, "login", new Point(width*3/4, 240), 100, 40);
+        visitor = FrameUtil.createButton(this, "src/visit0.png","src/visit1.png", new Point(width*2/3, 40), 200, 80);
+        rigister = FrameUtil.createButton(this, "src/register0.png","src/rigister1.png" , new Point(width*2/3, 200), 200, 80);
+        login = FrameUtil.createButton(this, "src/login0.png", "src/login1.png" ,new Point(width*2/3, 360), 200, 80);
 
         visitor.addActionListener(e -> {
 
@@ -49,7 +49,7 @@ public class WelcomeFrame extends JFrame{
                     {1, 0, 0, 1}
 
             });
-            GameFrame gameFrame = new GameFrame(600, 600, mapModel, user);
+            GameFrame gameFrame = new GameFrame(1000, 1000, mapModel, user);
             gameFrame.setWelcomeFrame(this);
             this.gameFrame = gameFrame;
 

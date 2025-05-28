@@ -117,15 +117,15 @@ public class GameFrame extends JFrame {
         this.leftButton.addActionListener(e -> {gamePanel.doMoveLeft();});
         this.rightButton.addActionListener(e -> {gamePanel.doMoveRight();});
 
-        this.restartBtn = FrameUtil.createButton(this, "Restart", new Point(gamePanel.getWidth() + 80, 100), 80, 30);
-        this.loadBtn = FrameUtil.createButton(this, "Load", new Point(gamePanel.getWidth() + 80, 180), 80, 30);
-        this.saveBtn = FrameUtil.createButton(this, "Save", new Point(gamePanel.getWidth() + 80, 260), 80, 30);
-        this.BackButn = FrameUtil.createButton(this, "Back", new Point(gamePanel.getWidth() + 80, 340), 80, 30);
+        this.restartBtn = FrameUtil.createButton(this, "src/restart0.png", "src/restar1.png",new Point(gamePanel.getWidth() + 80, 100), 80, 30);
+        this.loadBtn = FrameUtil.createButton(this, "src/loadButh0.png","src/load1.png", new Point(gamePanel.getWidth() + 80, 180), 80, 30);
+        this.saveBtn = FrameUtil.createButton(this, "src/saveButh0.png","src/save1.png", new Point(gamePanel.getWidth() + 80, 260), 80, 30);
+        this.BackButn = FrameUtil.createButton(this, "src/withdraw0.png","src/withdraw1.png", new Point(gamePanel.getWidth() + 80, 340), 80, 30);
         this.stepLabel = FrameUtil.createJLabel(this, "Start", new Font("serif", Font.ITALIC, 30), new Point(gamePanel.getWidth() + 80, 40), 180, 50);
-        this.levelBtn = FrameUtil.createButton(this, "Level", new Point(gamePanel.getWidth() + 80, 420), 80, 30);
+        this.levelBtn = FrameUtil.createButton(this, "src/level0.png","src/level1.png", new Point(gamePanel.getWidth() + 80, 420), 80, 30);
         this.aiSolveButton = FrameUtil.createButton(this, "AI Solve", new Point(40, 500), 100, 40);
-        this.MusicBtn = FrameUtil.createButton(this, "Music", new Point(160, 500), 100, 40);
-        backtowelcomeBtn = FrameUtil.createButton(this, "Exist", new Point(gamePanel.getWidth() + 70, 480), 100, 30);
+        this.MusicBtn = FrameUtil.createButton(this, "src/MusicBth0.png","src/Music.png", new Point(160, 500), 100, 40);
+        backtowelcomeBtn = FrameUtil.createButton(this, "src/Exist0.png", "src/exisit1.png",new Point(gamePanel.getWidth() + 70, 480), 100, 30);
 
 
         this.userLabel = FrameUtil.createJLabel(this, user.getUsername(), new Font("serif", Font.ITALIC, 22), new Point(gamePanel.getWidth() + 80, 15), 180, 50);
@@ -400,9 +400,10 @@ public class GameFrame extends JFrame {
             resetButton(backtowelcomeBtn);
         }
 
-        if (gamePanel.getBounds().contains(mousePoint)) {
+        if (gamePanel.contains(mousePoint)) {
             mouseTrailPanel.clearTrail();
         }
+
 
 
 

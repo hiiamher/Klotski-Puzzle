@@ -6,6 +6,7 @@ import user.User;
 import view.FrameUtil;
 import view.game.GameFrame;
 import view.game.GamePanel;
+import view.game.ImageLoader;
 import view.login.LoginFrame;
 import view.register.RegisterFrame;
 
@@ -14,6 +15,7 @@ import java.awt.*;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.awt.image.BufferedImage;
 
 import static SaveAndRead.SavaAndRead.Save;
 
@@ -30,6 +32,8 @@ public class GameLevel extends JFrame{
     private MapModel model;
     private User user;
     private GameController controller;
+    private BufferedImage backgroundImage;
+
 
 
 
@@ -38,13 +42,20 @@ public class GameLevel extends JFrame{
         this.setLayout(null);
         this.setSize(width, height);
 
-        level1 = FrameUtil.createButton(this, "立马横刀", new Point(width/4, 80), 100, 40);
-        level2 = FrameUtil.createButton(this, "指挥若定", new Point(width/4, 160), 100, 40);
-        level3 = FrameUtil.createButton(this, "将拥曹营", new Point(width/4, 240), 100, 40);
-        level4 = FrameUtil.createButton(this, "左右步兵", new Point(width*2/4, 80), 100, 40);
-        level5 = FrameUtil.createButton(this, "雨声淅沥", new Point(width*2/4, 160), 100, 40);
-        level6 = FrameUtil.createButton(this, "扬帆起航", new Point(width*2/4, 240), 100, 40);
 
+
+        level1 = FrameUtil.createButton(this, "src/立.png","src/开始.png", new Point(width/5, 40), 130, 70);
+        level2 = FrameUtil.createButton(this, "src/指.png", "src/开始.png",new Point(width/5, 140), 130, 70);
+        level3 = FrameUtil.createButton(this, "src/将.png", "src/开始.png",new Point(width/5, 240), 130, 70);
+        level4 = FrameUtil.createButton(this, "src/左右.png", "src/开始.png", new Point(width*2/5+100, 40), 130, 70);
+        level5 = FrameUtil.createButton(this, "src/雨.png", "src/开始.png",new Point(width*2/5+100, 140), 130, 70);
+        level6 = FrameUtil.createButton(this, "src/扬.png", "src/开始.png",new Point(width*2/5+100, 240), 130, 70);
+
+        backgroundImage = ImageLoader.loadImage("src/欢迎界面.jpg");
+        GameLevel.BackgroundPanel backgroundPanel = new GameLevel.BackgroundPanel(backgroundImage);
+        backgroundPanel.setSize(width, height);
+        backgroundPanel.setLocation(0, 0);
+        this.add(backgroundPanel,JLayeredPane.DEFAULT_LAYER);
 
         level1.addActionListener(e -> {
 
@@ -204,6 +215,7 @@ public class GameLevel extends JFrame{
 
 
 
+
     }
 
     public JFrame getGameFrame() {
@@ -244,6 +256,20 @@ public class GameLevel extends JFrame{
 
     public void setController(GameController controller) {
         this.controller = controller;
+    }
+
+    private class BackgroundPanel extends JPanel {
+        private BufferedImage backgroundImage;
+        public BackgroundPanel(BufferedImage backgroundImage) {
+            this.backgroundImage = backgroundImage;
+        }
+        @Override
+        public void paint(Graphics g) {
+            super.paint(g);
+            if (backgroundImage != null) {
+                g.drawImage(backgroundImage, 0, 0,this.getWidth(),this.getHeight(),this);
+            }
+        }
     }
 
 }

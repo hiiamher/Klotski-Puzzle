@@ -27,7 +27,7 @@ public class Main {
         SwingUtilities.invokeLater(() -> {
 
 
-            WelcomeFrame welcomeFrame = new WelcomeFrame(900,600);
+            WelcomeFrame welcomeFrame = new WelcomeFrame(600,600);
             welcomeFrame.setVisible(true);
 
 //           RegisterFrame RegisterFrame = new RegisterFrame(450, 280);

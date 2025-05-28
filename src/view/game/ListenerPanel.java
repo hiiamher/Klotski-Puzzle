@@ -29,6 +29,8 @@ public abstract class ListenerPanel extends JPanel {
             }
         }
     }
+
+
     @Override
     protected void processMouseEvent(MouseEvent e) {
         super.processMouseEvent(e);
