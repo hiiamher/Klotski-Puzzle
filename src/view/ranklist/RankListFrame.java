@@ -1,5 +1,7 @@
 package view.ranklist;
 
+import view.game.ImageLoader;
+import view.gamelevel.GameLevel;
 import view.register.RegisterFrame;
 
 import javax.swing.*;
@@ -16,6 +18,7 @@ public class RankListFrame extends JFrame {
     private ArrayList<String> rankList;
     private JList<String> rankJList;
 
+
     public RankListFrame(int width, int height) {
         this.setLayout(null);
         this.setTitle("RankList");
@@ -26,10 +29,6 @@ public class RankListFrame extends JFrame {
         JScrollPane scrollPane = new JScrollPane(rankJList);
         scrollPane.setBounds(10, 10, width - 20, height - 20);
         this.add(scrollPane);
-
-
-
-
 
 
 
@@ -88,6 +87,8 @@ public class RankListFrame extends JFrame {
         return result;*/
         return timeList;
     }
+
+
 
 
 

@@ -33,7 +33,7 @@ public class GamePanel extends ListenerPanel {
     private JLabel stepLabel;
     private int steps;
     //格子大小
-    private final int GRID_SIZE = 70;
+    private final int GRID_SIZE = 100;
     //选中的方块
     private BoxComponent selectedBox;
     //时间相关

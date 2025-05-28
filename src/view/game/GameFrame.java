@@ -150,8 +150,8 @@ public class GameFrame extends JFrame {
         this.BackButn = FrameUtil.createButton(this, "src/withdraw0.png","src/withdraw1.png", new Point(gamePanel.getWidth() + 80, 340), 80, 30);
         this.stepLabel = FrameUtil.createJLabel(this, "Start", new Font("serif", Font.ITALIC, 30), new Point(gamePanel.getWidth() + 80, 40), 180, 50);
         this.levelBtn = FrameUtil.createButton(this, "src/level0.png","src/level1.png", new Point(gamePanel.getWidth() + 80, 420), 80, 30);
-        this.aiSolveButton1 = FrameUtil.createButton(this,"启发式",new Point(40,550),100,40);
-        this.aiSolveButton = FrameUtil.createButton(this, "广度式", new Point(40, 500), 100, 40);
+        this.aiSolveButton1 = FrameUtil.createButton(this,"src/启发式0.png", "src/启发1.png",new Point(40,550),100,40);
+        this.aiSolveButton = FrameUtil.createButton(this, "src/广度0.png","src/广度1.png", new Point(40, 500), 100, 40);
         this.MusicBtn = FrameUtil.createButton(this, "src/MusicBth0.png","src/Music.png", new Point(160, 500), 100, 40);
         backtowelcomeBtn = FrameUtil.createButton(this, "src/Exist0.png", "src/exisit1.png",new Point(gamePanel.getWidth() + 70, 480), 100, 30);
 
