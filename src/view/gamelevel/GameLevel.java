@@ -25,11 +25,12 @@ public class GameLevel extends JFrame{
     private JButton level4;
     private JButton level5;
     private JButton level6;
-    private JFrame gameFrame;
+    private GameFrame gameFrame;
     private GamePanel gamePanel;
     private MapModel model;
     private User user;
     private GameController controller;
+
 
 
 
@@ -47,6 +48,8 @@ public class GameLevel extends JFrame{
 
 
         level1.addActionListener(e -> {
+
+            gameFrame.getUser().setLevel(1);
 
             int[][] map1 = new int[][]{
                     {3, 4, 4, 3},
@@ -78,6 +81,8 @@ public class GameLevel extends JFrame{
 
         level2.addActionListener(e -> {
 
+            gameFrame.getUser().setLevel(2);
+
             int[][] map1 = new int[][]{
                     {3, 4, 4, 3},
                     {3, 4, 4, 3},
@@ -103,6 +108,8 @@ public class GameLevel extends JFrame{
 
         level3.addActionListener(e -> {
 
+            gameFrame.getUser().setLevel(3);
+
             int[][] map1 = new int[][]{
                     {0, 4, 4, 0},
                     {3, 4, 4, 3},
@@ -127,6 +134,9 @@ public class GameLevel extends JFrame{
         });
 
         level4.addActionListener(e -> {
+
+            gameFrame.getUser().setLevel(4);
+
             int[][] map1 = new int[][]{
                     {1, 4, 4, 1},
                     {1, 4, 4, 1},
@@ -151,6 +161,9 @@ public class GameLevel extends JFrame{
         });
 
         level5.addActionListener(e -> {
+
+            gameFrame.getUser().setLevel(5);
+
             int[][] map1 = new int[][]{
                     {3, 4, 4, 1},
                     {3, 4, 4, 1},
@@ -175,6 +188,9 @@ public class GameLevel extends JFrame{
         });
 
         level6.addActionListener(e -> {
+
+            gameFrame.getUser().setLevel(6);
+
             int[][] map1 = new int[][]{
                     {1, 4, 4, 1},
                     {1, 4, 4, 1},
@@ -210,7 +226,7 @@ public class GameLevel extends JFrame{
         return gameFrame;
     }
 
-    public void setGameFrame(JFrame gameFrame) {
+    public void setGameFrame(GameFrame gameFrame) {
         this.gameFrame = gameFrame;
     }
 

@@ -97,7 +97,7 @@ public class LoginFrame extends JFrame {
                     }
                     Save(gameData0, path0, "Path_Map");
                     //
-                    GameFrame gameFrame = new GameFrame(600, 600, mapModel, user);
+                    GameFrame gameFrame = new GameFrame(600, 660, mapModel, user);
                     gameFrame.setWelcomeFrame(this.getWelcomeFrame());
                     gameFrame.setVisible(true);
                     this.setVisible(false);

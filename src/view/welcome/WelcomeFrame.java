@@ -49,7 +49,7 @@ public class WelcomeFrame extends JFrame{
                     {1, 0, 0, 1}
 
             });
-            GameFrame gameFrame = new GameFrame(600, 600, mapModel, user);
+            GameFrame gameFrame = new GameFrame(600, 660, mapModel, user);
             gameFrame.setWelcomeFrame(this);
             this.gameFrame = gameFrame;
 

@@ -73,7 +73,7 @@ public class GameController {
         for(String s:gameData){
             System.out.println(s);
         }
-        String path = String.format("save/%s", user.getUsername());
+        String path = String.format("save/%s/%d", user.getUsername(), user.getLevel());
         File dir = new File(path);
         dir.mkdirs();
         try {
@@ -83,6 +83,8 @@ public class GameController {
         }
         Save ( String.format("%s",user.getSteps()) ,path, "stepdata");
         //create folder
+        Save ( String.format("%s",user.getUsedtime()) ,path, "timedata");
+
 
         System.out.println("save successfully");
     }
@@ -120,10 +122,17 @@ public class GameController {
             this.view.initialGame(map);
 
             //更新步数
-            int SavedSteps = Integer.parseInt(Read(String.format("save/%s/stepdata.txt", user.getUsername())).get(0));
+            int SavedSteps = Integer.parseInt(Read(String.format("save/%s/%d/stepdata.txt", user.getUsername(),user.getLevel())).get(0));
             this.view.setSteps(SavedSteps);
             this.view.ChangeStepsLabel(SavedSteps);
             this.view.getStepLabel().repaint();
+
+            //更新时间
+            this.view.getGameFrame().getTimer().stop();
+            int SavedTime = Integer.parseInt(Read(String.format("save/%s/%d/timedata.txt", user.getUsername(),user.getLevel())).get(0));
+            this.view.getGameFrame().getTimeLabel().setText(String.format("Time:%d",SavedTime));
+            this.view.getGameFrame().settimeElapse(SavedTime);
+
 
         } catch (IOException e) {
             // 处理文件读取异常，弹出错误提示框

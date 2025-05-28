@@ -35,7 +35,7 @@ public class GamePanel extends ListenerPanel {
     //选中的方块
     private BoxComponent selectedBox;
     //时间相关
-    private int ElapsedTime;
+    //public static int ElapsedTime;
     private Timer timer;
 
     private BufferedImage backgroundImage;
@@ -76,9 +76,7 @@ public class GamePanel extends ListenerPanel {
 
     public void initialGame(int[][] matrix) {
         this.steps = 0;
-        this.ElapsedTime = 0;
-        this.timer= new Timer(1000,new TimerListener());
-        timer.start();
+        //this.ElapsedTime = 0;
         if (stepLabel != null) {
             this.stepLabel.setText(String.format("Step: %d", this.steps));
         }
@@ -156,6 +154,7 @@ public class GamePanel extends ListenerPanel {
 
     //点击后变为选中状态，再次点击取消选中状态
     public void doMouseClick(Point point) {
+        timer.restart();
         Component component = this.getComponentAt(point);
         if (component instanceof BoxComponent clickedComponent) {
             if (selectedBox == null) {
@@ -330,15 +329,12 @@ public class GamePanel extends ListenerPanel {
                     music.play();
                     timer.stop();
                     String steps = String.format("You have completed the game in %d steps.", this.steps);
-                    JOptionPane.showMessageDialog(this, "Congratulations! " + "You used" + steps+ "in"+ ElapsedTime +"seconds!", "Congratulations", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Congratulations! " + "You used" + steps+ "in"+ this.gameFrame.getTimeElapsed() +"seconds!", "Congratulations", JOptionPane.INFORMATION_MESSAGE);
 
 
                     // 弹出对话框，询问用户是否继续游戏
                     int option = JOptionPane.showConfirmDialog(this, "Do you want to continue playing?", "Continue", JOptionPane.YES_NO_OPTION);
                     if (option == JOptionPane.YES_OPTION) {
-                        // 继续游戏
-                        this.controller.restartGame();
-                    } else {
                         // 退出游戏
                         // 获取当前 GamePanel 所在的 JFrame
                         JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
@@ -348,6 +344,8 @@ public class GamePanel extends ListenerPanel {
                         }
                         WelcomeFrame welcomeFrame = new WelcomeFrame(900,600);
                         welcomeFrame.setVisible(true);
+                    } else {
+                       System.exit(0);
                     }
 
 
@@ -356,14 +354,32 @@ public class GamePanel extends ListenerPanel {
 
         }
     }
-    private class TimerListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            ElapsedTime++;
-        }
+
+
+
+    public Timer getTimer() {
+        return timer;
     }
 
+    public void setTimer(Timer timer) {
+        this.timer = timer;
+    }
 
+    public GameFrame getGameFrame() {
+        return gameFrame;
+    }
+
+    public void setGameFrame(GameFrame gameFrame) {
+        this.gameFrame = gameFrame;
+    }
+/*
+    public int getElapsedTime() {
+        return ElapsedTime;
+    }
+
+    public void setElapsedTime(int elapsedTime) {
+        ElapsedTime = elapsedTime;
+    }*/
 }
 
 
