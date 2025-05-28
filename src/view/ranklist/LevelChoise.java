@@ -28,10 +28,10 @@ public class LevelChoise extends JFrame {
 
 
         level1.addActionListener(e -> {
-            RankListFrame rankListFrame = new RankListFrame(400, 800);
 
+
+            RankListFrame rankListFrame = new RankListFrame(400, 800,1);
             rankListFrame.setVisible(true);
-
 
             this.dispose();
 
@@ -43,7 +43,7 @@ public class LevelChoise extends JFrame {
 
         level2.addActionListener(e -> {
 
-            RankListFrame rankListFrame = new RankListFrame(400, 800);
+            RankListFrame rankListFrame = new RankListFrame(400, 800,2);
             rankListFrame.setVisible(true);
 
 
@@ -51,7 +51,7 @@ public class LevelChoise extends JFrame {
         });
 
         level3.addActionListener(e -> {
-            RankListFrame rankListFrame = new RankListFrame(400, 800);
+            RankListFrame rankListFrame = new RankListFrame(400, 800,3);
 
             rankListFrame.setVisible(true);
 
@@ -60,7 +60,7 @@ public class LevelChoise extends JFrame {
 
         level4.addActionListener(e -> {
 
-            RankListFrame rankListFrame = new RankListFrame(400, 800);
+            RankListFrame rankListFrame = new RankListFrame(400, 800,4);
 
             rankListFrame.setVisible(true);
 
@@ -71,7 +71,7 @@ public class LevelChoise extends JFrame {
         level5.addActionListener(e -> {
 
 
-            RankListFrame rankListFrame = new RankListFrame(400, 800);
+            RankListFrame rankListFrame = new RankListFrame(400, 800,5);
             rankListFrame.setVisible(true);
 
             this.dispose();
@@ -80,7 +80,7 @@ public class LevelChoise extends JFrame {
         level6.addActionListener(e -> {
 
 
-            RankListFrame rankListFrame = new RankListFrame(400, 800);
+            RankListFrame rankListFrame = new RankListFrame(400, 800,6);
 
             rankListFrame.setVisible(true);
 
