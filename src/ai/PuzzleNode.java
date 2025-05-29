@@ -21,7 +21,7 @@ class PuzzleNode implements Comparable<PuzzleNode> {
         this.state = state;
         this.parent = parent;
         this.steps = steps;
-        this.h = 5*calculateHeuristic(state) + 2*calculateblock();
+        this.h = calculateHeuristic(state) + calculateblock();
         this.f = steps + h;
 
         //

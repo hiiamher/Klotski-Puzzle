@@ -134,15 +134,14 @@ public class KlotskiSolver {
             }
             //去除重复节点
             openSet2 = removeSameNode(openSet2);
-
             List<PuzzleNode> b = getsmallfnode(openSet2);
             openSet1.clear();
-            for (PuzzleNode node1 : openSet2) {
+            for (PuzzleNode node1 : b) {
                 openSet1.add(node1);
             }
 
             //数值不确定
-            if (count == 100000) {
+            if (count >= 1000000) {
                 System.out.println("无法求解");
                 return null;
             }
@@ -275,6 +274,7 @@ public class KlotskiSolver {
         }
 
         List<PuzzleNode> result = new ArrayList<>();
+
         for (PuzzleNode node : queue) {
             if (node.getF() == min) {
                 result.add(node);
@@ -283,28 +283,6 @@ public class KlotskiSolver {
 
         return result;
 
-        /*
-        List<PuzzleNode> result = new ArrayList<>();
-        if (queue.isEmpty()) {
-            return result;
-        }
-
-        // 取出队首元素
-        PuzzleNode firstNode = queue.poll();
-        result.add(firstNode);
-        int firstPriority = firstNode.getF();
-
-        // 持续取出优先级相同的元素
-        while (!queue.isEmpty()) {
-            PuzzleNode nextNode = queue.peek();
-            int nextPriority = nextNode.getF();
-            if (nextPriority == firstPriority) {
-                result.add(queue.poll());
-            } else {
-                break;
-            }
-        }
-        return result;*/
     }
 
     // 1x1方块移动（增加行/列边界检查）

@@ -9,6 +9,7 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.List;
 import music.Music;
 import view.welcome.WelcomeFrame;
 
+import static SaveAndRead.SavaAndRead.Read;
 import static SaveAndRead.SavaAndRead.Save;
 
 /**
@@ -156,7 +158,7 @@ public class GamePanel extends ListenerPanel {
 
     //点击后变为选中状态，再次点击取消选中状态
     public void doMouseClick(Point point) {
-        timer.restart();
+        if (timer != null) {timer.restart();}
         Component component = this.getComponentAt(point);
         if (component instanceof BoxComponent clickedComponent) {
             if (selectedBox == null) {
@@ -225,7 +227,6 @@ public class GamePanel extends ListenerPanel {
 
     public void afterMove() {
         Music music = new Music("击中木块.wav");
-        Music music1 = new Music("扬帆！起航！.wav");
         music.play();
 
         this.steps++;
@@ -324,8 +325,40 @@ public class GamePanel extends ListenerPanel {
 
                     //存储胜利信息
 
-                    Save(String.format("%d",this.gameFrame.getTimeElapsed()),String.format("save/%s/%d/win", gameFrame.getUser().getUsername(), gameFrame.getUser().getLevel()),"time");
-                    Save(String.format("%d",this.gameFrame.getUser().getSteps()),String.format("save/%s/%d/win", gameFrame.getUser().getUsername(), gameFrame.getUser().getLevel()),"step");
+                    // 获取当前游戏的时间和步数
+                    int currentTime = this.gameFrame.getTimeElapsed();
+                    int currentSteps = this.gameFrame.getUser().getSteps();
+
+                    // 读取之前保存的时间和步数
+                    int prevTime = Integer.MAX_VALUE;
+                    int prevSteps = Integer.MAX_VALUE;
+                    try {
+                        // 假设存在读取保存数据的方法，需要根据实际情况实现
+                        String timeStr = Read(String.format("save/%s/%d/win/time.txt", gameFrame.getUser().getUsername(), gameFrame.getUser().getLevel())).get(0);
+                        if (timeStr != null && !timeStr.isEmpty()) {
+                            prevTime = Integer.parseInt(timeStr);
+                        }
+                        String stepStr = Read(String.format("save/%s/%d/win/step.txt", gameFrame.getUser().getUsername(), gameFrame.getUser().getLevel())).get(0);
+                        if (stepStr != null && !stepStr.isEmpty()) {
+                            prevSteps = Integer.parseInt(stepStr);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    // 判断是否需要保存新数据
+                    boolean shouldSaveTime = currentTime <= prevTime;
+                    boolean shouldSaveSteps = currentSteps <= prevSteps;
+
+                    if (shouldSaveTime) {
+                        Save(String.format("%d", currentTime), String.format("save/%s/%d/win", gameFrame.getUser().getUsername(), gameFrame.getUser().getLevel()), "time");
+                    }
+                    if (shouldSaveSteps) {
+                        Save(String.format("%d", currentSteps), String.format("save/%s/%d/win", gameFrame.getUser().getUsername(), gameFrame.getUser().getLevel()), "step");
+                    }
+
+                   // Save(String.format("%d",this.gameFrame.getTimeElapsed()),String.format("save/%s/%d/win", gameFrame.getUser().getUsername(), gameFrame.getUser().getLevel()),"time");
+                   // Save(String.format("%d",this.gameFrame.getUser().getSteps()),String.format("save/%s/%d/win", gameFrame.getUser().getUsername(), gameFrame.getUser().getLevel()),"step");
 
                     Music music = new Music("胜利音效.wav");
                     Music music1 = new Music("加勒比海盗主题曲.wav");
