@@ -37,6 +37,6 @@ public class RankObject {
 
     @Override
     public String toString() {
-        return "Username: " + username + ", Time: " + time + ", Step: " + step;
+        return "用户名称" + username + "  用时：" + time + "  步数：" + step;
     }
 }

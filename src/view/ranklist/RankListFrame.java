@@ -24,11 +24,10 @@ public class RankListFrame extends JFrame {
     private int level;
     private JButton timeOrderBtn;
     private JButton stepOrderBtn;
-
-
+    private JScrollPane scrollPane; // 新增滚动面板成员变量
 
     public RankListFrame(int width, int height, int level) {
-        this.setLayout(null);
+        this.setLayout(new BorderLayout()); // 使用 BorderLayout 布局管理器
         this.setTitle("RankList");
         this.setSize(width, height);
         this.setLocationRelativeTo(null);
@@ -38,13 +37,10 @@ public class RankListFrame extends JFrame {
         timeOrderBtn = FrameUtil.createButton(this, "timeOrder", new Point(width*1/4, 10), 100, 40);
         stepOrderBtn = FrameUtil.createButton(this, "stepOrder", new Point(width*2/4, 10), 100, 40);
 
-
-        rankList = new ArrayList<>(); // 初始化 rankList
-        rankJList = new JList<>(); // 初始化 rankJList
-        // 创建 JScrollPane 并将 rankJList 放入其中
-        JScrollPane scrollPane = new JScrollPane(rankJList);
-        scrollPane.setBounds(10, 60, width - 20, height - 20);
-        this.add(scrollPane);
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.add(timeOrderBtn);
+        buttonPanel.add(stepOrderBtn);
+        this.add(buttonPanel, BorderLayout.NORTH);
 
         ArrayList<Object> rankObjects = GetWinObject(level);
         ArrayList<Object> stepOrderObjects = sortByStep(rankObjects);
@@ -52,33 +48,22 @@ public class RankListFrame extends JFrame {
         ArrayList<String> stepOrderStrings = convertToStrings(stepOrderObjects);
         ArrayList<String> timeOrderStrings = convertToStrings(timeOrderObjects);
 
-
-
-
-
+        rankJList = new JList<>(timeOrderStrings.toArray(new String[0]));
+        // 设置字体为楷体，样式为普通，大小为 18，可按需调整
+        rankJList.setFont(new Font("楷体", Font.PLAIN, 18));
+        scrollPane = new JScrollPane(rankJList);
+        this.add(scrollPane, BorderLayout.CENTER);
 
         timeOrderBtn.addActionListener(e -> {
-
+            rankJList.setListData(timeOrderStrings.toArray(new String[0])); // 更新列表数据
         });
-
-
 
         stepOrderBtn.addActionListener(e -> {
-
+            rankJList.setListData(stepOrderStrings.toArray(new String[0])); // 更新列表数据
         });
 
-
-
-
-
-
-
-
-
-
-
+        this.setVisible(true);
     }
-
 
     public ArrayList<String> getRankList() {
         return rankList;
@@ -91,11 +76,10 @@ public class RankListFrame extends JFrame {
 
 
     public ArrayList<Object> GetWinObject(int level) {
-
         // 定义基础目录
         File baseDir = new File("save");
         if (!baseDir.exists() || !baseDir.isDirectory()) {
-            return null;
+            return new ArrayList<>(); // 返回空列表
         }
         // 存储用户名和对应的 win 文件夹最后修改时间
         ArrayList<Object> rankObjects = new ArrayList<>();
@@ -104,20 +88,29 @@ public class RankListFrame extends JFrame {
             for (File userDir : userDirs) {
                 String username = userDir.getName();
                 File levelDir = new File(userDir, String.format("%d", level));
-                File winDir = new File(levelDir, String.format("win"));
+                // 检查关卡目录是否存在
+                if (!levelDir.exists() || !levelDir.isDirectory()) {
+                    continue;
+                }
+                File winDir = new File(levelDir, "win");
+                // 检查 win 目录是否存在
+                if (!winDir.exists() || !winDir.isDirectory()) {
+                    continue;
+                }
                 File timeFile = new File(winDir, "time.txt");
                 File stepFile = new File(winDir, "step.txt");
-                String timeContent = readFileContent(timeFile);
-                String stepContent = readFileContent(stepFile);
-                if (timeContent != null&& stepContent != null) {
-                    RankObject rankObject = new RankObject(username, timeContent,stepContent);
-                    rankObjects.add(rankObject);
+                // 检查时间文件和步数文件是否存在
+                if (timeFile.exists() && stepFile.exists()) {
+                    String timeContent = readFileContent(timeFile);
+                    String stepContent = readFileContent(stepFile);
+                    if (timeContent != null && stepContent != null) {
+                        RankObject rankObject = new RankObject(username, timeContent, stepContent);
+                        rankObjects.add(rankObject);
+                    }
                 }
-
             }
         }
-
-        return  rankObjects;
+        return rankObjects;
     }
 
 

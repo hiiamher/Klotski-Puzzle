@@ -35,7 +35,7 @@ public class ShowSolution extends JDialog {
 
         setTitle("Show AISolution");
         this.setLayout(null);
-        this.setSize(600, 600);
+        this.setSize(800, 600);
         this.setLocationRelativeTo(owner);
 
         this.solution = solution;
