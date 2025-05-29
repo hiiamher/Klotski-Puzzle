@@ -132,13 +132,13 @@ public class GameFrame extends JFrame {
         Image imageright = ImageLoader.scaleImage(imageright0,50,50);
 
         int buttonDiameter = 50;
-        int StartX = gamePanel.getWidth()+80;
+        int StartX = gamePanel.getWidth()+50;
 
 
-        this.upButton = FrameUtil.createButton(this,"向上",new Point(StartX+260,100),buttonDiameter,imageup,Color.black);
-        this.downButton = FrameUtil.createButton(this,"向下",new Point(StartX+260,200),buttonDiameter,imagedown,Color.black);
-        this.leftButton = FrameUtil.createButton(this,"向左",new Point(StartX+200,150),buttonDiameter,imageleft,Color.black);
-        this.rightButton = FrameUtil.createButton(this,"向右",new Point(StartX+320,150),buttonDiameter,imageright,Color.black);
+        this.upButton = FrameUtil.createButton(this,"向上",new Point(StartX+55,290),buttonDiameter,imageup,Color.black);
+        this.downButton = FrameUtil.createButton(this,"向下",new Point(StartX+55,400),buttonDiameter,imagedown,Color.black);
+        this.leftButton = FrameUtil.createButton(this,"向左",new Point(StartX,345),buttonDiameter,imageleft,Color.black);
+        this.rightButton = FrameUtil.createButton(this,"向右",new Point(StartX+110,345),buttonDiameter,imageright,Color.black);
         this.upButton.addActionListener(e -> {gamePanel.doMoveUp();});
         this.downButton.addActionListener(e -> {gamePanel.doMoveDown();});
         this.leftButton.addActionListener(e -> {gamePanel.doMoveLeft();});

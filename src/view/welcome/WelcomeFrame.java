@@ -42,7 +42,7 @@ public class WelcomeFrame extends JFrame{
         visitor = FrameUtil.createButton(this, "src/visit0.png","src/visit1.png", new Point(width*2/3, 40), 170, 70);
         rigister = FrameUtil.createButton(this, "src/register0.png","src/rigister1.png" , new Point(width*2/3, 160), 170, 70);
         login = FrameUtil.createButton(this, "src/login0.png", "src/login1.png" ,new Point(width*2/3, 280), 170, 70);
-        rankList = FrameUtil.createButton(this, "src/level0.png","src/level1.png", new Point(width*2/3, 400), 170, 70);
+        rankList = FrameUtil.createButton(this, "src/rank0.png","src/rank1.png", new Point(width*2/3, 400), 170, 70);
 
 
         visitor.addActionListener(e -> {

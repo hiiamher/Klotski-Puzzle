@@ -23,12 +23,12 @@ public class LevelChoise extends JFrame {
         this.setLayout(null);
         this.setSize(width, height);
 
-        level1 = FrameUtil.createButton(this, "src/立.png","src/开始.png", new Point(width/5, 40), 130, 70);
-        level2 = FrameUtil.createButton(this, "src/指.png", "src/开始.png",new Point(width/5, 140), 130, 70);
-        level3 = FrameUtil.createButton(this, "src/将.png", "src/开始.png",new Point(width/5, 240), 130, 70);
-        level4 = FrameUtil.createButton(this, "src/左右.png", "src/开始.png", new Point(width*2/5+100, 40), 130, 70);
-        level5 = FrameUtil.createButton(this, "src/雨.png", "src/开始.png",new Point(width*2/5+100, 140), 130, 70);
-        level6 = FrameUtil.createButton(this, "src/扬.png", "src/开始.png",new Point(width*2/5+100, 240), 130, 70);
+        level1 = FrameUtil.createButton(this, "src/立.png","src/1.png", new Point(width/5, 40), 130, 70);
+        level2 = FrameUtil.createButton(this, "src/指.png", "src/1.png",new Point(width/5, 140), 130, 70);
+        level3 = FrameUtil.createButton(this, "src/将.png", "src/1.png",new Point(width/5, 240), 130, 70);
+        level4 = FrameUtil.createButton(this, "src/左右.png", "src/1.png", new Point(width*2/5+100, 40), 130, 70);
+        level5 = FrameUtil.createButton(this, "src/雨.png", "src/1.png",new Point(width*2/5+100, 140), 130, 70);
+        level6 = FrameUtil.createButton(this, "src/扬.png", "src/1.png",new Point(width*2/5+100, 240), 130, 70);
         backgroundImage = ImageLoader.loadImage("src/欢迎界面.jpg");
         LevelChoise.BackgroundPanel backgroundPanel = new LevelChoise.BackgroundPanel(backgroundImage);
         backgroundPanel.setSize(width, height);
