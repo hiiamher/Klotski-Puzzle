@@ -9,6 +9,7 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
@@ -157,7 +158,7 @@ public class GamePanel extends ListenerPanel {
 
     //点击后变为选中状态，再次点击取消选中状态
     public void doMouseClick(Point point) {
-        timer.restart();
+        if (timer != null) {timer.restart();}
         Component component = this.getComponentAt(point);
         if (component instanceof BoxComponent clickedComponent) {
             if (selectedBox == null) {
