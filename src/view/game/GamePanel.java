@@ -225,11 +225,9 @@ public class GamePanel extends ListenerPanel {
 
     public void afterMove() {
         Music music = new Music("击中木块.wav");
-        //Music music1 = new Music("扬帆！起航！.wav");
+        Music music1 = new Music("扬帆！起航！.wav");
         music.play();
-       /* if(selectedBox.getType()==4){
-            music1.play();
-        }*/
+
         this.steps++;
         this.stepLabel.setText(String.format("Step: %d", this.steps));
         this.repaint();
@@ -346,6 +344,7 @@ public class GamePanel extends ListenerPanel {
                         // 获取当前 GamePanel 所在的 JFrame
                         JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
                         if (frame != null) {
+                            music1.stop();
                             // 关闭当前 JFrame
                             frame.dispose();
                         }
