@@ -25,8 +25,6 @@ public class RankListFrame extends JFrame {
     private JButton timeOrderBtn;
     private JButton stepOrderBtn;
     private JScrollPane scrollPane; // 新增滚动面板成员变量
-    private BufferedImage backgroundImage;
-    private JLayeredPane layeredPane;
 
     public RankListFrame(int width, int height, int level) {
         this.setLayout(new BorderLayout()); // 使用 BorderLayout 布局管理器
@@ -38,19 +36,11 @@ public class RankListFrame extends JFrame {
 
         timeOrderBtn = FrameUtil.createButton(this, "timeOrder", new Point(width*1/4, 10), 100, 40);
         stepOrderBtn = FrameUtil.createButton(this, "stepOrder", new Point(width*2/4, 10), 100, 40);
-        backgroundImage = ImageLoader.loadImage("src/排行.jpg");
-        RankListFrame.BackgroundPanel backgroundPanel = new RankListFrame.BackgroundPanel(backgroundImage);
-        backgroundPanel.setSize(width, height);
-        backgroundPanel.setLocation(0, 0);
-        layeredPane = new JLayeredPane();
-        layeredPane.setPreferredSize(new Dimension(width, height));
-        layeredPane.add(backgroundPanel, BorderLayout.CENTER,JLayeredPane.DEFAULT_LAYER);
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(timeOrderBtn);
         buttonPanel.add(stepOrderBtn);
         this.add(buttonPanel, BorderLayout.NORTH);
-
 
         ArrayList<Object> rankObjects = GetWinObject(level);
         ArrayList<Object> stepOrderObjects = sortByStep(rankObjects);
@@ -62,9 +52,7 @@ public class RankListFrame extends JFrame {
         // 设置字体为楷体，样式为普通，大小为 18，可按需调整
         rankJList.setFont(new Font("楷体", Font.PLAIN, 18));
         scrollPane = new JScrollPane(rankJList);
-        scrollPane.setPreferredSize(new Dimension(width, height));
-        layeredPane.add(scrollPane,JLayeredPane.POPUP_LAYER);
-        this.add(layeredPane, BorderLayout.CENTER);
+        this.add(scrollPane, BorderLayout.CENTER);
 
         timeOrderBtn.addActionListener(e -> {
             rankJList.setListData(timeOrderStrings.toArray(new String[0])); // 更新列表数据
@@ -180,20 +168,6 @@ public class RankListFrame extends JFrame {
             strings.add(obj.toString());
         }
         return strings;
-    }
-
-    private class BackgroundPanel extends JPanel {
-        private BufferedImage backgroundImage;
-        public BackgroundPanel(BufferedImage backgroundImage) {
-            this.backgroundImage = backgroundImage;
-        }
-        @Override
-        public void paint(Graphics g) {
-            super.paint(g);
-            if (backgroundImage != null) {
-                g.drawImage(backgroundImage, 0, 0,this.getWidth(),this.getHeight(),this);
-            }
-        }
     }
 
 

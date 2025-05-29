@@ -334,13 +334,22 @@ public class GamePanel extends ListenerPanel {
                     int prevSteps = Integer.MAX_VALUE;
                     try {
                         // 假设存在读取保存数据的方法，需要根据实际情况实现
-                        String timeStr = Read(String.format("save/%s/%d/win/time.txt", gameFrame.getUser().getUsername(), gameFrame.getUser().getLevel())).get(0);
-                        if (timeStr != null && !timeStr.isEmpty()) {
-                            prevTime = Integer.parseInt(timeStr);
+                        String timeFilePath = String.format("save/%s/%d/win/time.txt", gameFrame.getUser().getUsername(), gameFrame.getUser().getLevel());
+                        java.util.List<String> timeList = SaveAndRead.SavaAndRead.Read(timeFilePath);
+                        if (timeList != null && !timeList.isEmpty()) {
+                            String timeStr = timeList.get(0);
+                            if (timeStr != null && !timeStr.isEmpty()) {
+                                prevTime = Integer.parseInt(timeStr);
+                            }
                         }
-                        String stepStr = Read(String.format("save/%s/%d/win/step.txt", gameFrame.getUser().getUsername(), gameFrame.getUser().getLevel())).get(0);
-                        if (stepStr != null && !stepStr.isEmpty()) {
-                            prevSteps = Integer.parseInt(stepStr);
+
+                        String stepFilePath = String.format("save/%s/%d/win/step.txt", gameFrame.getUser().getUsername(), gameFrame.getUser().getLevel());
+                        java.util.List<String> stepList = SaveAndRead.SavaAndRead.Read(stepFilePath);
+                        if (stepList != null && !stepList.isEmpty()) {
+                            String stepStr = stepList.get(0);
+                            if (stepStr != null && !stepStr.isEmpty()) {
+                                prevSteps = Integer.parseInt(stepStr);
+                            }
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
