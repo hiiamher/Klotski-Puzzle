@@ -82,8 +82,7 @@ public class GameLevel extends JFrame{
             this.model.setOriginalMatrix(map2);
             this.gamePanel.clearAllBoxFromPanel();
             this.gamePanel.initialGame(map2);
-            this.gameFrame.clearBackgroundImage();
-            this.gameFrame.setBackgroundImage("src/背景.jpg");
+
 
             this.dispose();
 
@@ -116,7 +115,6 @@ public class GameLevel extends JFrame{
             this.model.setOriginalMatrix(map2);
             this.gamePanel.clearAllBoxFromPanel();
             this.gamePanel.initialGame(map2);
-            this.gameFrame.setBackgroundImage("src/l2.jpg");
 
             this.dispose();
         });
