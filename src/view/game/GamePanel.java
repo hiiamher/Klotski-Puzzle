@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +20,7 @@ import view.welcome.WelcomeFrame;
 
 import static SaveAndRead.SavaAndRead.Read;
 import static SaveAndRead.SavaAndRead.Save;
+import user.User;
 
 /**
  * It is the subclass of ListenerPanel, so that it should implement those four methods: do move left, up, down ,right.
@@ -47,6 +49,7 @@ public class GamePanel extends ListenerPanel {
 
 
     private JFrame welcomeFrame;
+
 
 
 
@@ -134,6 +137,7 @@ public class GamePanel extends ListenerPanel {
             }
         }
         this.repaint();
+
     }
 
     //调用Graphics类的fillRect方法绘制背景

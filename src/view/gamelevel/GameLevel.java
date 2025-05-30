@@ -82,6 +82,20 @@ public class GameLevel extends JFrame{
             this.model.setOriginalMatrix(map2);
             this.gamePanel.clearAllBoxFromPanel();
             this.gamePanel.initialGame(map2);
+            //保存初始地图
+            String path0 = String.format("save/%s/%d/path/%d", user.getUsername(),1,0);
+            File dir0 = new File(path0);
+            dir0.mkdirs();
+            List<String> gameData0 = new ArrayList<>();
+            StringBuilder sb0 = new StringBuilder();
+            for(int[] line : map1) {
+                for(int value:line){
+                    sb0.append(value).append(" ");
+                }
+                gameData0.add(sb0.toString());
+                sb0.setLength(0);
+            }
+            Save (gameData0,path0,"Path_Map");
 
 
             this.dispose();
@@ -116,6 +130,21 @@ public class GameLevel extends JFrame{
             this.gamePanel.clearAllBoxFromPanel();
             this.gamePanel.initialGame(map2);
 
+            //保存初始地图
+            String path0 = String.format("save/%s/%d/path/%d", user.getUsername(),2,0);
+            File dir0 = new File(path0);
+            dir0.mkdirs();
+            List<String> gameData0 = new ArrayList<>();
+            StringBuilder sb0 = new StringBuilder();
+            for(int[] line : map1) {
+                for(int value:line){
+                    sb0.append(value).append(" ");
+                }
+                gameData0.add(sb0.toString());
+                sb0.setLength(0);
+            }
+            Save (gameData0,path0,"Path_Map");
+
             this.dispose();
         });
 
@@ -142,6 +171,21 @@ public class GameLevel extends JFrame{
             this.model.setOriginalMatrix(map2);
             this.gamePanel.clearAllBoxFromPanel();
             this.gamePanel.initialGame(map2);
+            //保存初始地图
+            String path0 = String.format("save/%s/%d/path/%d", user.getUsername(),3,0);
+            File dir0 = new File(path0);
+            dir0.mkdirs();
+            List<String> gameData0 = new ArrayList<>();
+            StringBuilder sb0 = new StringBuilder();
+            for(int[] line : map1) {
+                for(int value:line){
+                    sb0.append(value).append(" ");
+                }
+                gameData0.add(sb0.toString());
+                sb0.setLength(0);
+            }
+            Save (gameData0,path0,"Path_Map");
+
 
             this.dispose();
         });
@@ -169,6 +213,21 @@ public class GameLevel extends JFrame{
             this.model.setOriginalMatrix(map2);
             this.gamePanel.clearAllBoxFromPanel();
             this.gamePanel.initialGame(map2);
+            //保存初始地图
+            String path0 = String.format("save/%s/%d/path/%d", user.getUsername(),4,0);
+            File dir0 = new File(path0);
+            dir0.mkdirs();
+            List<String> gameData0 = new ArrayList<>();
+            StringBuilder sb0 = new StringBuilder();
+            for(int[] line : map1) {
+                for(int value:line){
+                    sb0.append(value).append(" ");
+                }
+                gameData0.add(sb0.toString());
+                sb0.setLength(0);
+            }
+            Save (gameData0,path0,"Path_Map");
+
 
             this.dispose();
         });
@@ -197,6 +256,22 @@ public class GameLevel extends JFrame{
             this.gamePanel.clearAllBoxFromPanel();
             this.gamePanel.initialGame(map2);
 
+            //保存初始地图
+            String path0 = String.format("save/%s/%d/path/%d", user.getUsername(),5,0);
+            File dir0 = new File(path0);
+            dir0.mkdirs();
+            List<String> gameData0 = new ArrayList<>();
+            StringBuilder sb0 = new StringBuilder();
+            for(int[] line : map1) {
+                for(int value:line){
+                    sb0.append(value).append(" ");
+                }
+                gameData0.add(sb0.toString());
+                sb0.setLength(0);
+            }
+            Save (gameData0,path0,"Path_Map");
+
+
             this.dispose();
         });
 
@@ -223,6 +298,22 @@ public class GameLevel extends JFrame{
             this.model.setOriginalMatrix(map2);
             this.gamePanel.clearAllBoxFromPanel();
             this.gamePanel.initialGame(map2);
+
+            //保存初始地图
+            String path0 = String.format("save/%s/%d/path/%d", user.getUsername(),6,0);
+            File dir0 = new File(path0);
+            dir0.mkdirs();
+            List<String> gameData0 = new ArrayList<>();
+            StringBuilder sb0 = new StringBuilder();
+            for(int[] line : map1) {
+                for(int value:line){
+                    sb0.append(value).append(" ");
+                }
+                gameData0.add(sb0.toString());
+                sb0.setLength(0);
+            }
+            Save (gameData0,path0,"Path_Map");
+
 
 
             this.dispose();

@@ -65,25 +65,6 @@ public class WelcomeFrame extends JFrame{
 
             gameFrame.setVisible(true);
             this.setVisible(false);
-
-            //保存初始地图
-            String path0 = String.format("save/%s/path/%d", user.getUsername(),0);
-            File dir0 = new File(path0);
-            dir0.mkdirs();
-            int[][] map0 = mapModel.getMatrix();
-            List<String> gameData0 = new ArrayList<>();
-            StringBuilder sb0 = new StringBuilder();
-            for(int[] line : map0) {
-                for(int value:line){
-                    sb0.append(value).append(" ");
-                }
-                gameData0.add(sb0.toString());
-                sb0.setLength(0);
-            }
-            Save (gameData0,path0,"Path_Map");
-
-
-
         });
 
 

@@ -391,7 +391,7 @@ public class GameController {
 
     public void save_path(){
        //保存每步状态
-        String path = String.format("save/%s/path/%d", user.getUsername(),user.getSteps());
+        String path = String.format("save/%s/%d/path/%d", user.getUsername(),user.getLevel(),user.getSteps());
         File dir = new File(path);
         dir.mkdirs();
         int[][] map = model.getMatrix();
@@ -410,7 +410,7 @@ public class GameController {
 
 
     public void WithDraw(int steps){
-            String path = String.format("save/%s/path/%d/Path_Map.txt", user.getUsername(), steps);
+            String path = String.format("save/%s/%d/path/%d/Path_Map.txt", user.getUsername(),user.getLevel(), steps);
             try {
                 List<String> lines = Files.readAllLines(Path.of(path));
                 int[][] map = new int[lines.size()][lines.get(0).split(" ").length];
